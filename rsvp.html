@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSVP — Nadja & Julius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-head">
+  <a class="monogram" href="index.html">N<span class="amp">&amp;</span>J</a>
+  <nav class="nav">
+    <a href="index.html" data-i18n="nav.home">Home</a>
+    <a href="day.html" data-i18n="nav.day">The Day</a>
+    <a href="rsvp.html" class="active" data-i18n="nav.rsvp">RSVP</a>
+  </nav>
+  <div class="lang" aria-label="Language">
+    <button type="button" data-lang="de">DE</button><span>/</span><button type="button" data-lang="nl">NL</button><span>/</span><button type="button" data-lang="en">EN</button>
+  </div>
+</header>
+
+<!-- ============ PHOTO HERO ============ -->
+<section class="rsvp-photo-hero" data-screen-label="RSVP hero">
+  <img class="rsvp-hero-bg" src="assets/rsvp-couple.png" alt="">
+  <div class="rsvp-hero-scrim"></div>
+  <div class="wrap rsvp-hero-inner">
+    <p class="eyebrow on-dark" data-i18n="rsvp.hero.eyebrow">Join us</p>
+    <h1 class="page-title" style="color:#fff" data-i18n="rsvp.title">RSVP</h1>
+    <p class="page-sub lede" style="color:rgba(255,255,255,.88)" data-i18n="rsvp.sub">Please let us know whether you'll be there.</p>
+  </div>
+</section>
+
+<!-- ============ FORM ============ -->
+<section class="section" id="rsvp-form-section" style="padding-top:clamp(3.5rem,8vh,6rem)">
+  <div class="wrap center reveal" style="margin-bottom:clamp(2rem,5vh,3rem)">
+    <div class="ornament" style="margin-bottom:1.4rem"><i></i></div>
+    <p class="letter-deadline" style="color:var(--ink-soft)" data-i18n="rsvp.letter.deadline">Kindly let us know by 1 December 2026.</p>
+  </div>
+  <div class="wrap">
+    <form id="rsvp-form" class="rsvp-wrap reveal" novalidate>
+      <div class="field">
+        <label for="f-names" data-i18n="form.names.label">Name(s)</label>
+        <input type="text" id="f-names" name="names" data-i18n-ph="form.names.ph" placeholder="Who is responding?" autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label data-i18n="form.attend.label">Will you be there?</label>
+        <div class="attend-opts">
+          <input type="radio" id="att-yes" name="attend" value="yes" checked>
+          <label for="att-yes" data-i18n="form.attend.yes">Joyfully accept</label>
+          <input type="radio" id="att-no" name="attend" value="no">
+          <label for="att-no" data-i18n="form.attend.no">Regretfully decline</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-diet" data-i18n="form.diet.label">Meal & dietary needs</label>
+        <textarea id="f-diet" name="diet" rows="2" data-i18n-ph="form.diet.ph" placeholder="Allergies, vegetarian, vegan…"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="f-part" data-i18n="form.part.label">Toast & Roast or another contribution</label>
+        <textarea id="f-part" name="part" rows="3" data-i18n-ph="form.part.ph" placeholder="A speech, a game, a song, a surprise?"></textarea>
+      </div>
+
+      <div class="form-foot">
+        <button type="submit" class="btn solid" data-i18n="form.submit">Send response</button>
+        <p class="form-note" data-i18n="form.note">This opens your email app with your reply ready to send.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="fmono">Nadja <span class="amp">&amp;</span> Julius</div>
+  <div class="fmeta">10 . 06 . 2027 &nbsp;·&nbsp; Castricum</div>
+  <div class="ftag" data-i18n="footer.tag">We can't wait to celebrate with you</div>
+</footer>
+
+<script src="image-slot.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>

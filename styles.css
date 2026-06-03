@@ -477,3 +477,76 @@ image-slot{
   .hero-waves::before,.hero-waves::after{animation:none;opacity:0;}
   html{scroll-behavior:auto;}
 }
+
+
+/* ===========================================================
+   MOBILE OPTIMISATIONS  (max-width: 600px)
+   =========================================================== */
+@media (max-width: 600px) {
+
+  /* Nav: hide text labels, keep icons readable */
+  .site-head { padding-inline: 1rem 1rem; gap: .5rem; }
+  .nav { gap: .9rem; font-size: .6rem; letter-spacing: .12em; }
+  .lang { gap: 0; font-size: .65rem; }
+  .lang button { padding: .25rem .28rem; }
+
+  /* Hero */
+  .hero-names { font-size: clamp(3.2rem, 17vw, 5.5rem) !important; letter-spacing: -.01em !important; }
+  .hero-meta { flex-direction: column; gap: .4rem; font-size: .68rem; }
+  .hero-meta i { display: none; }
+  .hero-scroll { display: none; }
+
+  /* Sections: more breathing room */
+  .section { padding-block: clamp(3rem, 8vh, 5rem); }
+
+  /* Welcome */
+  .block-title { font-size: clamp(1.8rem, 7vw, 2.4rem) !important; }
+  .lede { font-size: 1rem !important; }
+
+  /* Countdown */
+  .cd-grid { gap: clamp(1rem, 4vw, 2rem); }
+  .cd-num { font-size: clamp(2.4rem, 11vw, 3.5rem) !important; }
+  .cd-label { font-size: .55rem; letter-spacing: .15em; }
+
+  /* Fullbleed details */
+  .fb-inner { padding: 3rem 1.25rem; }
+  .facts-row { flex-direction: column; gap: 1.6rem; align-items: flex-start; }
+  .stay-list { grid-template-columns: 1fr; max-width: 100%; }
+  .stay-item { padding: .9rem 1rem; }
+
+  /* Gallery */
+  .gallery-even { grid-template-columns: 1fr; gap: .7rem; max-width: 100%; }
+
+  /* Timeline */
+  .timeline::before { left: 54px; }
+  .tl-time,
+  .timeline .tl-time { width: 54px !important; font-size: .68rem !important; }
+  .tl-body { padding-left: 1rem; }
+  .tl-name { font-size: 1.1rem !important; }
+  .tl-note { font-size: .85rem; }
+
+  /* Dress code: stack vertically */
+  .dress-grid,
+  [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+  /* Invite / RSVP envelope section */
+  .invite-section { min-height: auto; padding-block: 3rem; }
+  .invite-stage { flex-direction: column; gap: 0; align-items: center; }
+  .invite-envelope { width: min(260px, 70vw); margin-bottom: -10%; z-index: 1; }
+  .invite-card { width: min(340px, 90vw); z-index: 5; padding: 2.5rem 1.5rem; }
+
+  /* RSVP form */
+  .btn { padding: 1em 1.8em; font-size: .7rem; }
+
+  /* Footer */
+  .site-foot { padding: 2.5rem 1.25rem; }
+  .fmono { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .hero-names { font-size: 2.8rem !important; }
+  .nav { font-size: .55rem; gap: .6rem; letter-spacing: .08em; }
+  .monogram { font-size: 1.1rem; }
+}
+

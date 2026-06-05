@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nadja & Julius — 10 June 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="home">
+<a class="skip-nav" href="#welcome">Skip to main content</a>
+<header class="site-head">
+  <a class="monogram" href="index.html">N<span class="amp">&amp;</span>J</a>
+  <nav class="nav" id="main-nav">
+    <a href="index.html" class="active" data-i18n="nav.home">Home</a>
+    <a href="day.html" data-i18n="nav.day">The Day</a>
+    <a href="rsvp.html" data-i18n="nav.rsvp">RSVP</a>
+  </nav>
+  <div class="lang" aria-label="Language">
+    <button type="button" data-lang="de">DE</button><span>/</span><button type="button" data-lang="nl">NL</button><span>/</span><button type="button" data-lang="en">EN</button>
+  </div>
+  <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="main-nav" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<!-- ============ HERO ============ -->
+<section class="hero" data-screen-label="Home hero">
+  <img class="hero-base" src="assets/hero-beach.png" alt="Aerial view of waves washing over the beach">
+  <div class="hero-waves" aria-hidden="true"></div>
+  <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto" src="hero-video.mp4" onloadeddata="this.classList.add('ready')" onerror="this.style.display='none'"></video>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <p class="eyebrow on-dark" data-i18n="hero.eyebrow">We're getting married</p>
+    <h1 class="hero-names" style="letter-spacing: -2px">Nadja<span class="script-amp" style="color: rgb(255, 255, 255)">&amp;</span>Julius</h1>
+    <div class="hero-meta">
+      <span data-i18n="hero.date">10 June 2027</span>
+      <i></i>
+      <span data-i18n="hero.place">Strand Deining · Castricum</span>
+    </div>
+  </div>
+  <a class="hero-scroll" href="#welcome"><span data-i18n="hero.scroll">Scroll</span></a>
+</section>
+<!-- ============ WELCOME ============ -->
+<section class="section" id="welcome">
+  <div class="wrap center reveal">
+    <p class="eyebrow" data-i18n="welcome.eyebrow">Welcome</p>
+    <h2 class="block-title" data-i18n="welcome.title">We're so glad you're here</h2>
+    <div class="ornament" style="margin-block:1.8rem 2rem"><i></i></div>
+    <p class="measure lede" data-i18n="welcome.body">After all these years, we're tying the knot.</p>
+  </div>
+</section>
+<!-- ============ COUNTDOWN ============ -->
+<section class="section cream countdown" data-screen-label="Countdown">
+  <div class="wrap center reveal">
+    <p class="eyebrow" data-i18n="count.eyebrow">Counting down</p>
+    <h2 class="block-title" data-i18n="count.title">Until we say "I do"</h2>
+    <div class="cd-grid" id="cd-grid">
+      <div class="cd-unit"><div class="cd-num" id="cd-days">--</div><div class="cd-label" data-i18n="count.days">Days</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-hours">--</div><div class="cd-label" data-i18n="count.hours">Hours</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-mins">--</div><div class="cd-label" data-i18n="count.minutes">Minutes</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-secs">--</div><div class="cd-label" data-i18n="count.seconds">Seconds</div></div>
+    </div>
+    <p class="cd-over" id="cd-over" style="display:none" data-i18n="count.over">Today is the day!</p>
+  </div>
+</section>
+<!-- ============ DETAILS + WHERE TO STAY (full-bleed) ============ -->
+<section class="fullbleed" data-screen-label="Details & stay">
+  <img class="fb-base" src="assets/location.jpg" alt="Beach ceremony setup at Strand Deining">
+  <div class="fb-scrim"></div>
+  <div class="fb-inner reveal">
+    <p class="eyebrow on-dark" data-i18n="details.eyebrow" style="font-weight: 700">The details</p>
+    <dl class="facts facts-row">
+      <div class="fact">
+        <dt data-i18n="details.when" style="color: rgb(232, 214, 183)">When</dt>
+        <dd class="fact-val" data-i18n="details.when.val">Thursday, 10 June 2027</dd>
+        <dd class="fact-note" data-i18n="details.when.note">From 14:30 until late</dd>
+      </div>
+      <div class="fact">
+        <dt data-i18n="details.where" style="color: rgb(232, 214, 183)">Where</dt>
+        <dd class="fact-val" data-i18n="details.where.val">Strand Deining</dd>
+        <dd class="fact-note" data-i18n="details.where.note">On the beach at Castricum aan Zee</dd>
+      </div>
+    </dl>
+    <div class="ornament on-dark" style="margin:2.4rem auto 2rem"><i></i></div>
+    <p class="eyebrow on-dark" data-i18n="stay.eyebrow" style="font-weight: 700">Where to stay</p>
+    <div class="stay-list">
+      <a class="stay-item" href="https://zoomersaanzee.nl/hotelkamers-aan-zee/strandkamers/" target="_blank" rel="noopener">
+        <span class="stay-title" data-i18n="stay.zomerskamer">Hotel Zomers — beach room</span>
+        <span class="stay-note" data-i18n="stay.zomerskamer.note">Right next to the venue</span>
+      </a>
+      <a class="stay-item" href="https://zoomersaanzee.nl/strandhuisjes/" target="_blank" rel="noopener">
+        <span class="stay-title" data-i18n="stay.zomershuisje">Hotel Zomers — beach house</span>
+        <span class="stay-note" data-i18n="stay.zomershuisje.note">Right next to the venue</span>
+      </a>
+      <a class="stay-item" href="https://www.campingbakkum.nl/" target="_blank" rel="noopener">
+        <span class="stay-title" data-i18n="stay.camping">Camping Bakkum — pitches & cabins</span>
+        <span class="stay-note" data-i18n="stay.camping.note">10 minutes by bike</span>
+      </a>
+      <a class="stay-item" href="https://www.airbnb.com/s/Castricum--Netherlands/homes" target="_blank" rel="noopener">
+        <span class="stay-title" data-i18n="stay.airbnb">Airbnb with other guests</span>
+        <span class="stay-note" data-i18n="stay.airbnb.note">Arrange your own</span>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- ============ GALLERY ============ -->
+<section class="section">
+  <div class="wrap gallery-even reveal">
+    <figure class="gframe"><img src="assets/g1.jpg" alt="Nadja & Julius"></figure>
+    <figure class="gframe"><img src="assets/g2.jpg" alt="Nadja & Julius"></figure>
+    <figure class="gframe"><img src="assets/g3.jpg" alt="Nadja & Julius"></figure>
+  </div>
+</section>
+<!-- ============ DAY TEASER ============ -->
+<section class="section cream">
+  <div class="wrap center reveal measure">
+    <p class="eyebrow" data-i18n="dayteaser.eyebrow">Save the date</p>
+    <h2 class="block-title" data-i18n="dayteaser.title">How the day unfolds</h2>
+    <p class="lede" style="margin-top:1.4rem" data-i18n="dayteaser.body">From the first welcome to the last dance.</p>
+    <a class="btn" href="day.html" style="margin-top:2.2rem" data-i18n="dayteaser.cta">See the schedule</a>
+  </div>
+</section>
+<!-- ============ INVITATION (envelope + letter) ============ -->
+<section class="invite-section" data-screen-label="Invitation">
+  <img class="invite-bg" src="assets/rsvp-couple.png" alt="">
+  <div class="invite-scrim"></div>
+  <div class="invite-stage reveal">
+    <div class="invite-envelope" aria-hidden="true">
+      <div class="ie-back"></div>
+      <div class="ie-front"></div>
+      <div class="ie-flap"><span class="ie-mono">N<span class="amp">&amp;</span>J</span></div>
+    </div>
+    <div class="invite-card">
+      <svg class="shell" viewBox="0 0 64 56" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 50 C14 38 6 24 12 14 C16 7 24 7 28 13 M32 50 C50 38 58 24 52 14 C48 7 40 7 36 13"/>
+          <path d="M32 50 C30 36 30 22 32 12 M32 50 C26 37 22 25 21 15 M32 50 C38 37 42 25 43 15 M32 50 C28 36 25 24 26 14 M32 50 C36 36 39 24 38 14"/>
+          <circle cx="32" cy="10" r="3"/>
+        </g>
+      </svg>
+      <h2 class="letter-title" data-i18n="rsvp.letter.title">Will you be there?</h2>
+      <p class="letter-deadline" data-i18n="rsvp.letter.deadline">Kindly let us know by 1 December 2026.</p>
+      <a class="btn" href="rsvp.html" style="margin-top:1.6rem" data-i18n="rsvpband.cta">Respond now</a>
+    </div>
+  </div>
+</section>
+<!-- ============ FOOTER ============ -->
+<footer class="site-foot">
+  <div class="fmono">Nadja <span class="amp">&amp;</span> Julius</div>
+  <div class="fmeta">10 . 06 . 2027 &nbsp;·&nbsp; Castricum</div>
+  <div class="ftag" data-i18n="footer.tag">We can't wait to celebrate with you</div>
+</footer>
+<script src="image-slot.js"></script>
+<script src="i18n.js"></script>
+<script>
+  /* Hamburger menu */
+  (function(){
+    var btn = document.getElementById("hamburger");
+    var body = document.body;
+    if(!btn) return;
+    btn.addEventListener("click", function(){
+      var open = body.classList.toggle("nav-open");
+      btn.setAttribute("aria-expanded", open);
+    });
+    document.querySelectorAll("#main-nav a").forEach(function(a){
+      a.addEventListener("click", function(){ body.classList.remove("nav-open"); btn.setAttribute("aria-expanded","false"); });
+    });
+  })();
+  /* Hero video */
+  (function(){
+    var v = document.getElementById("heroVideo");
+    if(!v) return;
+    v.src = "hero-video.mp4";
+    v.load();
+    v.play().catch(function(){});
+  })();
+  /* Countdown to the ceremony — 15:00 CEST, 10 June 2027 */
+  (function(){
+    var target = new Date("2027-06-10T15:00:00+02:00").getTime();
+    var dE=document.getElementById("cd-days"), hE=document.getElementById("cd-hours"),
+        mE=document.getElementById("cd-mins"), sE=document.getElementById("cd-secs"),
+        grid=document.getElementById("cd-grid"), over=document.getElementById("cd-over");
+    if(!dE) return;
+    function p(n){ return (n<10?"0":"")+n; }
+    function tick(){
+      var diff = target - Date.now();
+      if(diff <= 0){ if(grid) grid.style.display="none"; if(over) over.style.display=""; return; }
+      dE.textContent = Math.floor(diff/86400000);
+      hE.textContent = p(Math.floor(diff%86400000/3600000));
+      mE.textContent = p(Math.floor(diff%3600000/60000));
+      sE.textContent = p(Math.floor(diff%60000/1000));
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+</script>
+</body>
+</html>

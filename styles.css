@@ -295,11 +295,18 @@ image-slot{
 .fb-inner .eyebrow,.fb-inner dt,.fb-inner .fact-val,.fb-inner .fact-note,.fb-inner p{
   text-shadow:0 1px 3px rgba(0,0,0,.9),0 2px 18px rgba(0,0,0,.7),0 4px 32px rgba(0,0,0,.4);
 }
-.facts-row{display:flex;justify-content:center;gap:clamp(2.5rem,8vw,6rem);margin:1.8rem 0 0;flex-wrap:wrap;}
+.facts-row{display:flex;justify-content:center;gap:clamp(3rem,10vw,8rem);margin:1.8rem 0 0;flex-wrap:wrap;}
 .facts-row .fact{margin:0;}
-.facts-row dt{color:#fff;}
-.facts-row .fact-val{color:#fff;}
-.facts-row .fact-note{color:rgba(255,255,255,.92);}
+.facts-row dt{color:rgba(255,255,255,.6);font-size:var(--eyebrow-fs);letter-spacing:var(--tracking);text-transform:uppercase;}
+.facts-row .fact-val{
+  color:#fff;
+  font-family:var(--font-display);
+  font-size:clamp(2rem,3.8vw,3.2rem);
+  font-weight:500;line-height:1.05;
+  margin:.3rem 0 .4rem;
+  text-shadow:0 2px 16px rgba(0,0,0,.6);
+}
+.facts-row .fact-note{color:rgba(255,255,255,.75);font-size:.9rem;text-shadow:0 1px 8px rgba(0,0,0,.5);}
 .stay-links{display:flex;justify-content:center;flex-wrap:wrap;gap:.9rem;margin-top:1.4rem;}
 .stay-link{
   font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#fff;
@@ -308,17 +315,22 @@ image-slot{
 }
 .stay-link:hover{background:#fff;color:var(--ink);border-color:#fff;}
 
-/* stay list (named recommendations) */
-.stay-list{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;max-width:680px;margin:1.5rem auto 0;text-align:left;}
-.stay-item{
-  display:flex;flex-direction:column;gap:.25rem;text-decoration:none;
-  border:1px solid rgba(255,255,255,.5);padding:1.05em 1.3em;
-  background:rgba(0,0,0,.32);backdrop-filter:blur(6px);
-  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),transform .25s var(--ease);
+/* stay list — subtle text links, secondary to main details */
+.stay-list{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:.35rem 1.6rem;max-width:640px;margin:.8rem auto 0;
 }
-.stay-item:hover{background:rgba(255,255,255,.16);border-color:#fff;transform:translateY(-2px);}
-.stay-title{font-family:var(--font-display);font-size:1.16rem;font-weight:500;color:#fff;line-height:1.2;}
-.stay-note{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.72);}
+.stay-item{
+  display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;
+  font-family:var(--font-sans);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  transition:color .2s;
+  padding:.2rem 0;
+}
+.stay-item::after{content:"↗";font-size:.65rem;opacity:.6;}
+.stay-item:hover{color:rgba(255,255,255,.9);}
+.stay-title{color:inherit;}
+.stay-note{display:none;}
 
 /* ===========================================================
    EVEN GALLERY (home) — three equal portraits

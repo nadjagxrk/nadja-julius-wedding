@@ -329,6 +329,52 @@ image-slot{
 .gframe img{width:100%;height:100%;object-fit:cover;filter:var(--img);transition:transform .9s var(--ease);}
 .gframe:hover img{transform:scale(1.04);}
 
+/* ===========================================================
+   GALLERY CAROUSEL (home)
+   =========================================================== */
+.carousel{
+  position:relative;
+  max-width:560px;
+  margin:0 auto;
+  overflow:hidden;
+  border-radius:2px;
+}
+.carousel-track{
+  display:flex;
+  transition:transform .55s cubic-bezier(.22,.61,.36,1);
+}
+.carousel-track .gframe{
+  min-width:100%;
+  aspect-ratio:4/5;
+  margin:0;
+  flex-shrink:0;
+}
+.carousel-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(253,250,242,.88);
+  border:1px solid var(--line);
+  cursor:pointer;
+  font-size:1.1rem;color:var(--ink);
+  transition:background var(--dur),transform var(--dur);
+  z-index:2;
+}
+.carousel-btn:hover{background:var(--paper);transform:translateY(-50%) scale(1.05);}
+.carousel-prev{left:.9rem;}
+.carousel-next{right:.9rem;}
+.carousel-dots{
+  position:absolute;bottom:.9rem;left:50%;transform:translateX(-50%);
+  display:flex;gap:.5rem;z-index:2;
+}
+.cdot{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.5);
+  border:none;cursor:pointer;padding:0;
+  transition:background .25s,transform .25s;
+}
+.cdot.active{background:#fff;transform:scale(1.25);}
+
 /* COUNTDOWN (home) */
 .cd-grid{display:flex;justify-content:center;gap:clamp(1.4rem,6vw,4.5rem);margin-top:clamp(2rem,5vh,3rem);flex-wrap:wrap;}
 .cd-unit{min-width:62px;}

@@ -1,23 +1,23 @@
 /* ===========================================================
-   Nadja & Julius — wedding site
+   Nadja & Julius â€” wedding site
    Black & white editorial. Shared across all pages.
    =========================================================== */
 
 :root{
   --ink:#2c261d;          /* warm dark brown-black */
   --ink-soft:#5a5043;
-  --muted:#6b6254;        /* captions / eyebrows — WCAG AA on paper */
+  --muted:#6b6254;        /* captions / eyebrows â€” WCAG AA on paper */
   --paper:#fffcf5;        /* warm off-white, lighter */
   --cream:#f7edd8;        /* warm champagne sand */
   --cream-deep:#ecdbb8;
   --line:rgba(44,38,29,.16);
   --line-soft:rgba(44,38,29,.10);
 
-  --blue:#D4936A;         /* sandy terracotta — main accent */
+  --blue:#D4936A;         /* sandy terracotta â€” main accent */
   --blue-deep:#b8724a;
   --blue-tint:#f7edd8;
   --clay:#c07f57;         /* warm clay */
-  --clay-deep:#D4936A;    /* golden hour — used for countdown */
+  --clay-deep:#D4936A;    /* golden hour â€” used for countdown */
   --sage:#8FAF85;         /* boho sage green */
   --blush:#f5e4d2;
 
@@ -178,10 +178,10 @@ image-slot{
 .hero image-slot{filter:var(--img-dark);}
 
 /* ---------- reveal on scroll ---------- */
-/* Safe default — content always visible if JS fails */
+/* Safe default â€” content always visible if JS fails */
 .reveal { opacity: 1; transform: none; }
 .reveal.in { opacity: 1; transform: none; }
-/* Progressive enhancement — animations when JS has loaded */
+/* Progressive enhancement â€” animations when JS has loaded */
 .js-ready .reveal {
   opacity: 0;
   transform: translateY(20px);
@@ -216,7 +216,7 @@ image-slot{
 .hero image-slot{position:absolute;inset:0;width:100%;height:100%;}
 .hero-base{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:var(--img) brightness(.96);}
 
-/* hero waves — foam washing in & out along the surf line (no perspective change) */
+/* hero waves â€” foam washing in & out along the surf line (no perspective change) */
 .hero-waves{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
 .hero-waves::before,.hero-waves::after{
   content:"";position:absolute;left:8%;right:-25%;top:-25%;bottom:-25%;
@@ -321,7 +321,7 @@ image-slot{
 .stay-note{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.72);}
 
 /* ===========================================================
-   EVEN GALLERY (home) — three equal portraits
+   EVEN GALLERY (home) â€” three equal portraits
    =========================================================== */
 .gallery-even{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,1.8vw,1.5rem);align-items:stretch;}
 .gallery-even image-slot{width:100%;aspect-ratio:4/5;height:auto;}
@@ -359,7 +359,7 @@ image-slot{
 .gallery .gg:nth-child(2){margin-top:clamp(1.5rem,5vw,3.5rem);}
 
 /* ===========================================================
-   PAGE HERO (day / rsvp) — light editorial banner
+   PAGE HERO (day / rsvp) â€” light editorial banner
    =========================================================== */
 .page-hero{
   padding-top:clamp(8rem,16vh,11rem);
@@ -417,7 +417,7 @@ image-slot{
 .form-note{margin-top:1.4rem;font-size:.85rem;color:var(--muted);}
 
 /* ===========================================================
-   INVITATION — static envelope + letter over photo (home)
+   INVITATION â€” static envelope + letter over photo (home)
    =========================================================== */
 .invite-section{
   position:relative;overflow:hidden;
@@ -432,7 +432,7 @@ image-slot{
   display:flex;align-items:center;justify-content:center;
 }
 
-/* envelope — hidden */
+/* envelope â€” hidden */
 .invite-envelope{display:none;}
 .ie-back{position:absolute;inset:0;border-radius:5px;z-index:1;
   background:linear-gradient(158deg,#8090b0,#6C7FA3);}
@@ -539,7 +539,7 @@ image-slot{
   }
   .nav a.active::after{bottom:-4px;height:1.5px;background:var(--blue);}
 
-  /* lang — larger touch targets */
+  /* lang â€” larger touch targets */
   .lang{gap:0;font-size:.68rem;}
   .lang button{padding:.5rem .35rem;min-height:44px;min-width:32px;}
 
@@ -572,7 +572,7 @@ image-slot{
   .stay-list{grid-template-columns:1fr;max-width:100%;}
   .stay-item{padding:.9em 1.1em;}
 
-  /* timeline — proper vertical line layout on mobile */
+  /* timeline â€” proper vertical line layout on mobile */
   .timeline{
     padding-left:2rem;
     max-width:100%;
@@ -592,7 +592,7 @@ image-slot{
     position:relative;
   }
   .t-item:last-child{padding-bottom:0;}
-  /* diamond marker — restored and repositioned */
+  /* diamond marker â€” restored and repositioned */
   .t-item::before{
     display:block;
     left:-2rem;
@@ -630,7 +630,7 @@ image-slot{
   .attend-opts{flex-direction:column;}
   .attend-opts label{min-width:unset;padding:1em;}
 
-  /* page hero — dark & dramatic on mobile */
+  /* page hero â€” dark & dramatic on mobile */
   .page-hero{
     background:var(--ink);
     padding-top:clamp(6rem,14vh,9rem);
@@ -640,13 +640,13 @@ image-slot{
   .page-hero .page-title{font-size:clamp(3.4rem,14vw,5.2rem);color:#fff;}
   .page-hero .page-sub{font-size:1rem;margin-top:1rem;color:rgba(255,255,255,.7);}
 
-  /* timeline line — more visible */
+  /* timeline line â€” more visible */
   .timeline::before{opacity:.45;}
 
-  /* RSVP band — full-width button on mobile */
+  /* RSVP band â€” full-width button on mobile */
   .section.ink .btn{display:block;text-align:center;width:100%;max-width:360px;margin-inline:auto;padding:1.15em 2em;margin-top:1.8rem;}
 
-  /* dress code — text first on mobile */
+  /* dress code â€” text first on mobile */
   .venue-grid > div:first-child{order:1;}
   .venue-grid > div:last-child{order:2;}
   .venue-name{font-size:2rem;margin:.3rem 0 .8rem;}

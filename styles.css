@@ -382,6 +382,18 @@ image-slot{
 }
 .page-hero-inner{position:relative;z-index:2;}
 .page-hero .eyebrow{color:rgba(255,255,255,.6);}
+
+/* ---------- back button (day / rsvp) ---------- */
+.back-btn{
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-family:var(--font-sans);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);text-decoration:none;
+  margin-bottom:1.6rem;
+  transition:color .2s,gap .2s;
+}
+.back-btn:hover{color:#fff;gap:.8rem;}
+.back-btn::before{content:"←";font-size:1rem;transition:transform .2s;}
+.back-btn:hover::before{transform:translateX(-3px);}
 .page-hero .page-title{font-size:clamp(3rem,9vw,6rem);font-weight:500;line-height:.98;margin:.6rem 0 0;color:#fff;
   text-shadow:0 2px 20px rgba(46,36,32,.4);}
 .page-hero .page-sub{margin:1.6rem auto 0;max-width:46ch;color:rgba(255,255,255,.78);

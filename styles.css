@@ -1,46 +1,46 @@
 /* ===========================================================
-   Nadja & Julius â€” wedding site
+   Nadja & Julius — wedding site
    Black & white editorial. Shared across all pages.
    =========================================================== */
-
+ 
 :root{
   --ink:#2c261d;          /* warm dark brown-black */
   --ink-soft:#5a5043;
-  --muted:#6b6254;        /* captions / eyebrows â€” WCAG AA on paper */
+  --muted:#6b6254;        /* captions / eyebrows — WCAG AA on paper */
   --paper:#fffcf5;        /* warm off-white, lighter */
   --cream:#f7edd8;        /* warm champagne sand */
   --cream-deep:#ecdbb8;
   --line:rgba(44,38,29,.16);
   --line-soft:rgba(44,38,29,.10);
-
-  --blue:#D4936A;         /* sandy terracotta â€” main accent */
+ 
+  --blue:#D4936A;         /* sandy terracotta — main accent */
   --blue-deep:#b8724a;
   --blue-tint:#f7edd8;
   --clay:#c07f57;         /* warm clay */
-  --clay-deep:#D4936A;    /* golden hour â€” used for countdown */
+  --clay-deep:#D4936A;    /* golden hour — used for countdown */
   --sage:#8FAF85;         /* boho sage green */
   --blush:#f5e4d2;
-
+ 
   /* warm, gently-desaturated photo treatment (boho, not stark B&W) */
   --img:saturate(.82) contrast(1.03) sepia(.06);
   --img-dark:saturate(.78) contrast(1.02) sepia(.06) brightness(.72);
-
+ 
   --font-display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-sans:"Jost", "Helvetica Neue", Arial, sans-serif;
-
+ 
   --maxw:1180px;
   --pad:clamp(1.25rem, 5vw, 4rem);
-
+ 
   --eyebrow-fs:clamp(.66rem,.86vw,.78rem);
   --tracking:.34em;
-
+ 
   --dur:.5s;
   --ease:cubic-bezier(.22,.61,.36,1);
 }
-
+ 
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-
+ 
 /* ---------- skip nav (accessibility) ---------- */
 .skip-nav{
   position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
@@ -52,7 +52,7 @@ html{scroll-behavior:smooth;}
   background:var(--ink);color:#fff;padding:.6rem 1.2rem;
   text-decoration:none;outline:2px solid var(--blue);outline-offset:2px;
 }
-
+ 
 /* ---------- focus rings (keyboard nav) ---------- */
 a:focus-visible,
 button:focus-visible,
@@ -63,7 +63,7 @@ select:focus-visible{
   outline-offset:3px;
   border-radius:2px;
 }
-
+ 
 body{
   margin:0;
   background:var(--paper);
@@ -76,7 +76,7 @@ body{
   text-rendering:optimizeLegibility;
 }
 img{display:block;max-width:100%;}
-
+ 
 /* ---------- type helpers ---------- */
 h1,h2,h3,h4{font-family:var(--font-display);font-weight:500;margin:0;line-height:1.04;}
 .serif{font-family:var(--font-display);}
@@ -91,7 +91,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:500;margin:0;line-height
 }
 .eyebrow.on-dark{color:rgba(255,255,255,.7);}
 .script-amp{font-family:var(--font-display);font-style:italic;font-weight:400;}
-
+ 
 /* small centered ornament */
 .ornament{display:flex;align-items:center;justify-content:center;gap:1rem;margin:0 auto;}
 .ornament::before,.ornament::after{content:"";height:1px;width:clamp(28px,6vw,64px);background:var(--line);}
@@ -99,7 +99,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:500;margin:0;line-height
 .ornament.on-dark::before,.ornament.on-dark::after{background:rgba(255,255,255,.4);}
 .ornament.on-dark i{background:var(--blue);}
 .script-amp{font-family:var(--font-display);font-style:italic;font-weight:400;color:var(--blue);}
-
+ 
 /* ---------- layout ---------- */
 .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);}
 .section{padding-block:clamp(4.5rem,11vh,9rem);}
@@ -107,7 +107,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:500;margin:0;line-height
 .section.ink{background:var(--ink);color:#fff;}
 .center{text-align:center;}
 .measure{max-width:60ch;margin-inline:auto;}
-
+ 
 /* ---------- header ---------- */
 .site-head{
   position:fixed;inset:0 0 auto 0;z-index:60;
@@ -134,7 +134,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:500;margin:0;line-height
 .nav a:hover{opacity:1;}
 .nav a.active{opacity:1;}
 .nav a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--blue);}
-
+ 
 .lang{display:flex;align-items:center;gap:.1rem;font-size:.72rem;letter-spacing:.14em;font-weight:400;}
 .lang button{
   background:none;border:none;color:inherit;cursor:pointer;
@@ -144,7 +144,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:500;margin:0;line-height
 .lang button:hover{opacity:.85;}
 .lang button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-underline-offset:4px;}
 .lang span{opacity:.3;}
-
+ 
 /* transparent header over the dark home hero */
 body.home .site-head{
   background:transparent;backdrop-filter:none;color:#fff;border-color:transparent;
@@ -153,7 +153,7 @@ body.home.scrolled .site-head{
   background:rgba(255,255,255,.94);backdrop-filter:saturate(1.1) blur(8px);
   color:var(--ink);border-color:var(--line-soft);
 }
-
+ 
 /* ---------- buttons ---------- */
 .btn{
   display:inline-block;font-family:var(--font-sans);font-weight:400;
@@ -168,7 +168,7 @@ body.home.scrolled .site-head{
 .btn.on-dark:hover{background:#fff;color:var(--blue-deep);}
 .btn.solid{background:var(--blue);color:#fff;border-color:var(--blue);}
 .btn.solid:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff;}
-
+ 
 /* ---------- image treatment (warm, soft color) ---------- */
 image-slot{
   background:var(--cream-deep);
@@ -176,12 +176,12 @@ image-slot{
   filter:var(--img);
 }
 .hero image-slot{filter:var(--img-dark);}
-
+ 
 /* ---------- reveal on scroll ---------- */
-/* Safe default â€” content always visible if JS fails */
+/* Safe default — content always visible if JS fails */
 .reveal { opacity: 1; transform: none; }
 .reveal.in { opacity: 1; transform: none; }
-/* Progressive enhancement â€” animations when JS has loaded */
+/* Progressive enhancement — animations when JS has loaded */
 .js-ready .reveal {
   opacity: 0;
   transform: translateY(20px);
@@ -193,7 +193,7 @@ image-slot{
 .js-ready .reveal:nth-child(4) { transition-delay: .24s; }
 .js-ready .reveal:nth-child(5) { transition-delay: .32s; }
 .js-ready .reveal:nth-child(6) { transition-delay: .40s; }
-
+ 
 /* ---------- footer (blue banner) ---------- */
 .site-foot{
   background:var(--ink);color:#fff;text-align:center;
@@ -203,7 +203,7 @@ image-slot{
 .site-foot .fmono .amp{font-style:italic;font-weight:400;padding:0 .12em;color:#fff;}
 .site-foot .fmeta{margin-top:1.4rem;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.55);}
 .site-foot .ftag{margin-top:2rem;font-family:var(--font-display);font-style:italic;font-size:clamp(1.2rem,2.4vw,1.6rem);color:rgba(255,255,255,.85);}
-
+ 
 /* ===========================================================
    HERO (home)
    =========================================================== */
@@ -215,8 +215,8 @@ image-slot{
 }
 .hero image-slot{position:absolute;inset:0;width:100%;height:100%;}
 .hero-base{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:var(--img) brightness(.96);}
-
-/* hero waves â€” foam washing in & out along the surf line (no perspective change) */
+ 
+/* hero waves — foam washing in & out along the surf line (no perspective change) */
 .hero-waves{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
 .hero-waves::before,.hero-waves::after{
   content:"";position:absolute;left:8%;right:-25%;top:-25%;bottom:-25%;
@@ -269,7 +269,7 @@ image-slot{
 }
 .hero-scroll::after{content:"";width:1px;height:34px;background:rgba(255,255,255,.6);animation:scrollpulse 2.2s var(--ease) infinite;}
 @keyframes scrollpulse{0%,100%{transform:scaleY(.4);opacity:.4;transform-origin:top;}50%{transform:scaleY(1);opacity:1;transform-origin:top;}}
-
+ 
 /* hero video layer (drops in if hero-video.mp4 exists) */
 .hero-video{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
@@ -278,7 +278,7 @@ image-slot{
   transition:opacity 1.2s var(--ease);
 }
 .hero-video.ready{opacity:1;}
-
+ 
 /* ===========================================================
    FULL-BLEED block (home: details + where to stay)
    =========================================================== */
@@ -307,7 +307,7 @@ image-slot{
   transition:background var(--dur) var(--ease),color var(--dur) var(--ease),border-color var(--dur) var(--ease);
 }
 .stay-link:hover{background:#fff;color:var(--ink);border-color:#fff;}
-
+ 
 /* stay list (named recommendations) */
 .stay-list{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;max-width:680px;margin:1.5rem auto 0;text-align:left;}
 .stay-item{
@@ -319,26 +319,26 @@ image-slot{
 .stay-item:hover{background:rgba(255,255,255,.16);border-color:#fff;transform:translateY(-2px);}
 .stay-title{font-family:var(--font-display);font-size:1.16rem;font-weight:500;color:#fff;line-height:1.2;}
 .stay-note{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.72);}
-
+ 
 /* ===========================================================
-   EVEN GALLERY (home) â€” three equal portraits
+   EVEN GALLERY (home) — three equal portraits
    =========================================================== */
 .gallery-even{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,1.8vw,1.5rem);align-items:stretch;}
 .gallery-even image-slot{width:100%;aspect-ratio:4/5;height:auto;}
 .gframe{margin:0;aspect-ratio:4/5;overflow:hidden;background:var(--cream-deep);}
 .gframe img{width:100%;height:100%;object-fit:cover;filter:var(--img);transition:transform .9s var(--ease);}
 .gframe:hover img{transform:scale(1.04);}
-
+ 
 /* COUNTDOWN (home) */
 .cd-grid{display:flex;justify-content:center;gap:clamp(1.4rem,6vw,4.5rem);margin-top:clamp(2rem,5vh,3rem);flex-wrap:wrap;}
 .cd-unit{min-width:62px;}
 .cd-num{font-family:var(--font-display);font-weight:500;font-size:clamp(2.8rem,9vw,5.6rem);line-height:1;font-variant-numeric:tabular-nums;color:var(--clay-deep);}
 .cd-label{margin-top:.7rem;font-size:var(--eyebrow-fs);letter-spacing:var(--tracking);text-transform:uppercase;color:var(--muted);}
 .cd-over{font-family:var(--font-display);font-style:italic;font-size:clamp(1.8rem,5vw,3rem);margin:1.5rem 0 0;}
-
+ 
 .block-title{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:500;}
 .lede{font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.85;color:var(--ink-soft);}
-
+ 
 /* ===========================================================
    DETAILS grid (home)
    =========================================================== */
@@ -349,7 +349,7 @@ image-slot{
 .facts .fact-val{font-family:var(--font-display);font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:500;line-height:1.1;margin:0;}
 .facts .fact-note{margin:.35rem 0 0;color:var(--ink-soft);font-size:.95rem;}
 .facts dd{margin-left:0;}
-
+ 
 /* ===========================================================
    GALLERY (home)
    =========================================================== */
@@ -357,9 +357,9 @@ image-slot{
 .gallery .gg{width:100%;aspect-ratio:3/4;}
 .gallery .gg-tall{aspect-ratio:3/4.4;margin-top:0;}
 .gallery .gg:nth-child(2){margin-top:clamp(1.5rem,5vw,3.5rem);}
-
+ 
 /* ===========================================================
-   PAGE HERO (day / rsvp) â€” light editorial banner
+   PAGE HERO (day / rsvp) — light editorial banner
    =========================================================== */
 .page-hero{
   padding-top:clamp(8rem,16vh,11rem);
@@ -368,7 +368,7 @@ image-slot{
 }
 .page-hero .page-title{font-size:clamp(3rem,9vw,6rem);font-weight:500;line-height:.98;margin:.6rem 0 0;}
 .page-hero .page-sub{margin:1.6rem auto 0;max-width:46ch;}
-
+ 
 /* ===========================================================
    TIMELINE (day)
    =========================================================== */
@@ -380,7 +380,7 @@ image-slot{
 .t-time{font-family:var(--font-display);font-size:clamp(1.15rem,2vw,1.5rem);font-weight:500;line-height:1.15;text-align:right;white-space:nowrap;color:var(--blue-deep);}
 .t-body h3{font-size:clamp(1.35rem,2.6vw,1.9rem);font-weight:500;margin:0 0 .35rem;}
 .t-body p{margin:0;color:var(--ink-soft);font-size:1rem;}
-
+ 
 /* ===========================================================
    VENUE (day)
    =========================================================== */
@@ -388,7 +388,7 @@ image-slot{
 .venue-grid image-slot{width:100%;aspect-ratio:5/4;height:auto;}
 .venue-name{font-size:clamp(2rem,4vw,3rem);font-weight:500;margin:.4rem 0 .3rem;}
 .venue-addr{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 1.4rem;}
-
+ 
 /* ===========================================================
    RSVP FORM
    =========================================================== */
@@ -415,9 +415,9 @@ image-slot{
 .attend-opts label:hover{border-color:var(--blue);}
 .form-foot{margin-top:.4rem;}
 .form-note{margin-top:1.4rem;font-size:.85rem;color:var(--muted);}
-
+ 
 /* ===========================================================
-   INVITATION â€” static envelope + letter over photo (home)
+   INVITATION — static envelope + letter over photo (home)
    =========================================================== */
 .invite-section{
   position:relative;overflow:hidden;
@@ -426,13 +426,13 @@ image-slot{
 }
 .invite-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 26%;filter:saturate(.9) brightness(.82);z-index:0;}
 .invite-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(24,19,14,.28),rgba(24,19,14,.14) 45%,rgba(24,19,14,.32));}
-
+ 
 .invite-stage{
   position:relative;z-index:2;width:min(880px,100%);
   display:flex;align-items:center;justify-content:center;
 }
-
-/* envelope â€” hidden */
+ 
+/* envelope — hidden */
 .invite-envelope{display:none;}
 .ie-back{position:absolute;inset:0;border-radius:5px;z-index:1;
   background:linear-gradient(158deg,#8090b0,#6C7FA3);}
@@ -445,7 +445,7 @@ image-slot{
   display:flex;justify-content:center;}
 .ie-mono{color:#fff;font-family:var(--font-display);font-weight:500;font-size:clamp(1.2rem,2.6vw,1.7rem);letter-spacing:.04em;padding-top:.7rem;opacity:.94;}
 .ie-mono .amp{font-style:italic;padding:0 .12em;color:#fff;}
-
+ 
 /* letter card */
 .invite-card{
   position:relative;z-index:5;width:min(520px,88vw);
@@ -457,13 +457,13 @@ image-slot{
 .letter-title{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:clamp(2rem,4vw,2.9rem);line-height:1.04;color:var(--ink);}
 .letter-deadline{margin:1.1rem 0 0;font-size:.98rem;line-height:1.6;color:var(--ink-soft);}
 .letter-hint{margin:.4rem 0 0;font-size:.8rem;letter-spacing:.04em;color:var(--muted);}
-
+ 
 @media (max-width:680px){
   .invite-stage{flex-direction:column;}
-  .invite-envelope{width:min(300px,72vw);margin:0 0 -14% 0;z-index:1;}
+  .invite-envelope{display:none;}
   .invite-card{width:min(420px,88vw);z-index:5;}
 }
-
+ 
 /* ===========================================================
    RSVP PHOTO HERO (rsvp page)
    =========================================================== */
@@ -478,7 +478,7 @@ image-slot{
 .rsvp-hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(24,19,14,.5),rgba(24,19,14,.3) 45%,rgba(24,19,14,.6));}
 .rsvp-hero-inner{position:relative;z-index:2;}
 .rsvp-hero-inner .page-sub{margin:1.4rem auto 0;max-width:46ch;}
-
+ 
 /* ===========================================================
    HAMBURGER / MOBILE NAV
    =========================================================== */
@@ -496,7 +496,7 @@ image-slot{
 .hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
 .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0;transform:scaleX(0);}
 .hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-
+ 
 /* ===========================================================
    RESPONSIVE
    =========================================================== */
@@ -512,7 +512,7 @@ image-slot{
   .facts-row{gap:2.2rem;}
   .stay-list{grid-template-columns:1fr;max-width:420px;}
 }
-
+ 
 @media (max-width:640px){
   /* Show hamburger, hide inline nav */
   .hamburger{display:flex;}
@@ -538,41 +538,41 @@ image-slot{
     display:flex;align-items:center;
   }
   .nav a.active::after{bottom:-4px;height:1.5px;background:var(--blue);}
-
-  /* lang â€” larger touch targets */
+ 
+  /* lang — larger touch targets */
   .lang{gap:0;font-size:.68rem;}
   .lang button{padding:.5rem .35rem;min-height:44px;min-width:32px;}
-
+ 
   /* site-head layout on mobile */
   .site-head{padding-inline:1.1rem;gap:.6rem;}
   .monogram{font-size:1.15rem;}
-
+ 
   /* section spacing tighter */
   .section{padding-block:clamp(3rem,8vh,6rem);}
-
+ 
   /* hero */
   .hero-names{font-size:clamp(3.6rem,18vw,5.8rem) !important;letter-spacing:-1px !important;}
   .hero-meta{flex-direction:column;gap:.5rem;font-size:.72rem;}
   .hero-meta i{display:none;}
   .hero-inner{padding:5rem 1.25rem 0;}
-
+ 
   /* countdown */
   .cd-grid{gap:clamp(1.2rem,6vw,2.5rem);}
   .cd-num{font-size:clamp(2.6rem,13vw,4.5rem);}
-
+ 
   /* gallery */
   .gallery-even{grid-template-columns:1fr;gap:.9rem;max-width:380px;margin-inline:auto;}
   .gallery-even .gframe:nth-child(3){grid-column:unset;aspect-ratio:4/5;}
-
+ 
   /* fullbleed details */
   .fb-inner{padding:4rem 1.4rem;}
   .facts-row{flex-direction:column;gap:1.6rem;text-align:center;}
-
+ 
   /* stay list */
   .stay-list{grid-template-columns:1fr;max-width:100%;}
   .stay-item{padding:.9em 1.1em;}
-
-  /* timeline â€” proper vertical line layout on mobile */
+ 
+  /* timeline — proper vertical line layout on mobile */
   .timeline{
     padding-left:2rem;
     max-width:100%;
@@ -592,7 +592,7 @@ image-slot{
     position:relative;
   }
   .t-item:last-child{padding-bottom:0;}
-  /* diamond marker â€” restored and repositioned */
+  /* diamond marker — restored and repositioned */
   .t-item::before{
     display:block;
     left:-2rem;
@@ -616,21 +616,21 @@ image-slot{
   }
   .t-body h3{font-size:1.35rem;margin:.05rem 0 .3rem;}
   .t-body p{font-size:.96rem;line-height:1.7;}
-
+ 
   /* venue / dress code */
   .venue-name{font-size:1.8rem;}
-
+ 
   /* invite section */
   .invite-stage{flex-direction:column;}
-  .invite-envelope{width:min(260px,70vw);margin:0 0 -12% 0;z-index:1;}
+  .invite-envelope{display:none;}
   .invite-card{width:min(380px,90vw);z-index:5;padding:1.8rem 1.4rem;}
   .letter-title{font-size:clamp(1.6rem,7vw,2.2rem);}
-
+ 
   /* rsvp form */
   .attend-opts{flex-direction:column;}
   .attend-opts label{min-width:unset;padding:1em;}
-
-  /* page hero â€” dark & dramatic on mobile */
+ 
+  /* page hero — dark & dramatic on mobile */
   .page-hero{
     background:var(--ink);
     padding-top:clamp(6rem,14vh,9rem);
@@ -639,30 +639,30 @@ image-slot{
   .page-hero .eyebrow{color:rgba(255,255,255,.5);}
   .page-hero .page-title{font-size:clamp(3.4rem,14vw,5.2rem);color:#fff;}
   .page-hero .page-sub{font-size:1rem;margin-top:1rem;color:rgba(255,255,255,.7);}
-
-  /* timeline line â€” more visible */
+ 
+  /* timeline line — more visible */
   .timeline::before{opacity:.45;}
-
-  /* RSVP band â€” full-width button on mobile */
+ 
+  /* RSVP band — full-width button on mobile */
   .section.ink .btn{display:block;text-align:center;width:100%;max-width:360px;margin-inline:auto;padding:1.15em 2em;margin-top:1.8rem;}
-
-  /* dress code â€” text first on mobile */
+ 
+  /* dress code — text first on mobile */
   .venue-grid > div:first-child{order:1;}
   .venue-grid > div:last-child{order:2;}
   .venue-name{font-size:2rem;margin:.3rem 0 .8rem;}
   .lede{font-size:1rem;}
-
+ 
   /* footer */
   .site-foot{padding-block:clamp(2.8rem,7vh,5rem);}
   .site-foot .fmono{font-size:clamp(2rem,9vw,3rem);}
 }
-
+ 
 @media (max-width:380px){
   .hero-names{font-size:clamp(3rem,16vw,4.5rem) !important;}
   .monogram{font-size:1rem;}
   .lang button{padding:.3rem .22rem;font-size:.64rem;}
 }
-
+ 
 @media (prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none;}
   .hero-scroll::after{animation:none;}

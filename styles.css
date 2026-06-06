@@ -653,6 +653,11 @@ image-slot{
 }
 
 @media (max-width:640px){
+  /* gallery strip — 2 photos + peek on mobile */
+  .gallery-strip-track .gframe{
+    flex:0 0 calc((100% - clamp(.7rem,1.4vw,1.1rem)) / 2.3);
+  }
+
   /* Show hamburger, hide inline nav */
   .hamburger{display:flex;}
   .nav{

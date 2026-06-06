@@ -370,13 +370,15 @@ image-slot{
 }
 .page-hero-bg{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:center 35%;
+  object-position:68% 35%;
   filter:saturate(0.88) sepia(0.12) brightness(0.94);
   z-index:0;
 }
 .page-hero-scrim{
   position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(46,36,32,.2) 0%,rgba(46,36,32,.06) 40%,rgba(46,36,32,.28) 100%);
+  background:
+    linear-gradient(90deg,rgba(46,36,32,.52) 0%,rgba(46,36,32,.28) 55%,rgba(46,36,32,.08) 100%),
+    linear-gradient(180deg,rgba(46,36,32,.22) 0%,rgba(46,36,32,.06) 40%,rgba(46,36,32,.3) 100%);
 }
 .page-hero-inner{position:relative;z-index:2;}
 .page-hero .eyebrow{color:rgba(255,255,255,.6);}
@@ -400,14 +402,17 @@ image-slot{
 .section.cream .t-dot{background:var(--cream);}
 
 .t-content{padding:0 clamp(1.5rem,4vw,3rem);}
-.t-illus{display:flex;align-items:center;justify-content:center;padding:0 clamp(1rem,3vw,2rem);color:var(--blue);}
+.t-illus{
+  display:flex;align-items:center;justify-content:center;
+  padding:0 clamp(1rem,3vw,2rem);color:var(--blue);
+  isolation:isolate;background:var(--paper);
+}
+.section.cream .t-illus{background:var(--cream);}
 .t-illus svg{opacity:.85;}
 .t-illus img{
   max-width:160px;height:auto;
   filter:hue-rotate(32deg) saturate(0.48) brightness(1.35);
   mix-blend-mode:multiply;
-  transform:translateZ(0);
-  will-change:mix-blend-mode;
 }
 
 /* text left, illus right */

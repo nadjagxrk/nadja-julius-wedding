@@ -310,6 +310,12 @@ image-slot{
   -webkit-backdrop-filter:blur(22px) saturate(1.3);
   border:1px solid rgba(210,190,155,.3);
   padding:clamp(2.2rem,5vw,3.2rem) clamp(2.8rem,6vw,5rem);
+  max-width:520px;width:calc(100% - 3rem);
+}
+@media(max-width:640px){
+  .location-section{min-height:clamp(320px,52vh,480px);}
+  .location-card{padding:1.6rem 2rem;width:calc(100% - 2.5rem);}
+  .location-name{font-size:clamp(2rem,10vw,3rem);}
 }
 .location-name{
   font-family:var(--font-display);font-style:italic;font-weight:400;

@@ -491,22 +491,21 @@ image-slot{
    =========================================================== */
 .gallery-strip-wrap{
   position:relative;
-  padding-inline:var(--pad);
+  padding-inline:0;         /* full bleed — no side padding */
 }
 .gallery-strip-track{
   display:flex;
-  gap:clamp(.7rem,1.4vw,1.1rem);
+  gap:clamp(.5rem,1vw,.8rem);
   overflow-x:auto;
   scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
   scroll-behavior:smooth;
-  /* show 3 full + peek at 4th */
-  padding-right:calc(100% / 3.5 * 0.5);
+  padding-left:var(--pad);  /* indent first photo to match page margin */
 }
 .gallery-strip-track::-webkit-scrollbar{display:none;}
 .gallery-strip-track .gframe{
-  flex:0 0 calc((100% - 2 * clamp(.7rem,1.4vw,1.1rem)) / 3.4);
+  flex:0 0 calc((100vw - var(--pad) - 2 * clamp(.5rem,1vw,.8rem)) / 2.35);
   aspect-ratio:4/5;
   margin:0;
   scroll-snap-align:start;
@@ -829,9 +828,9 @@ image-slot{
 }
 
 @media (max-width:640px){
-  /* gallery strip — 2 photos + peek on mobile */
+  /* gallery strip — 1.5 photos on mobile for bigger size */
   .gallery-strip-track .gframe{
-    flex:0 0 calc((100% - clamp(.7rem,1.4vw,1.1rem)) / 2.3);
+    flex:0 0 calc((100vw - var(--pad) - .5rem) / 1.55);
   }
 
   /* Show hamburger, hide inline nav */

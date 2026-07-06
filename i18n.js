@@ -70,6 +70,7 @@ const I18N = {
     "form.diet.label":"Meal & dietary needs","form.diet.ph":"Allergies, vegetarian, vegan, anything we should know…",
     "form.part.label":"Would you like to do a Toast & Roast or another contribution?","form.part.yes":"Yes, count me in!","form.part.no":"Not this time",
     "form.notes.label":"Anything else?","form.notes.ph":"Questions, things we should know, anything on your mind…",
+    "form.phone.label":"Phone number","form.phone.ph":"So Annabel can reach you",
     "form.submit":"Send response","form.sending":"Sending…",
     "form.success.title":"You're on the list!",
     "form.success.body":"Thanks for letting us know — we can't wait to see you on the tenth.",
@@ -145,6 +146,7 @@ const I18N = {
     "form.diet.label":"Maaltijd & dieetwensen","form.diet.ph":"Allergieën, vegetarisch, veganistisch, iets wat we moeten weten…",
     "form.part.label":"Wil je een Toast & Roast of een andere bijdrage doen?","form.part.yes":"Ja, ik doe mee!","form.part.no":"Niet deze keer",
     "form.notes.label":"Nog iets?","form.notes.ph":"Vragen, dingen die we moeten weten, of gewoon iets wat je kwijt wilt…",
+    "form.phone.label":"Telefoonnummer","form.phone.ph":"Zodat Annabel contact kan opnemen",
     "form.submit":"Verstuur reactie","form.sending":"Versturen…",
     "form.success.title":"Je staat erbij!",
     "form.success.body":"Bedankt voor je reactie — we kunnen niet wachten om je op de tiende te zien.",
@@ -220,6 +222,7 @@ const I18N = {
     "form.diet.label":"Essen & Ernährungswünsche","form.diet.ph":"Allergien, vegetarisch, vegan, alles was wir wissen sollten…",
     "form.part.label":"Möchtest du einen Toast & Roast oder einen anderen Beitrag machen?","form.part.yes":"Ja, ich mache mit!","form.part.no":"Nicht diesmal",
     "form.notes.label":"Sonst noch etwas?","form.notes.ph":"Fragen, Dinge, die wir wissen sollten, oder einfach etwas, das euch beschäftigt…",
+    "form.phone.label":"Telefonnummer","form.phone.ph":"Damit Annabel dich erreichen kann",
     "form.submit":"Antwort senden","form.sending":"Senden…",
     "form.success.title":"Du bist dabei!",
     "form.success.body":"Danke für deine Rückmeldung — wir können es kaum erwarten, euch am Zehnten zu sehen.",
@@ -305,6 +308,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
           attend: attending || "",
           diet:   (form.diet  ? form.diet.value.trim()  : ""),
           part:   (form.querySelector('input[name="part"]:checked')||{}).value || "",
+          phone:  (form.phone ? form.phone.value.trim() : ""),
           notes:  (form.notes ? form.notes.value.trim() : "")
         }
       };
@@ -320,7 +324,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
         });
         if(res.ok){
           form.style.display = "none";
+          const introEl   = document.getElementById("rsvp-intro");
           const successEl = document.getElementById("rsvp-success");
+          if(introEl) introEl.style.display = "none";
           if(successEl){
             successEl.style.display = "";
             const titleEl = document.getElementById("rsvp-success-title");
@@ -328,6 +334,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             const isDecline = attending === "no";
             if(titleEl) titleEl.textContent = isDecline ? t("form.success.decline")      : t("form.success.title");
             if(bodyEl)  bodyEl.textContent  = isDecline ? t("form.success.decline.body") : t("form.success.body");
+            if(!isDecline) launchConfetti();
           }
         } else {
           if(btn){ btn.disabled = false; btn.textContent = t("form.submit"); }
@@ -340,3 +347,46 @@ document.addEventListener("DOMContentLoaded", ()=>{
     });
   }
 });
+
+/* ── Confetti ── */
+function launchConfetti(){
+  var canvas = document.createElement("canvas");
+  canvas.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;";
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext("2d");
+  var palette = ["#C4A882","#E8DFD0","#DDD0BC","#A88B68","#F5EFE6","#fff","#D9C9B1","#c8b898"];
+  var pieces  = [];
+  for(var i = 0; i < 160; i++){
+    pieces.push({
+      x:   Math.random() * canvas.width,
+      y:  -20 - Math.random() * canvas.height * .6,
+      w:   5  + Math.random() * 9,
+      h:   3  + Math.random() * 5,
+      col: palette[Math.floor(Math.random() * palette.length)],
+      vx:  -1.5 + Math.random() * 3,
+      vy:  2.2  + Math.random() * 3.5,
+      rot: Math.random() * 360,
+      rs:  -3   + Math.random() * 6
+    });
+  }
+  var frame = 0, total = 220;
+  function tick(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var alpha = frame > 150 ? 1 - (frame - 150) / 70 : 1;
+    pieces.forEach(function(p){
+      p.y += p.vy; p.x += p.vx; p.rot += p.rs;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, alpha);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.col;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+    frame++;
+    if(frame < total) requestAnimationFrame(tick); else canvas.remove();
+  }
+  requestAnimationFrame(tick);
+}

@@ -42,7 +42,7 @@
 
 <!-- ============ FORM ============ -->
 <section class="section" id="rsvp-form-section" style="padding-top:clamp(3.5rem,8vh,6rem)">
-  <div class="wrap center reveal" style="margin-bottom:clamp(2rem,5vh,3rem)">
+  <div class="wrap center reveal" id="rsvp-intro" style="margin-bottom:clamp(2rem,5vh,3rem)">
     <div class="ornament" style="margin-bottom:1.4rem"><i></i></div>
     <p class="letter-deadline" style="color:var(--ink-soft)" data-i18n="rsvp.letter.deadline">Kindly let us know by 1 December 2026.</p>
   </div>
@@ -60,10 +60,16 @@
       <div class="field">
         <label data-i18n="form.attend.label">Will you be there?</label>
         <div class="attend-opts">
-          <input type="radio" id="att-yes" name="attend" value="yes" checked>
-          <label for="att-yes" data-i18n="form.attend.yes">Joyfully accept</label>
+          <input type="radio" id="att-yes" name="attend" value="yes">
+          <label for="att-yes" class="attend-card">
+            <span class="attend-orn" aria-hidden="true">✦</span>
+            <span class="attend-main" data-i18n="form.attend.yes">Joyfully accept</span>
+          </label>
           <input type="radio" id="att-no" name="attend" value="no">
-          <label for="att-no" data-i18n="form.attend.no">Regretfully decline</label>
+          <label for="att-no" class="attend-card attend-card--soft">
+            <span class="attend-orn" aria-hidden="true">◦</span>
+            <span class="attend-main" data-i18n="form.attend.no">Regretfully decline</span>
+          </label>
         </div>
       </div>
 
@@ -74,12 +80,21 @@
 
       <div class="field" id="field-part">
         <label data-i18n="form.part.label">Would you like to do a Toast & Roast or another contribution?</label>
-        <div class="attend-opts">
+        <div class="attend-opts attend-opts--sm">
           <input type="radio" id="part-yes" name="part" value="yes">
-          <label for="part-yes" data-i18n="form.part.yes">Yes, count me in!</label>
+          <label for="part-yes" class="attend-card">
+            <span class="attend-main" data-i18n="form.part.yes">Yes, count me in!</span>
+          </label>
           <input type="radio" id="part-no" name="part" value="no" checked>
-          <label for="part-no" data-i18n="form.part.no">Not this time</label>
+          <label for="part-no" class="attend-card attend-card--soft">
+            <span class="attend-main" data-i18n="form.part.no">Not this time</span>
+          </label>
         </div>
+      </div>
+
+      <div class="field" id="field-phone" style="display:none">
+        <label for="f-phone" data-i18n="form.phone.label">Phone number</label>
+        <input type="tel" id="f-phone" name="phone" data-i18n-ph="form.phone.ph" placeholder="So Annabel can reach you" autocomplete="tel">
       </div>
 
       <div class="field">
@@ -129,17 +144,29 @@
 
   /* Hide extra fields when declining */
   (function(){
-    var radios = document.querySelectorAll('input[name="attend"]');
-    var dietField = document.getElementById("field-diet");
-    var partField = document.getElementById("field-part");
-    function update(){
-      var val = (document.querySelector('input[name="attend"]:checked')||{}).value;
+    var radios     = document.querySelectorAll('input[name="attend"]');
+    var partRadios = document.querySelectorAll('input[name="part"]');
+    var dietField  = document.getElementById("field-diet");
+    var partField  = document.getElementById("field-part");
+    var phoneField = document.getElementById("field-phone");
+
+    function updateAttend(){
+      var val  = (document.querySelector('input[name="attend"]:checked')||{}).value;
       var show = val !== "no";
-      if(dietField) dietField.style.display = show ? "" : "none";
-      if(partField) partField.style.display = show ? "" : "none";
+      if(dietField)  dietField.style.display  = show ? "" : "none";
+      if(partField)  partField.style.display  = show ? "" : "none";
+      if(!show && phoneField) phoneField.style.display = "none";
+      if(show) updatePart();
     }
-    radios.forEach(function(r){ r.addEventListener("change", update); });
-    update();
+
+    function updatePart(){
+      var val = (document.querySelector('input[name="part"]:checked')||{}).value;
+      if(phoneField) phoneField.style.display = val === "yes" ? "" : "none";
+    }
+
+    radios.forEach(function(r){ r.addEventListener("change", updateAttend); });
+    partRadios.forEach(function(r){ r.addEventListener("change", updatePart); });
+    updateAttend();
   })();
 </script>
 </body>

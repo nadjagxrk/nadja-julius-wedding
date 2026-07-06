@@ -140,6 +140,12 @@ table.r-table{
   .r-sum-card:last-child{grid-column:1/-1;}
   .r-table th:nth-child(n+4),
   .r-table td:nth-child(n+4){display:none;}
+  .r-table th:nth-child(1),
+  .r-table td:nth-child(1),
+  .r-table th:nth-child(2),
+  .r-table td:nth-child(2),
+  .r-table th:nth-child(3),
+  .r-table td:nth-child(3){display:table-cell;}
 }
 </style>
 </head>
@@ -256,6 +262,7 @@ async function loadResponses(){
         attend: f.attend || "",
         diet:   f.diet   || "",
         part:   f.part   || "",
+        phone:  f.phone  || "",
         notes:  f.notes  || ""
       };
     });
@@ -303,6 +310,7 @@ function renderTable(submissions){
       "<td>" + badge + "</td>" +
       "<td>" + (s.diet  ? esc(s.diet)  : "<span class='r-empty'>—</span>") + "</td>" +
       "<td>" + (s.part  ? esc(s.part)  : "<span class='r-empty'>—</span>") + "</td>" +
+      "<td>" + (s.phone ? esc(s.phone) : "<span class='r-empty'>—</span>") + "</td>" +
       "<td>" + (s.notes ? esc(s.notes) : "<span class='r-empty'>—</span>") + "</td>" +
       "<td><span class='r-date'>" + date + "</span></td>" +
       "</tr>";
@@ -315,6 +323,7 @@ function renderTable(submissions){
         "<th>Attending</th>" +
         "<th>Dietary</th>" +
         "<th>Contribution</th>" +
+        "<th>Phone</th>" +
         "<th>Notes</th>" +
         "<th>Date</th>" +
       "</tr></thead>" +
@@ -332,10 +341,10 @@ function esc(str){
 
 function downloadCSV(){
   if(!allSubmissions.length){ alert("No responses to download yet."); return; }
-  var header = ["Name(s)","Attending","Dietary","Contribution","Notes","Date"];
+  var header = ["Name(s)","Attending","Dietary","Contribution","Phone","Notes","Date"];
   var rows = allSubmissions.map(function(s){
     var date = s.date ? new Date(s.date).toLocaleDateString("en-GB") : "";
-    return [s.names, s.attend, s.diet, s.part, s.notes, date].map(function(v){
+    return [s.names, s.attend, s.diet, s.part, s.phone, s.notes, date].map(function(v){
       return '"' + String(v||"").replace(/"/g,'""') + '"';
     }).join(",");
   });

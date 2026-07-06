@@ -47,7 +47,11 @@
     <p class="letter-deadline" style="color:var(--ink-soft)" data-i18n="rsvp.letter.deadline">Kindly let us know by 1 December 2026.</p>
   </div>
   <div class="wrap">
+
+    <!-- Form -->
     <form id="rsvp-form" class="rsvp-wrap reveal" novalidate>
+      <input type="hidden" name="_subject" value="RSVP — Nadja & Julius">
+
       <div class="field">
         <label for="f-names" data-i18n="form.names.label">Name(s)</label>
         <input type="text" id="f-names" name="names" data-i18n-ph="form.names.ph" placeholder="Who is responding?" autocomplete="name">
@@ -63,21 +67,40 @@
         </div>
       </div>
 
-      <div class="field">
+      <div class="field" id="field-diet">
         <label for="f-diet" data-i18n="form.diet.label">Meal & dietary needs</label>
         <textarea id="f-diet" name="diet" rows="2" data-i18n-ph="form.diet.ph" placeholder="Allergies, vegetarian, vegan…"></textarea>
       </div>
 
+      <div class="field" id="field-part">
+        <label data-i18n="form.part.label">Would you like to do a Toast & Roast or another contribution?</label>
+        <div class="attend-opts">
+          <input type="radio" id="part-yes" name="part" value="yes">
+          <label for="part-yes" data-i18n="form.part.yes">Yes, count me in!</label>
+          <input type="radio" id="part-no" name="part" value="no" checked>
+          <label for="part-no" data-i18n="form.part.no">Not this time</label>
+        </div>
+      </div>
+
       <div class="field">
-        <label for="f-part" data-i18n="form.part.label">Toast & Roast or another contribution</label>
-        <textarea id="f-part" name="part" rows="3" data-i18n-ph="form.part.ph" placeholder="A speech, a game, a song, a surprise?"></textarea>
+        <label for="f-notes" data-i18n="form.notes.label">Anything else?</label>
+        <textarea id="f-notes" name="notes" rows="3" data-i18n-ph="form.notes.ph" placeholder="Questions, things we should know, anything on your mind…"></textarea>
       </div>
 
       <div class="form-foot">
-        <button type="submit" class="btn solid" data-i18n="form.submit">Send response</button>
-        <p class="form-note" data-i18n="form.note">This opens your email app with your reply ready to send.</p>
+        <button type="submit" id="rsvp-submit" class="btn solid" data-i18n="form.submit">Send response</button>
+        <p id="rsvp-error" style="display:none;margin-top:1.2rem;font-size:.9rem;color:#9B4040" data-i18n="form.error">Something went wrong. Please try again.</p>
       </div>
     </form>
+
+    <!-- Success state (shown after submission) -->
+    <div id="rsvp-success" class="rsvp-success" style="display:none">
+      <div class="ornament" style="margin-bottom:2rem"><i></i></div>
+      <h2 id="rsvp-success-title" class="block-title" data-i18n="form.success.title">You're on the list!</h2>
+      <p id="rsvp-success-body" class="lede" style="margin-top:1.4rem" data-i18n="form.success.body">Thanks for letting us know — we can't wait to see you on the tenth.</p>
+      <a class="btn" href="index.html" style="margin-top:2.4rem" data-i18n="form.backhome">Back to home</a>
+    </div>
+
   </div>
 </section>
 
@@ -90,6 +113,7 @@
 <script src="image-slot.js"></script>
 <script src="i18n.js"></script>
 <script>
+  /* Hamburger */
   (function(){
     var btn = document.getElementById("hamburger");
     var body = document.body;
@@ -101,6 +125,21 @@
     document.querySelectorAll("#main-nav a").forEach(function(a){
       a.addEventListener("click", function(){ body.classList.remove("nav-open"); btn.setAttribute("aria-expanded","false"); });
     });
+  })();
+
+  /* Hide extra fields when declining */
+  (function(){
+    var radios = document.querySelectorAll('input[name="attend"]');
+    var dietField = document.getElementById("field-diet");
+    var partField = document.getElementById("field-part");
+    function update(){
+      var val = (document.querySelector('input[name="attend"]:checked')||{}).value;
+      var show = val !== "no";
+      if(dietField) dietField.style.display = show ? "" : "none";
+      if(partField) partField.style.display = show ? "" : "none";
+    }
+    radios.forEach(function(r){ r.addEventListener("change", update); });
+    update();
   })();
 </script>
 </body>

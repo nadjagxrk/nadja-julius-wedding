@@ -94,7 +94,8 @@ const I18N = {
     "gate.welcome.sub.many":"We've reserved {n} seats for you",
     "form.guests.label":"How many of you are coming?",
     "form.guests.hint":"up to {n}",
-    "gate.welcome.greeting":"We can't wait to celebrate with you!"
+    "gate.welcome.greeting":"We can't wait to celebrate with you!",
+    "gate.hero.eyebrow":"10 June 2027 · Strand Deining"
   },
   nl:{
     "nav.home":"Home","nav.day":"De Dag","nav.rsvp":"RSVP",
@@ -181,7 +182,8 @@ const I18N = {
     "gate.welcome.sub.many":"We hebben {n} plekken voor jullie gereserveerd",
     "form.guests.label":"Hoeveel van jullie komen er?",
     "form.guests.hint":"max {n}",
-    "gate.welcome.greeting":"We kunnen niet wachten om met jullie te vieren!"
+    "gate.welcome.greeting":"We kunnen niet wachten om met jullie te vieren!",
+    "gate.hero.eyebrow":"10 juni 2027 · Strand Deining"
   },
   de:{
     "nav.home":"Start","nav.day":"Der Tag","nav.rsvp":"RSVP",
@@ -268,7 +270,8 @@ const I18N = {
     "gate.welcome.sub.many":"Wir haben {n} Plätze für euch reserviert",
     "form.guests.label":"Wie viele von euch kommen?",
     "form.guests.hint":"max {n}",
-    "gate.welcome.greeting":"Wir können es kaum erwarten, mit euch zu feiern!"
+    "gate.welcome.greeting":"Wir können es kaum erwarten, mit euch zu feiern!",
+    "gate.hero.eyebrow":"10. Juni 2027 · Strand Deining"
   }
 };
 
@@ -294,6 +297,8 @@ function applyLang(){
   document.querySelectorAll(".lang button").forEach(b=>{
     b.setAttribute("aria-pressed", String(b.dataset.lang===LANG));
   });
+  // Re-apply personalization after language switch
+  if(window._rsvpGuest) showRsvpForm(window._rsvpGuest);
 }
 
 function setLang(l){
@@ -407,15 +412,19 @@ function showRsvpForm(guest){
   if(gateEl)  gateEl.style.display  = "none";
   if(innerEl) innerEl.style.display = "";
 
-  // Welcome banner
-  const welcomeEl  = document.getElementById("rsvp-welcome");
-  const nameEl     = document.getElementById("welcome-name");
-  const subEl      = document.getElementById("welcome-sub");
+  // Personalize the photo hero (name replaces "RSVP" title, like home page)
+  const heroSection = document.querySelector(".rsvp-photo-hero");
+  const heroEyebrow = document.getElementById("rsvp-hero-eyebrow");
+  const heroTitle   = document.getElementById("rsvp-hero-title");
+  const heroSub     = document.getElementById("rsvp-hero-sub");
+  if(heroSection) heroSection.classList.add("rsvp-hero--personalized");
+  if(heroEyebrow) heroEyebrow.textContent = t("gate.hero.eyebrow");
+  if(heroTitle)   heroTitle.textContent   = guest.name;
+  if(heroSub)     heroSub.textContent     = t("gate.welcome.greeting");
+
+  // Pre-fill hidden name field
   const namesInput = document.getElementById("f-names");
-  if(welcomeEl)  welcomeEl.style.display = "";
-  if(nameEl)     nameEl.textContent = guest.name;
-  if(subEl)      subEl.textContent  = t("gate.welcome.greeting");
-  if(namesInput) namesInput.value   = guest.name;
+  if(namesInput) namesInput.value = guest.name;
 
   // Store guest globally for payload + stepper
   window._rsvpGuest = guest;

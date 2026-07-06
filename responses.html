@@ -87,7 +87,7 @@ a{color:inherit;}
 
 /* Summary cards */
 .r-summary{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
   margin-bottom:clamp(2.5rem,5vh,3.5rem);
 }
 .r-sum-card{
@@ -135,17 +135,19 @@ table.r-table{
 .r-date{font-size:.8rem;color:var(--muted);}
 .r-name{font-family:var(--font-display);font-size:1.05rem;font-weight:500;}
 
-@media(max-width:600px){
+.r-sum-card.seats .r-sum-num{color:var(--blue-deep);}
+.r-sum-card.pending .r-sum-num{color:#8a6d1a;}
+.r-seats-invited{font-size:.72rem;color:var(--muted);margin-top:1px;display:block;}
+.r-guests-count{font-family:var(--font-display);font-size:1rem;font-weight:500;}
+.r-guests-of{font-size:.75rem;color:var(--muted);}
+.r-att-badge.pending{background:rgba(138,109,26,.1);color:#7a5e10;}
+.r-pending-row td{background:rgba(138,109,26,.03);}
+.r-name-soft{color:var(--ink-soft);}
+
+@media(max-width:700px){
   .r-summary{grid-template-columns:1fr 1fr;}
-  .r-sum-card:last-child{grid-column:1/-1;}
-  .r-table th:nth-child(n+4),
-  .r-table td:nth-child(n+4){display:none;}
-  .r-table th:nth-child(1),
-  .r-table td:nth-child(1),
-  .r-table th:nth-child(2),
-  .r-table td:nth-child(2),
-  .r-table th:nth-child(3),
-  .r-table td:nth-child(3){display:table-cell;}
+  .r-table th:nth-child(n+5),
+  .r-table td:nth-child(n+5){display:none;}
 }
 </style>
 </head>
@@ -184,8 +186,9 @@ table.r-table{
     <!-- Summary cards -->
     <div class="r-summary" id="r-summary">
       <div class="r-sum-card yes"><div class="r-sum-num" id="count-yes">—</div><div class="r-sum-label">Attending</div></div>
+      <div class="r-sum-card seats"><div class="r-sum-num" id="count-seats">—</div><div class="r-sum-label">Seats confirmed</div></div>
       <div class="r-sum-card no"><div class="r-sum-num" id="count-no">—</div><div class="r-sum-label">Not attending</div></div>
-      <div class="r-sum-card"><div class="r-sum-num" id="count-total">—</div><div class="r-sum-label">Total responses</div></div>
+      <div class="r-sum-card pending"><div class="r-sum-num" id="count-pending">—</div><div class="r-sum-label">No reply yet</div></div>
     </div>
 
     <!-- Loading / error / table -->
@@ -201,27 +204,27 @@ table.r-table{
 
 <script>
 /* ─────────────────────────────────────────────
-   CONFIG — change the password to whatever you like
+   CONFIG
    ───────────────────────────────────────────── */
 const VIEWER_PASSWORD   = "NadjaJulius2027"; // ← change to whatever you like
 const AIRTABLE_TOKEN    = "pat0emo2ZHxner9Cd.76a220e90bfb1916669a40dcb10e27311fc8ec170758dd83f1338aacee3ad058";
 const AIRTABLE_ENDPOINT = "https://api.airtable.com/v0/appr0YjU7iNuaL2jD/tblQY2KGWlxkp2udj";
-/* ─────────────────────────────────────────────
-   END CONFIG
-   ───────────────────────────────────────────── */
+const INVITEES_ENDPOINT = "https://api.airtable.com/v0/appr0YjU7iNuaL2jD/Invitees";
+/* ───────────────────────────────────────────── */
 
-let allSubmissions = [];
+var allSubmissions = [];
+var allInvitees    = [];
 
 function showResponses(){
-  document.getElementById("gate").style.display = "none";
+  document.getElementById("gate").style.display   = "none";
   document.getElementById("r-page").style.display = "block";
   loadResponses();
 }
 
 function unlock(){
-  const val = document.getElementById("pw").value;
+  var val = document.getElementById("pw").value;
   if(val === VIEWER_PASSWORD){
-    sessionStorage.setItem("rsvp_auth", "1");
+    sessionStorage.setItem("rsvp_auth","1");
     showResponses();
   } else {
     document.getElementById("gate-error").style.display = "block";
@@ -230,36 +233,41 @@ function unlock(){
   }
 }
 
-// Skip gate if already authenticated this session
-if(sessionStorage.getItem("rsvp_auth") === "1"){
-  showResponses();
+if(sessionStorage.getItem("rsvp_auth") === "1"){ showResponses(); }
+
+/* Fetch all pages from an Airtable endpoint */
+async function fetchAll(endpoint, extraParams){
+  var records = [];
+  var offset  = null;
+  do {
+    var url = endpoint + "?" + (extraParams||"");
+    if(offset) url += "&offset=" + encodeURIComponent(offset);
+    var res  = await fetch(url, { headers:{"Authorization":"Bearer " + AIRTABLE_TOKEN} });
+    if(!res.ok) throw new Error("API error " + res.status);
+    var data = await res.json();
+    records  = records.concat(data.records || []);
+    offset   = data.offset || null;
+  } while(offset);
+  return records;
 }
 
 async function loadResponses(){
   try{
-    var allRecords = [];
-    var offset = null;
+    /* Fetch RSVPs + Invitees in parallel */
+    var results = await Promise.all([
+      fetchAll(AIRTABLE_ENDPOINT, "sort[0][field]=Created&sort[0][direction]=asc"),
+      fetchAll(INVITEES_ENDPOINT, "sort[0][field]=name&sort[0][direction]=asc")
+    ]);
 
-    // Airtable paginates at 100 records — loop until done
-    do {
-      var url = AIRTABLE_ENDPOINT + "?sort[0][field]=Created&sort[0][direction]=asc";
-      if(offset) url += "&offset=" + encodeURIComponent(offset);
-      var res = await fetch(url, {
-        headers:{ "Authorization":"Bearer " + AIRTABLE_TOKEN }
-      });
-      if(!res.ok) throw new Error("API error " + res.status);
-      var data = await res.json();
-      allRecords = allRecords.concat(data.records || []);
-      offset = data.offset || null;
-    } while(offset);
-
-    allSubmissions = allRecords.map(function(r){
+    allSubmissions = results[0].map(function(r){
       var f = r.fields || {};
       return {
         id:     r.id          || "",
         date:   r.createdTime || "",
+        code:   f.code   || "",
         names:  f.names  || "",
         attend: f.attend || "",
+        guests: f.guests || 0,
         diet:   f.diet   || "",
         part:   f.part   || "",
         phone:  f.phone  || "",
@@ -267,47 +275,69 @@ async function loadResponses(){
       };
     });
 
+    allInvitees = results[1].map(function(r){
+      var f = r.fields || {};
+      return {
+        id:    r.id    || "",
+        code:  (f.code  || "").toLowerCase(),
+        name:  f.name  || "",
+        seats: parseInt(f.seats) || 1
+      };
+    });
+
     renderSummary();
-    renderTable(allSubmissions);
+    renderTable();
 
   } catch(err){
     document.getElementById("r-state").innerHTML =
-      '<div class="r-state-icon">⚠️</div>' +
-      '<p>Could not load responses.</p>' +
-      '<p style="font-size:.85rem;color:var(--muted)">Make sure you\'re connected to the internet. If this keeps happening, check the Airtable token in responses.html.</p>' +
-      '<p style="font-size:.8rem;color:var(--muted);margin-top:.5rem">Error: ' + err.message + '</p>';
+      '<div class="r-state-icon">⚠️</div><p>Could not load responses.</p>' +
+      '<p style="font-size:.85rem;color:var(--muted)">Error: ' + err.message + '</p>';
   }
 }
 
 function renderSummary(){
-  var yes   = allSubmissions.filter(function(s){ return s.attend === "yes"; }).length;
-  var no    = allSubmissions.filter(function(s){ return s.attend === "no";  }).length;
-  var total = allSubmissions.length;
-  document.getElementById("count-yes").textContent   = yes;
-  document.getElementById("count-no").textContent    = no;
-  document.getElementById("count-total").textContent = total;
+  var attending   = allSubmissions.filter(function(s){ return s.attend === "yes"; });
+  var yes         = attending.length;
+  var no          = allSubmissions.filter(function(s){ return s.attend === "no"; }).length;
+  var seats       = attending.reduce(function(sum,s){ return sum + (s.guests || 1); }, 0);
+  var respondedCodes = new Set(allSubmissions.map(function(s){ return s.code.toLowerCase(); }).filter(Boolean));
+  var pending     = allInvitees.filter(function(inv){ return inv.code && !respondedCodes.has(inv.code); }).length;
+  document.getElementById("count-yes").textContent     = yes;
+  document.getElementById("count-seats").textContent   = seats;
+  document.getElementById("count-no").textContent      = no;
+  document.getElementById("count-pending").textContent = pending;
 }
 
-function renderTable(submissions){
+function renderTable(){
   document.getElementById("r-state").style.display = "none";
   var wrap = document.getElementById("r-table-wrap");
   wrap.style.display = "block";
 
-  if(submissions.length === 0){
-    wrap.innerHTML = '<p class="r-state" style="padding:3rem 0">No responses yet.</p>';
-    return;
-  }
+  /* Build code → invitee lookup */
+  var invLookup = {};
+  allInvitees.forEach(function(inv){ if(inv.code) invLookup[inv.code] = inv; });
 
-  var rows = submissions.map(function(s){
+  /* Responded codes */
+  var respondedCodes = new Set(allSubmissions.map(function(s){ return (s.code||"").toLowerCase(); }).filter(Boolean));
+
+  /* Response rows */
+  var responseRows = allSubmissions.map(function(s){
+    var inv          = s.code ? invLookup[s.code.toLowerCase()] : null;
+    var household    = inv ? inv.name : (s.names || "—");
+    var invSeats     = inv ? inv.seats : "—";
     var badge = s.attend === "yes"
       ? '<span class="r-att-badge yes">✓ Attending</span>'
       : s.attend === "no"
         ? '<span class="r-att-badge no">✗ Not attending</span>'
         : '<span class="r-empty">—</span>';
+    var guestsCell = s.attend === "yes"
+      ? "<span class='r-guests-count'>" + (s.guests || 1) + "</span> <span class='r-guests-of'>of " + invSeats + "</span>"
+      : "<span class='r-empty'>—</span>";
     var date = s.date ? new Date(s.date).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}) : "—";
     return "<tr>" +
-      "<td><span class='r-name'>" + esc(s.names) + "</span></td>" +
+      "<td><span class='r-name'>" + esc(household) + "</span><span class='r-seats-invited'>" + invSeats + " invited</span></td>" +
       "<td>" + badge + "</td>" +
+      "<td>" + guestsCell + "</td>" +
       "<td>" + (s.diet  ? esc(s.diet)  : "<span class='r-empty'>—</span>") + "</td>" +
       "<td>" + (s.part  ? esc(s.part)  : "<span class='r-empty'>—</span>") + "</td>" +
       "<td>" + (s.phone ? esc(s.phone) : "<span class='r-empty'>—</span>") + "</td>" +
@@ -316,39 +346,62 @@ function renderTable(submissions){
       "</tr>";
   }).join("");
 
+  /* Pending (no reply) rows */
+  var pendingRows = allInvitees
+    .filter(function(inv){ return inv.code && !respondedCodes.has(inv.code); })
+    .map(function(inv){
+      return "<tr class='r-pending-row'>" +
+        "<td><span class='r-name r-name-soft'>" + esc(inv.name) + "</span><span class='r-seats-invited'>" + inv.seats + " invited</span></td>" +
+        "<td><span class='r-att-badge pending'>No reply yet</span></td>" +
+        "<td class='r-empty'>—</td>" +
+        "<td class='r-empty'>—</td>" +
+        "<td class='r-empty'>—</td>" +
+        "<td class='r-empty'>—</td>" +
+        "<td class='r-empty'>—</td>" +
+        "<td class='r-empty'>—</td>" +
+        "</tr>";
+    }).join("");
+
+  if(!responseRows && !pendingRows){
+    wrap.innerHTML = '<p class="r-state" style="padding:3rem 0">No responses yet.</p>';
+    return;
+  }
+
   wrap.innerHTML =
-    "<table class='r-table'>" +
-      "<thead><tr>" +
-        "<th>Name(s)</th>" +
-        "<th>Attending</th>" +
-        "<th>Dietary</th>" +
-        "<th>Contribution</th>" +
-        "<th>Phone</th>" +
-        "<th>Notes</th>" +
-        "<th>Date</th>" +
-      "</tr></thead>" +
-      "<tbody>" + rows + "</tbody>" +
-    "</table>";
+    "<table class='r-table'><thead><tr>" +
+      "<th>Household</th><th>Attending</th><th>Guests</th>" +
+      "<th>Dietary</th><th>Contribution</th><th>Phone</th><th>Notes</th><th>Date</th>" +
+    "</tr></thead><tbody>" +
+      responseRows + pendingRows +
+    "</tbody></table>";
 }
 
 function esc(str){
-  return String(str||"")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
+  return String(str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
 
 function downloadCSV(){
-  if(!allSubmissions.length){ alert("No responses to download yet."); return; }
-  var header = ["Name(s)","Attending","Dietary","Contribution","Phone","Notes","Date"];
-  var rows = allSubmissions.map(function(s){
+  var rows = [];
+  var invLookup = {};
+  allInvitees.forEach(function(inv){ if(inv.code) invLookup[inv.code] = inv; });
+
+  allSubmissions.forEach(function(s){
+    var inv  = s.code ? invLookup[s.code.toLowerCase()] : null;
     var date = s.date ? new Date(s.date).toLocaleDateString("en-GB") : "";
-    return [s.names, s.attend, s.diet, s.part, s.phone, s.notes, date].map(function(v){
-      return '"' + String(v||"").replace(/"/g,'""') + '"';
-    }).join(",");
+    rows.push([inv ? inv.name : s.names, inv ? inv.seats : "", s.attend, s.guests||"", s.diet, s.part, s.phone, s.notes, date]);
   });
-  var csv = [header.join(",")].concat(rows).join("\n");
+  allInvitees.filter(function(inv){
+    var responded = allSubmissions.some(function(s){ return (s.code||"").toLowerCase() === inv.code; });
+    return !responded;
+  }).forEach(function(inv){
+    rows.push([inv.name, inv.seats, "no reply","","","","","",""]);
+  });
+
+  if(!rows.length){ alert("Nothing to download yet."); return; }
+  var header = ["Household","Seats invited","Attending","Guests coming","Dietary","Contribution","Phone","Notes","Date"];
+  var csv = [header].concat(rows).map(function(r){
+    return r.map(function(v){ return '"' + String(v||"").replace(/"/g,'""') + '"'; }).join(",");
+  }).join("\n");
   var a = document.createElement("a");
   a.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
   a.download = "rsvp-responses.csv";

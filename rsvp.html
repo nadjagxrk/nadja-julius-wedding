@@ -34,9 +34,9 @@
   <div class="rsvp-hero-scrim"></div>
   <div class="wrap rsvp-hero-inner">
     <a class="back-btn" href="index.html" data-i18n="nav.home">Home</a>
-    <p class="eyebrow on-dark" data-i18n="rsvp.hero.eyebrow">Join us</p>
-    <h1 class="page-title" style="color:#fff" data-i18n="rsvp.title">RSVP</h1>
-    <p class="page-sub lede" style="color:rgba(255,255,255,.88)" data-i18n="rsvp.sub">Please let us know whether you'll be there.</p>
+    <p class="eyebrow on-dark" id="rsvp-hero-eyebrow" data-i18n="rsvp.hero.eyebrow">Join us</p>
+    <h1 class="page-title" id="rsvp-hero-title" style="color:#fff" data-i18n="rsvp.title">RSVP</h1>
+    <p class="page-sub lede" id="rsvp-hero-sub" style="color:rgba(255,255,255,.88)" data-i18n="rsvp.sub">Please let us know whether you'll be there.</p>
   </div>
 </section>
 
@@ -74,15 +74,6 @@
     <!-- Form -->
     <form id="rsvp-form" class="rsvp-wrap reveal" novalidate>
       <input type="hidden" name="_subject" value="RSVP — Nadja & Julius">
-
-      <!-- Welcome banner -->
-      <div id="rsvp-welcome" class="rsvp-welcome" style="display:none">
-        <span class="rsvp-welcome-orn" aria-hidden="true">✦</span>
-        <div class="rsvp-welcome-text">
-          <strong id="welcome-name"></strong>
-          <span id="welcome-sub"></span>
-        </div>
-      </div>
 
       <!-- Hidden name field — pre-filled from invitee lookup -->
       <input type="hidden" id="f-names" name="names" value="">
@@ -168,7 +159,7 @@
 </footer>
 
 <script src="image-slot.js"></script>
-<script src="i18n.js?v=4"></script>
+<script src="i18n.js?v=5"></script>
 <script>
   /* Hamburger */
   (function(){

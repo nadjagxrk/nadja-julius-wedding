@@ -802,6 +802,41 @@ image-slot{
 .form-foot .btn{width:100%;display:block;text-align:center;}
 .form-note{margin-top:1.4rem;font-size:.85rem;color:var(--muted);}
 
+/* ── Gate card ── */
+.rsvp-gate-card{max-width:480px;margin:0 auto;}
+
+/* ── Welcome banner ── */
+.rsvp-welcome{
+  display:flex;align-items:center;gap:12px;
+  background:rgba(196,168,130,.12);border:1px solid rgba(196,168,130,.4);
+  padding:14px 16px;margin-bottom:2rem;
+}
+.rsvp-welcome-orn{font-family:var(--font-display);font-size:1.1rem;color:var(--blue);flex-shrink:0;line-height:1;}
+.rsvp-welcome-text{flex:1;min-width:0;}
+.rsvp-welcome-text strong{display:block;font-family:var(--font-display);font-size:1.05rem;font-weight:500;color:var(--ink);line-height:1.2;}
+.rsvp-welcome-text span{display:block;font-size:.75rem;color:var(--muted);margin-top:2px;}
+.rsvp-welcome-badge{
+  flex-shrink:0;background:rgba(74,124,89,.12);color:#3a6b48;
+  font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:3px 9px;border-radius:2px;white-space:nowrap;
+}
+
+/* ── Seat stepper ── */
+.stepper-row{display:flex;align-items:center;gap:0;margin-top:6px;}
+.stepper-btn{
+  width:40px;height:40px;border:1px solid var(--cream-deep);background:transparent;
+  font-size:1.2rem;color:var(--blue-deep);cursor:pointer;
+  transition:border-color .2s,color .2s;font-family:var(--font-sans);font-weight:300;
+}
+.stepper-btn:hover:not(:disabled){border-color:var(--blue);color:var(--blue);}
+.stepper-btn:disabled{color:var(--cream-deep);border-color:var(--cream-deep);cursor:default;}
+.stepper-val{
+  font-family:var(--font-display);font-size:2rem;font-weight:500;color:var(--ink);
+  width:56px;text-align:center;line-height:38px;
+  border-top:1px solid var(--cream-deep);border-bottom:1px solid var(--cream-deep);
+}
+.stepper-hint{margin-left:12px;font-size:.75rem;color:var(--muted);line-height:1.4;}
+
 /* ===========================================================
    INVITATION — static envelope + letter over photo (home)
    =========================================================== */

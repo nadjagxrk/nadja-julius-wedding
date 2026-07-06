@@ -206,17 +206,27 @@ const AIRTABLE_ENDPOINT = "https://api.airtable.com/v0/appr0YjU7iNuaL2jD/tblQY2K
 
 let allSubmissions = [];
 
+function showResponses(){
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("r-page").style.display = "block";
+  loadResponses();
+}
+
 function unlock(){
   const val = document.getElementById("pw").value;
   if(val === VIEWER_PASSWORD){
-    document.getElementById("gate").style.display = "none";
-    document.getElementById("r-page").style.display = "block";
-    loadResponses();
+    sessionStorage.setItem("rsvp_auth", "1");
+    showResponses();
   } else {
     document.getElementById("gate-error").style.display = "block";
     document.getElementById("pw").value = "";
     document.getElementById("pw").focus();
   }
+}
+
+// Skip gate if already authenticated this session
+if(sessionStorage.getItem("rsvp_auth") === "1"){
+  showResponses();
 }
 
 async function loadResponses(){

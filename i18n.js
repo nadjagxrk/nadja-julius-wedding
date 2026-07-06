@@ -3,8 +3,10 @@
    Languages: EN (default), NL, DE. Choice persists across pages.
    =========================================================== */
 
-const AIRTABLE_TOKEN    = "patjGlixZk200CoXp.7094f6388eec75ef81e13fbddb6986edf083a5194fe5e08d8d1f78f3e4afceaa";
-const AIRTABLE_ENDPOINT = "https://api.airtable.com/v0/appr0YjU7iNuaL2jD/tblQY2KGWlxkp2udj";
+const AIRTABLE_TOKEN      = "patjGlixZk200CoXp.7094f6388eec75ef81e13fbddb6986edf083a5194fe5e08d8d1f78f3e4afceaa";
+const AIRTABLE_ENDPOINT   = "https://api.airtable.com/v0/appr0YjU7iNuaL2jD/tblQY2KGWlxkp2udj";
+const AIRTABLE_READ_TOKEN = "pat4MlFlIagmEL2Qe.cae1d6993ae77b75d50ac495c3951e44496559736fef3c731193bc6d71c19a98";
+const INVITEES_ENDPOINT   = "https://api.airtable.com/v0/appr0YjU7iNuaL2jD/Invitees";
 
 const I18N = {
   en:{
@@ -81,7 +83,17 @@ const I18N = {
     "form.alertname":"Please add your name first.",
     "mail.subject":"Wedding RSVP — Nadja & Julius",
     "mail.l.names":"Name(s)","mail.l.attend":"Attending","mail.l.diet":"Meal / dietary","mail.l.part":"Toast & Roast / contribution",
-    "mail.yes":"Joyfully accepts","mail.no":"Regretfully declines","mail.blank":"—"
+    "mail.yes":"Joyfully accepts","mail.no":"Regretfully declines","mail.blank":"—",
+    "gate.title":"Your invitation",
+    "gate.sub":"Enter the code from your invitation to continue.",
+    "gate.code.label":"Invitation code","gate.code.ph":"Your personal code",
+    "gate.submit":"Continue","gate.looking":"Looking up your invitation…",
+    "gate.error":"Code not recognised. Check your invitation and try again.",
+    "gate.nope":"Can't find your code? Send us a message.",
+    "gate.welcome.sub.one":"We've reserved a seat just for you",
+    "gate.welcome.sub.many":"We've reserved {n} seats for you",
+    "form.guests.label":"How many of you are coming?",
+    "form.guests.hint":"up to {n}"
   },
   nl:{
     "nav.home":"Home","nav.day":"De Dag","nav.rsvp":"RSVP",
@@ -157,7 +169,17 @@ const I18N = {
     "form.alertname":"Vul eerst je naam in.",
     "mail.subject":"Trouwen RSVP — Nadja & Julius",
     "mail.l.names":"Naam(en)","mail.l.attend":"Aanwezig","mail.l.diet":"Maaltijd / dieet","mail.l.part":"Toast & Roast / bijdrage",
-    "mail.yes":"Is erbij","mail.no":"Helaas niet aanwezig","mail.blank":"—"
+    "mail.yes":"Is erbij","mail.no":"Helaas niet aanwezig","mail.blank":"—",
+    "gate.title":"Jouw uitnodiging",
+    "gate.sub":"Vul de code van je uitnodiging in om door te gaan.",
+    "gate.code.label":"Uitnodigingscode","gate.code.ph":"Jouw persoonlijke code",
+    "gate.submit":"Doorgaan","gate.looking":"Uitnodiging zoeken…",
+    "gate.error":"Code niet herkend. Controleer je uitnodiging en probeer opnieuw.",
+    "gate.nope":"Code kwijt? Stuur ons een berichtje.",
+    "gate.welcome.sub.one":"We hebben een plek voor je gereserveerd",
+    "gate.welcome.sub.many":"We hebben {n} plekken voor jullie gereserveerd",
+    "form.guests.label":"Hoeveel van jullie komen er?",
+    "form.guests.hint":"max {n}"
   },
   de:{
     "nav.home":"Start","nav.day":"Der Tag","nav.rsvp":"RSVP",
@@ -233,7 +255,17 @@ const I18N = {
     "form.alertname":"Bitte trag zuerst deinen Namen ein.",
     "mail.subject":"Hochzeit RSVP — Nadja & Julius",
     "mail.l.names":"Name(n)","mail.l.attend":"Teilnahme","mail.l.diet":"Essen / Ernährung","mail.l.part":"Toast & Roast / Beitrag",
-    "mail.yes":"Ist dabei","mail.no":"Leider nicht dabei","mail.blank":"—"
+    "mail.yes":"Ist dabei","mail.no":"Leider nicht dabei","mail.blank":"—",
+    "gate.title":"Deine Einladung",
+    "gate.sub":"Gib den Code von deiner Einladung ein, um fortzufahren.",
+    "gate.code.label":"Einladungscode","gate.code.ph":"Dein persönlicher Code",
+    "gate.submit":"Weiter","gate.looking":"Einladung wird gesucht…",
+    "gate.error":"Code nicht erkannt. Überprüfe deine Einladung und versuche es nochmal.",
+    "gate.nope":"Code nicht zur Hand? Schreib uns einfach.",
+    "gate.welcome.sub.one":"Wir haben einen Platz für dich reserviert",
+    "gate.welcome.sub.many":"Wir haben {n} Plätze für euch reserviert",
+    "form.guests.label":"Wie viele von euch kommen?",
+    "form.guests.hint":"max {n}"
   }
 };
 
@@ -270,6 +302,7 @@ function setLang(l){
 
 document.addEventListener("DOMContentLoaded", ()=>{
   applyLang();
+  initGate();
   document.querySelectorAll(".lang button").forEach(b=>{
     b.addEventListener("click", ()=>setLang(b.dataset.lang));
   });
@@ -302,10 +335,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
       const attending = (form.querySelector('input[name="attend"]:checked')||{}).value;
 
+      const guestCount = attending === "yes"
+        ? (parseInt((document.getElementById("f-guests")||{}).value) || 1)
+        : 0;
       const payload = {
         fields: {
           names:  names,
           attend: attending || "",
+          guests: guestCount,
+          code:   (window._rsvpGuest || {}).code || "",
           diet:   (form.diet  ? form.diet.value.trim()  : ""),
           part:   (form.querySelector('input[name="part"]:checked')||{}).value || "",
           phone:  (form.phone ? form.phone.value.trim() : ""),
@@ -347,6 +385,110 @@ document.addEventListener("DOMContentLoaded", ()=>{
     });
   }
 });
+
+/* ── Invitee lookup ── */
+async function lookupInviteeCode(code){
+  const filter = encodeURIComponent(`LOWER({code})="${code.toLowerCase()}"`);
+  const res = await fetch(INVITEES_ENDPOINT + "?filterByFormula=" + filter, {
+    headers:{"Authorization":"Bearer " + AIRTABLE_READ_TOKEN}
+  });
+  if(!res.ok) throw new Error("API " + res.status);
+  const data = await res.json();
+  if(!data.records || !data.records.length) return null;
+  const f = data.records[0].fields || {};
+  return { name: f.name || "", seats: parseInt(f.seats) || 1, code: code.toLowerCase() };
+}
+
+function showRsvpForm(guest){
+  const gateEl  = document.getElementById("rsvp-gate");
+  const innerEl = document.getElementById("rsvp-form-inner");
+  if(gateEl)  gateEl.style.display  = "none";
+  if(innerEl) innerEl.style.display = "";
+
+  // Welcome banner
+  const welcomeEl = document.getElementById("rsvp-welcome");
+  const nameEl    = document.getElementById("welcome-name");
+  const subEl     = document.getElementById("welcome-sub");
+  const badgeEl   = document.getElementById("welcome-badge");
+  if(welcomeEl) welcomeEl.style.display = "";
+  if(nameEl)    nameEl.textContent = guest.name;
+  if(subEl){
+    const key = guest.seats === 1 ? "gate.welcome.sub.one" : "gate.welcome.sub.many";
+    subEl.textContent = t(key).replace("{n}", guest.seats);
+  }
+  if(badgeEl) badgeEl.textContent = guest.seats + (guest.seats === 1 ? " seat" : " seats");
+
+  // Store guest globally for payload + stepper
+  window._rsvpGuest = guest;
+
+  // Stepper hint text
+  const hintEl = document.getElementById("guests-hint");
+  if(hintEl) hintEl.textContent = t("form.guests.hint").replace("{n}", guest.seats);
+
+  // Reset stepper to 1
+  const valEl   = document.getElementById("guests-val");
+  const inputEl = document.getElementById("f-guests");
+  const decBtn  = document.getElementById("guests-dec");
+  const incBtn  = document.getElementById("guests-inc");
+  if(valEl)   valEl.textContent = "1";
+  if(inputEl) inputEl.value    = "1";
+  if(decBtn)  decBtn.disabled  = true;
+  if(incBtn)  incBtn.disabled  = guest.seats <= 1;
+}
+
+function initGate(){
+  // Skip gate if already verified this session
+  const saved = sessionStorage.getItem("rsvp_guest");
+  if(saved){
+    try{ showRsvpForm(JSON.parse(saved)); return; }catch(e){}
+  }
+
+  const submitBtn = document.getElementById("gate-submit");
+  const codeInput = document.getElementById("f-code");
+  const gateError = document.getElementById("gate-error");
+  if(!submitBtn) return; // not on RSVP page
+
+  async function tryCode(){
+    const code = (codeInput ? codeInput.value : "").trim();
+    if(!code){ if(codeInput) codeInput.focus(); return; }
+    submitBtn.disabled = true;
+    submitBtn.textContent = t("gate.looking");
+    if(gateError) gateError.style.display = "none";
+    try{
+      const guest = await lookupInviteeCode(code);
+      if(!guest){
+        submitBtn.disabled = false;
+        submitBtn.textContent = t("gate.submit");
+        if(gateError) gateError.style.display = "";
+        return;
+      }
+      sessionStorage.setItem("rsvp_guest", JSON.stringify(guest));
+      showRsvpForm(guest);
+    }catch(err){
+      submitBtn.disabled = false;
+      submitBtn.textContent = t("gate.submit");
+      if(gateError) gateError.style.display = "";
+    }
+  }
+
+  submitBtn.addEventListener("click", tryCode);
+  if(codeInput) codeInput.addEventListener("keydown", function(e){ if(e.key==="Enter") tryCode(); });
+}
+
+/* ── Seat stepper (called from onclick in rsvp.html) ── */
+function stepGuests(delta){
+  const max    = (window._rsvpGuest||{}).seats || 1;
+  const valEl  = document.getElementById("guests-val");
+  const input  = document.getElementById("f-guests");
+  const decBtn = document.getElementById("guests-dec");
+  const incBtn = document.getElementById("guests-inc");
+  const cur    = parseInt((valEl||{}).textContent) || 1;
+  const next   = Math.min(max, Math.max(1, cur + delta));
+  if(valEl)   valEl.textContent = next;
+  if(input)   input.value      = next;
+  if(decBtn)  decBtn.disabled  = next <= 1;
+  if(incBtn)  incBtn.disabled  = next >= max;
+}
 
 /* ── Confetti ── */
 function launchConfetti(){

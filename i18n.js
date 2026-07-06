@@ -433,15 +433,15 @@ function showRsvpForm(guest){
   const hintEl = document.getElementById("guests-hint");
   if(hintEl) hintEl.textContent = t("form.guests.hint").replace("{n}", guest.seats);
 
-  // Reset stepper to 1
+  // Default stepper to max seats (all invited guests assumed attending)
   const valEl   = document.getElementById("guests-val");
   const inputEl = document.getElementById("f-guests");
   const decBtn  = document.getElementById("guests-dec");
   const incBtn  = document.getElementById("guests-inc");
-  if(valEl)   valEl.textContent = "1";
-  if(inputEl) inputEl.value    = "1";
-  if(decBtn)  decBtn.disabled  = true;
-  if(incBtn)  incBtn.disabled  = guest.seats <= 1;
+  if(valEl)   valEl.textContent = guest.seats;
+  if(inputEl) inputEl.value    = guest.seats;
+  if(decBtn)  decBtn.disabled  = guest.seats <= 1;
+  if(incBtn)  incBtn.disabled  = true;
 }
 
 function initGate(){

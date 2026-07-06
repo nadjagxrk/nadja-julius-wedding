@@ -82,13 +82,10 @@
           <strong id="welcome-name"></strong>
           <span id="welcome-sub"></span>
         </div>
-        <span class="rsvp-welcome-badge" id="welcome-badge"></span>
       </div>
 
-      <div class="field">
-        <label for="f-names" data-i18n="form.names.label">Name(s)</label>
-        <input type="text" id="f-names" name="names" data-i18n-ph="form.names.ph" placeholder="Who is responding?" autocomplete="name">
-      </div>
+      <!-- Hidden name field — pre-filled from invitee lookup -->
+      <input type="hidden" id="f-names" name="names" value="">
 
       <div class="field">
         <label data-i18n="form.attend.label">Will you be there?</label>
@@ -129,7 +126,7 @@
           <label for="part-yes" class="attend-card">
             <span class="attend-main" data-i18n="form.part.yes">Yes, count me in!</span>
           </label>
-          <input type="radio" id="part-no" name="part" value="no" checked>
+          <input type="radio" id="part-no" name="part" value="no">
           <label for="part-no" class="attend-card attend-card--soft">
             <span class="attend-main" data-i18n="form.part.no">Not this time</span>
           </label>
@@ -171,7 +168,7 @@
 </footer>
 
 <script src="image-slot.js"></script>
-<script src="i18n.js?v=3"></script>
+<script src="i18n.js?v=4"></script>
 <script>
   /* Hamburger */
   (function(){

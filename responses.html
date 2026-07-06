@@ -226,7 +226,7 @@ async function loadResponses(){
 
     // Airtable paginates at 100 records — loop until done
     do {
-      var url = AIRTABLE_ENDPOINT + "?sort[0][field]=Created+time&sort[0][direction]=asc";
+      var url = AIRTABLE_ENDPOINT + "?sort[0][field]=Created&sort[0][direction]=asc";
       if(offset) url += "&offset=" + encodeURIComponent(offset);
       var res = await fetch(url, {
         headers:{ "Authorization":"Bearer " + AIRTABLE_TOKEN }

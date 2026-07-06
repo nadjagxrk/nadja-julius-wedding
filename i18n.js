@@ -93,7 +93,8 @@ const I18N = {
     "gate.welcome.sub.one":"We've reserved a seat just for you",
     "gate.welcome.sub.many":"We've reserved {n} seats for you",
     "form.guests.label":"How many of you are coming?",
-    "form.guests.hint":"up to {n}"
+    "form.guests.hint":"up to {n}",
+    "gate.welcome.greeting":"We can't wait to celebrate with you!"
   },
   nl:{
     "nav.home":"Home","nav.day":"De Dag","nav.rsvp":"RSVP",
@@ -179,7 +180,8 @@ const I18N = {
     "gate.welcome.sub.one":"We hebben een plek voor je gereserveerd",
     "gate.welcome.sub.many":"We hebben {n} plekken voor jullie gereserveerd",
     "form.guests.label":"Hoeveel van jullie komen er?",
-    "form.guests.hint":"max {n}"
+    "form.guests.hint":"max {n}",
+    "gate.welcome.greeting":"We kunnen niet wachten om met jullie te vieren!"
   },
   de:{
     "nav.home":"Start","nav.day":"Der Tag","nav.rsvp":"RSVP",
@@ -265,7 +267,8 @@ const I18N = {
     "gate.welcome.sub.one":"Wir haben einen Platz für dich reserviert",
     "gate.welcome.sub.many":"Wir haben {n} Plätze für euch reserviert",
     "form.guests.label":"Wie viele von euch kommen?",
-    "form.guests.hint":"max {n}"
+    "form.guests.hint":"max {n}",
+    "gate.welcome.greeting":"Wir können es kaum erwarten, mit euch zu feiern!"
   }
 };
 
@@ -325,8 +328,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
   if(form){
     form.addEventListener("submit", async (e)=>{
       e.preventDefault();
-      const names = (form.names.value||"").trim();
-      if(!names){ alert(t("form.alertname")); form.names.focus(); return; }
+      const names = (form.names ? (form.names.value||"").trim() : "");
 
       const btn = document.getElementById("rsvp-submit");
       const errEl = document.getElementById("rsvp-error");
@@ -406,17 +408,14 @@ function showRsvpForm(guest){
   if(innerEl) innerEl.style.display = "";
 
   // Welcome banner
-  const welcomeEl = document.getElementById("rsvp-welcome");
-  const nameEl    = document.getElementById("welcome-name");
-  const subEl     = document.getElementById("welcome-sub");
-  const badgeEl   = document.getElementById("welcome-badge");
-  if(welcomeEl) welcomeEl.style.display = "";
-  if(nameEl)    nameEl.textContent = guest.name;
-  if(subEl){
-    const key = guest.seats === 1 ? "gate.welcome.sub.one" : "gate.welcome.sub.many";
-    subEl.textContent = t(key).replace("{n}", guest.seats);
-  }
-  if(badgeEl) badgeEl.textContent = guest.seats + (guest.seats === 1 ? " seat" : " seats");
+  const welcomeEl  = document.getElementById("rsvp-welcome");
+  const nameEl     = document.getElementById("welcome-name");
+  const subEl      = document.getElementById("welcome-sub");
+  const namesInput = document.getElementById("f-names");
+  if(welcomeEl)  welcomeEl.style.display = "";
+  if(nameEl)     nameEl.textContent = guest.name;
+  if(subEl)      subEl.textContent  = t("gate.welcome.greeting");
+  if(namesInput) namesInput.value   = guest.name;
 
   // Store guest globally for payload + stepper
   window._rsvpGuest = guest;

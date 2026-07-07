@@ -29,14 +29,14 @@
 </header>
 
 <!-- ============ PHOTO HERO ============ -->
-<section class="rsvp-photo-hero" data-screen-label="RSVP hero">
-  <img class="rsvp-hero-bg" src="assets/rsvp-couple.png" alt="">
-  <div class="rsvp-hero-scrim"></div>
-  <div class="wrap rsvp-hero-inner">
+<section class="page-hero" data-screen-label="RSVP hero">
+  <img class="page-hero-bg" src="assets/rsvp-couple.png" alt="" style="object-position:center 26%">
+  <div class="page-hero-scrim"></div>
+  <div class="page-hero-inner wrap">
     <a class="back-btn" href="index.html" data-i18n="nav.home">Home</a>
-    <p class="eyebrow on-dark" id="rsvp-hero-eyebrow" data-i18n="rsvp.hero.eyebrow">Join us</p>
-    <h1 class="page-title" id="rsvp-hero-title" style="color:#fff" data-i18n="rsvp.title">RSVP</h1>
-    <p class="page-sub lede" id="rsvp-hero-sub" style="color:rgba(255,255,255,.88)" data-i18n="rsvp.sub">Please let us know whether you'll be there.</p>
+    <p class="eyebrow" data-i18n="day.hero.eyebrow">10 June 2027 · Strand Deining</p>
+    <h1 class="page-title" data-i18n="rsvp.title">RSVP</h1>
+    <p class="page-sub lede" data-i18n="rsvp.sub">Please let us know whether you'll be there.</p>
   </div>
 </section>
 
@@ -69,6 +69,7 @@
 
     <!-- Personalized name display -->
     <div id="rsvp-name-hero" class="rsvp-name-hero wrap center" style="display:none">
+      <p class="rsvp-name-dear eyebrow" id="rsvp-name-dear"></p>
       <h2 class="rsvp-name-display" id="rsvp-name-display"></h2>
       <p class="rsvp-name-sub" id="rsvp-name-sub"></p>
     </div>
@@ -166,7 +167,7 @@
 </footer>
 
 <script src="image-slot.js"></script>
-<script src="i18n.js?v=8"></script>
+<script src="i18n.js?v=9"></script>
 <script>
   /* Hamburger */
   (function(){

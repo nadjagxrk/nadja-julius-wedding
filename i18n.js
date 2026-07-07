@@ -98,6 +98,7 @@ const I18N = {
     "gate.welcome.sub.many":"We've reserved {n} seats for you",
     "form.guests.label":"How many of you are coming?",
     "form.guests.hint":"up to {n}",
+    "gate.welcome.dear":"Dear",
     "gate.welcome.greeting":"We can't wait to celebrate with you!",
     "gate.hero.eyebrow":"10 June 2027 · Strand Deining"
   },
@@ -190,6 +191,7 @@ const I18N = {
     "gate.welcome.sub.many":"We hebben {n} plekken voor jullie gereserveerd",
     "form.guests.label":"Hoeveel van jullie komen er?",
     "form.guests.hint":"max {n}",
+    "gate.welcome.dear":"Beste",
     "gate.welcome.greeting":"We kunnen niet wachten om met jullie te vieren!",
     "gate.hero.eyebrow":"10 juni 2027 · Strand Deining"
   },
@@ -282,6 +284,7 @@ const I18N = {
     "gate.welcome.sub.many":"Wir haben {n} Plätze für euch reserviert",
     "form.guests.label":"Wie viele von euch kommen?",
     "form.guests.hint":"max {n}",
+    "gate.welcome.dear":"Liebe",
     "gate.welcome.greeting":"Wir können es kaum erwarten, mit euch zu feiern!",
     "gate.hero.eyebrow":"10. Juni 2027 · Strand Deining"
   }
@@ -439,10 +442,12 @@ function showRsvpForm(guest){
 
   // Show personalized name display in the form section
   const nameHero    = document.getElementById("rsvp-name-hero");
+  const nameDear    = document.getElementById("rsvp-name-dear");
   const nameDisplay = document.getElementById("rsvp-name-display");
   const nameSub     = document.getElementById("rsvp-name-sub");
   if(nameHero)    nameHero.style.display  = "";
-  if(nameDisplay) nameDisplay.textContent = guest.name;
+  if(nameDear)    nameDear.textContent    = t("gate.welcome.dear");
+  if(nameDisplay) nameDisplay.textContent = guest.name + ",";
   if(nameSub)     nameSub.textContent     = t("gate.welcome.greeting");
 
   // Pre-fill hidden name field

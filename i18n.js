@@ -68,9 +68,13 @@ const I18N = {
     "rsvp.letter.hint":"Fill in the form just below.",
     "rsvp.letter.cta":"RSVP here",
     "form.names.label":"Name(s)","form.names.ph":"Who is responding?",
-    "form.attend.label":"Will you be there?","form.attend.yes":"Joyfully accept","form.attend.no":"Regretfully decline",
+    "form.attend.label":"Will you be there?","form.attend.label.pl":"Will you be there?",
+    "form.attend.yes":"Joyfully accept","form.attend.yes.pl":"Joyfully accept",
+    "form.attend.no":"Regretfully decline","form.attend.no.pl":"Regretfully decline",
     "form.diet.label":"Meal & dietary needs","form.diet.ph":"Allergies, vegetarian, vegan, anything we should know…",
-    "form.part.label":"Would you like to do a Toast & Roast or another contribution?","form.part.yes":"Yes, count me in!","form.part.no":"Not this time",
+    "form.part.label":"Would you like to do a Toast & Roast or another contribution?",
+    "form.part.yes":"Yes, count me in!","form.part.yes.pl":"Yes, count us in!",
+    "form.part.no":"Not this time","form.part.no.pl":"Not this time",
     "form.notes.label":"Anything else?","form.notes.ph":"Questions, things we should know, anything on your mind…",
     "form.phone.label":"Phone number","form.phone.ph":"So Annabel can reach you",
     "form.submit":"Send response","form.sending":"Sending…",
@@ -156,9 +160,13 @@ const I18N = {
     "rsvp.letter.hint":"Vul het formulier hieronder in.",
     "rsvp.letter.cta":"RSVP hier",
     "form.names.label":"Naam(en)","form.names.ph":"Wie reageert er?",
-    "form.attend.label":"Ben je erbij?","form.attend.yes":"Ik ben erbij","form.attend.no":"Helaas niet",
+    "form.attend.label":"Ben je erbij?","form.attend.label.pl":"Zijn jullie erbij?",
+    "form.attend.yes":"Ik ben erbij","form.attend.yes.pl":"Wij zijn erbij",
+    "form.attend.no":"Helaas niet","form.attend.no.pl":"Wij komen helaas niet",
     "form.diet.label":"Maaltijd & dieetwensen","form.diet.ph":"Allergieën, vegetarisch, veganistisch, iets wat we moeten weten…",
-    "form.part.label":"Wil je een Toast & Roast of een andere bijdrage doen?","form.part.yes":"Ja, ik doe mee!","form.part.no":"Niet deze keer",
+    "form.part.label":"Wil je een Toast & Roast of een andere bijdrage doen?",
+    "form.part.yes":"Ja, ik doe mee!","form.part.yes.pl":"Ja, wij doen mee!",
+    "form.part.no":"Niet deze keer","form.part.no.pl":"Niet deze keer",
     "form.notes.label":"Nog iets?","form.notes.ph":"Vragen, dingen die we moeten weten, of gewoon iets wat je kwijt wilt…",
     "form.phone.label":"Telefoonnummer","form.phone.ph":"Zodat Annabel contact kan opnemen",
     "form.submit":"Verstuur reactie","form.sending":"Versturen…",
@@ -244,9 +252,13 @@ const I18N = {
     "rsvp.letter.hint":"Füllt einfach das Formular unten aus.",
     "rsvp.letter.cta":"RSVP hier",
     "form.names.label":"Name(n)","form.names.ph":"Wer antwortet?",
-    "form.attend.label":"Seid ihr dabei?","form.attend.yes":"Ich bin dabei","form.attend.no":"Leider nicht",
+    "form.attend.label":"Bist du dabei?","form.attend.label.pl":"Seid ihr dabei?",
+    "form.attend.yes":"Ich bin dabei","form.attend.yes.pl":"Wir sind dabei",
+    "form.attend.no":"Leider nicht","form.attend.no.pl":"Wir kommen leider nicht",
     "form.diet.label":"Essen & Ernährungswünsche","form.diet.ph":"Allergien, vegetarisch, vegan, alles was wir wissen sollten…",
-    "form.part.label":"Möchtest du einen Toast & Roast oder einen anderen Beitrag machen?","form.part.yes":"Ja, ich mache mit!","form.part.no":"Nicht diesmal",
+    "form.part.label":"Möchtest du einen Toast & Roast oder einen anderen Beitrag machen?",
+    "form.part.yes":"Ja, ich mache mit!","form.part.yes.pl":"Ja, wir machen mit!",
+    "form.part.no":"Nicht diesmal","form.part.no.pl":"Nicht diesmal",
     "form.notes.label":"Sonst noch etwas?","form.notes.ph":"Fragen, Dinge, die wir wissen sollten, oder einfach etwas, das euch beschäftigt…",
     "form.phone.label":"Telefonnummer","form.phone.ph":"Damit Annabel dich erreichen kann",
     "form.submit":"Antwort senden","form.sending":"Senden…",
@@ -393,6 +405,19 @@ document.addEventListener("DOMContentLoaded", ()=>{
   }
 });
 
+/* ── Singular / plural form labels ── */
+function applyPluralLabels(isPlural){
+  var bases = ['form.attend.label','form.attend.yes','form.attend.no','form.part.yes','form.part.no'];
+  bases.forEach(function(base){
+    var target = isPlural ? base + '.pl' : base;
+    document.querySelectorAll('[data-i18n="' + base + '"],[data-i18n="' + base + '.pl"]').forEach(function(el){
+      el.setAttribute('data-i18n', target);
+      var val = t(target);
+      if(val && val !== target) el.textContent = val;
+    });
+  });
+}
+
 /* ── Invitee lookup ── */
 async function lookupInviteeCode(code){
   const filter = encodeURIComponent(`LOWER({code})="${code.toLowerCase()}"`);
@@ -423,6 +448,9 @@ function showRsvpForm(guest){
   // Pre-fill hidden name field
   const namesInput = document.getElementById("f-names");
   if(namesInput) namesInput.value = guest.name;
+
+  // Apply singular/plural labels based on seat count
+  applyPluralLabels(guest.seats > 1);
 
   // Store guest globally for payload + stepper
   window._rsvpGuest = guest;

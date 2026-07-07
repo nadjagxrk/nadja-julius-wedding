@@ -412,15 +412,13 @@ function showRsvpForm(guest){
   if(gateEl)  gateEl.style.display  = "none";
   if(innerEl) innerEl.style.display = "";
 
-  // Personalize the photo hero (name replaces "RSVP" title, like home page)
-  const heroSection = document.querySelector(".rsvp-photo-hero");
-  const heroEyebrow = document.getElementById("rsvp-hero-eyebrow");
-  const heroTitle   = document.getElementById("rsvp-hero-title");
-  const heroSub     = document.getElementById("rsvp-hero-sub");
-  if(heroSection) heroSection.classList.add("rsvp-hero--personalized");
-  if(heroEyebrow) heroEyebrow.textContent = t("gate.hero.eyebrow");
-  if(heroTitle)   heroTitle.textContent   = guest.name;
-  if(heroSub)     heroSub.textContent     = t("gate.welcome.greeting");
+  // Show personalized name display in the form section
+  const nameHero    = document.getElementById("rsvp-name-hero");
+  const nameDisplay = document.getElementById("rsvp-name-display");
+  const nameSub     = document.getElementById("rsvp-name-sub");
+  if(nameHero)    nameHero.style.display  = "";
+  if(nameDisplay) nameDisplay.textContent = guest.name;
+  if(nameSub)     nameSub.textContent     = t("gate.welcome.greeting");
 
   // Pre-fill hidden name field
   const namesInput = document.getElementById("f-names");

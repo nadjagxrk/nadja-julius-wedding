@@ -66,6 +66,13 @@
 
   <!-- ── Form (revealed after gate) ── -->
   <div id="rsvp-form-inner" style="display:none">
+
+    <!-- Personalized name display -->
+    <div id="rsvp-name-hero" class="rsvp-name-hero wrap center" style="display:none">
+      <h2 class="rsvp-name-display" id="rsvp-name-display"></h2>
+      <p class="rsvp-name-sub" id="rsvp-name-sub"></p>
+    </div>
+
     <div class="wrap center" id="rsvp-intro" style="margin-bottom:clamp(2rem,5vh,3rem)">
       <p class="letter-deadline" style="color:var(--ink-soft)" data-i18n="rsvp.letter.deadline">Kindly let us know by 1 December 2026.</p>
     </div>
@@ -159,7 +166,7 @@
 </footer>
 
 <script src="image-slot.js"></script>
-<script src="i18n.js?v=6"></script>
+<script src="i18n.js?v=7"></script>
 <script>
   /* Hamburger */
   (function(){

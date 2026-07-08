@@ -74,9 +74,9 @@ const I18N = {
     "form.diet.label":"Meal & dietary needs","form.diet.ph":"Allergies, vegetarian, vegan, anything we should know…",
     "form.part.label":"Would you like to do a Toast & Roast or another contribution?",
     "form.part.yes":"Yes, count me in!","form.part.yes.pl":"Yes, count us in!",
-    "form.part.no":"Not this time","form.part.no.pl":"Not this time",
+    "form.part.no":"I'll pass","form.part.no.pl":"We'll pass",
     "form.notes.label":"Anything else?","form.notes.ph":"Questions, things we should know, anything on your mind…",
-    "form.phone.label":"Phone number","form.phone.ph":"So Annabel can reach you",
+    "form.phone.label":"Phone number","form.phone.ph":"So Annabel can coordinate with you","form.phone.ph.pl":"So Annabel can coordinate with you",
     "form.submit":"Send response","form.sending":"Sending…",
     "form.success.title":"You're on the list!",
     "form.success.body":"Thanks for letting us know — we can't wait to see you on the tenth.",
@@ -96,7 +96,7 @@ const I18N = {
     "gate.nope":"Can't find your code? Send us a message.",
     "gate.welcome.sub.one":"We've reserved a seat just for you",
     "gate.welcome.sub.many":"We've reserved {n} seats for you",
-    "form.guests.label":"How many of you are coming?",
+    "form.guests.label":"How many seats can we reserve for you?",
     "form.guests.hint":"up to {n}",
     "gate.welcome.dear":"Dear",
     "gate.welcome.greeting":"We can't wait to celebrate with you!",
@@ -167,9 +167,9 @@ const I18N = {
     "form.diet.label":"Maaltijd & dieetwensen","form.diet.ph":"Allergieën, vegetarisch, veganistisch, iets wat we moeten weten…",
     "form.part.label":"Wil je een Toast & Roast of een andere bijdrage doen?",
     "form.part.yes":"Ja, ik doe mee!","form.part.yes.pl":"Ja, wij doen mee!",
-    "form.part.no":"Niet deze keer","form.part.no.pl":"Niet deze keer",
+    "form.part.no":"Ik pas","form.part.no.pl":"Wij passen",
     "form.notes.label":"Nog iets?","form.notes.ph":"Vragen, dingen die we moeten weten, of gewoon iets wat je kwijt wilt…",
-    "form.phone.label":"Telefoonnummer","form.phone.ph":"Zodat Annabel contact kan opnemen",
+    "form.phone.label":"Telefoonnummer","form.phone.ph":"Zodat Annabel met je kan afstemmen","form.phone.ph.pl":"Zodat Annabel met jullie kan afstemmen",
     "form.submit":"Verstuur reactie","form.sending":"Versturen…",
     "form.success.title":"Je staat erbij!",
     "form.success.body":"Bedankt voor je reactie — we kunnen niet wachten om je op de tiende te zien.",
@@ -189,7 +189,7 @@ const I18N = {
     "gate.nope":"Code kwijt? Stuur ons een berichtje.",
     "gate.welcome.sub.one":"We hebben een plek voor je gereserveerd",
     "gate.welcome.sub.many":"We hebben {n} plekken voor jullie gereserveerd",
-    "form.guests.label":"Hoeveel van jullie komen er?",
+    "form.guests.label":"Voor hoeveel personen mogen we een plek reserveren?",
     "form.guests.hint":"max {n}",
     "gate.welcome.dear":"Beste",
     "gate.welcome.greeting":"We kunnen niet wachten om met jullie te vieren!",
@@ -260,9 +260,9 @@ const I18N = {
     "form.diet.label":"Essen & Ernährungswünsche","form.diet.ph":"Allergien, vegetarisch, vegan, alles was wir wissen sollten…",
     "form.part.label":"Möchtest du einen Toast & Roast oder einen anderen Beitrag machen?",
     "form.part.yes":"Ja, ich mache mit!","form.part.yes.pl":"Ja, wir machen mit!",
-    "form.part.no":"Nicht diesmal","form.part.no.pl":"Nicht diesmal",
+    "form.part.no":"Ich passe","form.part.no.pl":"Wir passen",
     "form.notes.label":"Sonst noch etwas?","form.notes.ph":"Fragen, Dinge, die wir wissen sollten, oder einfach etwas, das euch beschäftigt…",
-    "form.phone.label":"Telefonnummer","form.phone.ph":"Damit Annabel dich erreichen kann",
+    "form.phone.label":"Telefonnummer","form.phone.ph":"Damit Annabel sich mit dir abstimmen kann","form.phone.ph.pl":"Damit Annabel sich mit euch abstimmen kann",
     "form.submit":"Antwort senden","form.sending":"Senden…",
     "form.success.title":"Du bist dabei!",
     "form.success.body":"Danke für deine Rückmeldung — wir können es kaum erwarten, euch am Zehnten zu sehen.",
@@ -282,7 +282,7 @@ const I18N = {
     "gate.nope":"Code nicht zur Hand? Schreib uns einfach.",
     "gate.welcome.sub.one":"Wir haben einen Platz für dich reserviert",
     "gate.welcome.sub.many":"Wir haben {n} Plätze für euch reserviert",
-    "form.guests.label":"Wie viele von euch kommen?",
+    "form.guests.label":"Für wie viele dürfen wir einen Platz reservieren?",
     "form.guests.hint":"max {n}",
     "gate.welcome.dear":"Liebe",
     "gate.welcome.greeting":"Wir können es kaum erwarten, mit euch zu feiern!",
@@ -410,6 +410,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 /* ── Singular / plural form labels ── */
 function applyPluralLabels(isPlural){
+  // textContent elements
   var bases = ['form.attend.label','form.attend.yes','form.attend.no','form.part.yes','form.part.no'];
   bases.forEach(function(base){
     var target = isPlural ? base + '.pl' : base;
@@ -417,6 +418,16 @@ function applyPluralLabels(isPlural){
       el.setAttribute('data-i18n', target);
       var val = t(target);
       if(val && val !== target) el.textContent = val;
+    });
+  });
+  // placeholder elements
+  var phBases = ['form.phone.ph'];
+  phBases.forEach(function(base){
+    var target = isPlural ? base + '.pl' : base;
+    document.querySelectorAll('[data-i18n-ph="' + base + '"],[data-i18n-ph="' + base + '.pl"]').forEach(function(el){
+      el.setAttribute('data-i18n-ph', target);
+      var val = t(target);
+      if(val && val !== target) el.setAttribute('placeholder', val);
     });
   });
 }

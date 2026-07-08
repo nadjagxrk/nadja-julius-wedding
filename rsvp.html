@@ -28,6 +28,7 @@
   </button>
 </header>
 
+<main id="main">
 <!-- ============ PHOTO HERO ============ -->
 <section class="page-hero" data-screen-label="RSVP hero">
   <img class="page-hero-bg" src="assets/rsvp-couple.png" alt="" style="object-position:center 26%">
@@ -86,8 +87,8 @@
       <!-- Hidden name field — pre-filled from invitee lookup -->
       <input type="hidden" id="f-names" name="names" value="">
 
-      <div class="field">
-        <label data-i18n="form.attend.label">Will you be there?</label>
+      <fieldset class="field field-group">
+        <legend data-i18n="form.attend.label">Will you be there?</legend>
         <div class="attend-opts">
           <input type="radio" id="att-yes" name="attend" value="yes">
           <label for="att-yes" class="attend-card">
@@ -100,7 +101,7 @@
             <span class="attend-main" data-i18n="form.attend.no">Regretfully decline</span>
           </label>
         </div>
-      </div>
+      </fieldset>
 
       <div class="field" id="field-guests" style="display:none">
         <label data-i18n="form.guests.label">How many of you are coming?</label>
@@ -118,8 +119,8 @@
         <textarea id="f-diet" name="diet" rows="2" data-i18n-ph="form.diet.ph" placeholder="Allergies, vegetarian, vegan…"></textarea>
       </div>
 
-      <div class="field" id="field-part">
-        <label data-i18n="form.part.label">Would you like to do a Toast & Roast or another contribution?</label>
+      <fieldset class="field field-group" id="field-part">
+        <legend data-i18n="form.part.label">Would you like to do a Toast &amp; Roast or another contribution?</legend>
         <div class="attend-opts attend-opts--sm">
           <input type="radio" id="part-yes" name="part" value="yes">
           <label for="part-yes" class="attend-card">
@@ -127,10 +128,10 @@
           </label>
           <input type="radio" id="part-no" name="part" value="no">
           <label for="part-no" class="attend-card attend-card--soft">
-            <span class="attend-main" data-i18n="form.part.no">Not this time</span>
+            <span class="attend-main" data-i18n="form.part.no">I'll pass</span>
           </label>
         </div>
-      </div>
+      </fieldset>
 
       <div class="field" id="field-phone" style="display:none">
         <label for="f-phone" data-i18n="form.phone.label">Phone number</label>
@@ -160,6 +161,7 @@
   </div><!-- end #rsvp-form-inner -->
 </section>
 
+</main>
 <footer class="site-foot">
   <div class="fmono">Nadja <span class="amp">&amp;</span> Julius</div>
   <div class="fmeta">10 . 06 . 2027 &nbsp;·&nbsp; Castricum</div>
@@ -167,7 +169,7 @@
 </footer>
 
 <script src="image-slot.js"></script>
-<script src="i18n.js?v=9"></script>
+<script src="i18n.js?v=11"></script>
 <script>
   /* Hamburger */
   (function(){

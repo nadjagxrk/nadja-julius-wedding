@@ -442,7 +442,7 @@ async function lookupInviteeCode(code){
   const data = await res.json();
   if(!data.records || !data.records.length) return null;
   const f = data.records[0].fields || {};
-  return { name: f.name || "", seats: parseInt(f.seats) || 1, code: code.toLowerCase() };
+  return { name: f.name || "", seats: parseInt(f.seats) || 1, code: code.toLowerCase(), language: (f.language || "").toLowerCase() };
 }
 
 function showRsvpForm(guest){
@@ -512,6 +512,8 @@ function initGate(){
         if(gateError) gateError.style.display = "";
         return;
       }
+      // Switch to the guest's preferred language before showing the form
+      if(guest.language && LANGS.includes(guest.language)) setLang(guest.language);
       sessionStorage.setItem("rsvp_guest", JSON.stringify(guest));
       showRsvpForm(guest);
     }catch(err){

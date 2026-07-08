@@ -763,14 +763,13 @@ image-slot{
 .field > label{display:block;font-size:var(--eyebrow-fs);letter-spacing:var(--tracking);text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
 
 /* ── Fieldset reset for radio groups (a11y: fieldset+legend replaces orphaned label) ── */
-fieldset.field-group{border:none;margin:0;padding:0;margin-bottom:2.2rem;}
+fieldset.field-group{border:none;margin:0;padding:0;margin-bottom:2.2rem;min-width:0;}
 fieldset.field-group legend{
-  display:block;width:100%;float:left; /* keeps legend in normal document flow */
+  display:block;width:100%;
   font-family:var(--font-sans);font-size:var(--eyebrow-fs);font-weight:400;
   letter-spacing:var(--tracking);text-transform:uppercase;color:var(--muted);
   margin-bottom:.8rem;padding:0;
 }
-fieldset.field-group::after{content:"";display:table;clear:both;}
 .field input[type="text"],.field input[type="tel"],.field textarea{
   width:100%;font-family:var(--font-sans);font-weight:300;font-size:1.05rem;color:var(--ink);
   background:rgba(232,223,208,.3);border:none;border-bottom:1px solid rgba(196,168,130,.5);

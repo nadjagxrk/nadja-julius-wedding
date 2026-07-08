@@ -762,13 +762,11 @@ image-slot{
 .field{margin-bottom:2.2rem;}
 .field > label{display:block;font-size:var(--eyebrow-fs);letter-spacing:var(--tracking);text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
 
-/* ── Fieldset reset for radio groups (a11y: fieldset+legend replaces orphaned label) ── */
-fieldset.field-group{border:none;margin:0;padding:0;margin-bottom:2.2rem;min-width:0;}
-fieldset.field-group legend{
-  display:block;width:100%;
+/* ── Radio group label (a11y: role=group + aria-labelledby on the wrapper div) ── */
+.field-group-label{
+  margin:0 0 .8rem;padding:0;
   font-family:var(--font-sans);font-size:var(--eyebrow-fs);font-weight:400;
   letter-spacing:var(--tracking);text-transform:uppercase;color:var(--muted);
-  margin-bottom:.8rem;padding:0;
 }
 .field input[type="text"],.field input[type="tel"],.field textarea{
   width:100%;font-family:var(--font-sans);font-weight:300;font-size:1.05rem;color:var(--ink);
@@ -990,12 +988,20 @@ fieldset.field-group legend{
     flex-direction:column;align-items:center;justify-content:center;
     gap:2.8rem;
     background:var(--paper);
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
     font-size:1.05rem;letter-spacing:.24em;
     transform:translateX(100%);
     transition:transform .4s var(--ease);
     pointer-events:none;
   }
   .nav-open .nav{transform:translateX(0);pointer-events:auto;}
+  /* iOS Safari: backdrop-filter on site-head traps fixed children — remove it when nav is open */
+  .nav-open .site-head{
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    background:var(--paper);
+  }
   /* Force dark text in overlay regardless of page hero color */
   .nav a,
   body.home .nav a{
@@ -1025,9 +1031,11 @@ fieldset.field-group legend{
   .hero-meta i{display:none;}
   .hero-inner{padding:5rem 1.25rem 0;}
 
-  /* countdown */
-  .cd-grid{gap:clamp(1.2rem,6vw,2.5rem);}
-  .cd-num{font-size:clamp(2.6rem,13vw,4.5rem);}
+  /* countdown — single row on mobile */
+  .cd-grid{gap:clamp(.5rem,3vw,1.2rem);flex-wrap:nowrap;}
+  .cd-unit{flex:1;min-width:0;}
+  .cd-num{font-size:clamp(1.6rem,8vw,3rem);}
+  .cd-label{letter-spacing:.1em;}
 
   /* gallery */
   .gallery-even{grid-template-columns:1fr;gap:.9rem;max-width:380px;margin-inline:auto;}
@@ -1108,6 +1116,10 @@ fieldset.field-group legend{
   .hero-names{font-size:clamp(3rem,16vw,4.5rem) !important;}
   .monogram{font-size:1rem;}
   .lang button{padding:.3rem .22rem;font-size:.64rem;}
+  /* countdown even tighter at smallest screens */
+  .cd-grid{gap:clamp(.3rem,2vw,.8rem);}
+  .cd-num{font-size:clamp(1.4rem,7.5vw,2rem);}
+  .cd-label{font-size:.5rem;letter-spacing:.08em;}
 }
 
 @media (prefers-reduced-motion:reduce){

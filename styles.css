@@ -5,8 +5,8 @@
 
 :root{
   --ink:#2E2420;          /* dark shore — primary text */
-  --ink-soft:#8C7260;     /* driftwood — secondary text */
-  --muted:#8C7260;        /* driftwood — labels */
+  --ink-soft:#705848;     /* driftwood — secondary text (6.3:1 on --paper, WCAG AA ✓) */
+  --muted:#705848;        /* driftwood — labels     (6.3:1 on --paper, WCAG AA ✓) */
   --paper:#FAF7F2;        /* seafoam white — background */
   --cream:#E8DFD0;        /* sand — surface / section */
   --cream-deep:#DDD0BC;   /* deeper sand */
@@ -18,7 +18,7 @@
   --blue-tint:#F0E8DB;    /* light warm dune tint */
   --clay:#C4A882;
   --clay-deep:#C4A882;    /* countdown numbers */
-  --sage:#8C7260;
+  --sage:#705848;
   --blush:#EDE4D8;
 
   /* warm, gently-desaturated photo treatment (boho, not stark B&W) */
@@ -331,12 +331,12 @@ image-slot{
   display:inline-block;
   font-family:var(--font-sans);font-size:.66rem;letter-spacing:.18em;
   text-transform:uppercase;text-decoration:none;
-  color:rgba(245,237,224,.55);
-  border-bottom:1px solid rgba(245,237,224,.25);
+  color:rgba(245,237,224,.88);
+  border-bottom:1px solid rgba(245,237,224,.5);
   padding-bottom:.2rem;
   transition:color .25s,border-color .25s;
 }
-.location-map-btn:hover{color:rgba(245,237,224,.9);border-color:rgba(245,237,224,.6);}
+.location-map-btn:hover{color:rgba(245,237,224,1);border-color:rgba(245,237,224,.8);}
 
 /* --- frosted glass card — dark editorial (Josefin + Cormorant) --- */
 :root{
@@ -742,7 +742,7 @@ image-slot{
 }
 .accom-card-note{
   font-family:var(--font-sans);font-size:.8rem;
-  color:rgba(245,237,224,.68);margin:0;line-height:1.5;flex:1;
+  color:rgba(245,237,224,.90);margin:0;line-height:1.5;flex:1;
 }
 .accom-book{
   font-family:var(--font-sans);font-size:.64rem;letter-spacing:.18em;
@@ -761,14 +761,29 @@ image-slot{
 .rsvp-success .btn{display:inline-block;}
 .field{margin-bottom:2.2rem;}
 .field > label{display:block;font-size:var(--eyebrow-fs);letter-spacing:var(--tracking);text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
+
+/* ── Fieldset reset for radio groups (a11y: fieldset+legend replaces orphaned label) ── */
+fieldset.field-group{border:none;margin:0;padding:0;margin-bottom:2.2rem;}
+fieldset.field-group legend{
+  display:block;width:100%;float:left; /* keeps legend in normal document flow */
+  font-family:var(--font-sans);font-size:var(--eyebrow-fs);font-weight:400;
+  letter-spacing:var(--tracking);text-transform:uppercase;color:var(--muted);
+  margin-bottom:.8rem;padding:0;
+}
+fieldset.field-group::after{content:"";display:table;clear:both;}
 .field input[type="text"],.field input[type="tel"],.field textarea{
   width:100%;font-family:var(--font-sans);font-weight:300;font-size:1.05rem;color:var(--ink);
   background:rgba(232,223,208,.3);border:none;border-bottom:1px solid rgba(196,168,130,.5);
   padding:.75rem 1rem;line-height:1.6;transition:border-color .25s,background .25s;resize:none;
 }
-.field input:focus,.field textarea:focus{outline:none;border-color:var(--blue);background:rgba(232,223,208,.5);}
+.field input:focus-visible,.field textarea:focus-visible{
+  border-color:var(--blue);
+  background:rgba(232,223,208,.5);
+  outline:2px solid var(--blue);
+  outline-offset:2px;
+}
 .field textarea{min-height:4.8em;}
-.field input::placeholder,.field textarea::placeholder{color:#b7afa3;}
+.field input::placeholder,.field textarea::placeholder{color:#8A7F78;}
 
 /* ── Attend / part card buttons ── */
 .attend-opts{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
@@ -795,6 +810,11 @@ image-slot{
 .attend-opts input:checked + .attend-card .attend-orn{color:var(--blue-deep);}
 .attend-opts input:checked + .attend-card .attend-main{color:var(--ink);}
 .attend-card:hover{border-color:var(--blue);}
+/* Keyboard focus: show ring on the visible card when the hidden radio is focused */
+.attend-opts input:focus-visible + .attend-card{
+  outline:2px solid var(--blue);
+  outline-offset:2px;
+}
 /* Compact variant for secondary questions (contribution) */
 .attend-opts--sm .attend-card{min-height:3.4rem;padding:.9rem 1rem;}
 

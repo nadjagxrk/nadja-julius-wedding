@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RSVP — Nadja & Julius</title>
+<title>RSVP — Nadja &amp; Julius</title>
+<meta name="description" content="Let us know if you'll be joining us on 10 June 2027 at Strand Deining, Castricum aan Zee.">
+<meta property="og:title" content="RSVP — Nadja &amp; Julius">
+<meta property="og:description" content="Join us for our wedding on 10 June 2027 at Strand Deining, Castricum aan Zee.">
+<meta property="og:image" content="assets/rsvp-couple.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -14,7 +20,7 @@
 <a class="skip-nav" href="#rsvp-form-section">Skip to main content</a>
 
 <header class="site-head">
-  <a class="monogram" href="index.html">N<span class="amp">&amp;</span>J</a>
+  <a class="monogram" href="index.html">N<span class="script-amp">&amp;</span>J</a>
   <nav class="nav" id="main-nav">
     <a href="index.html" data-i18n="nav.home">Home</a>
     <a href="day.html" data-i18n="nav.day">The Day</a>
@@ -29,29 +35,39 @@
 </header>
 
 <main id="main">
-<!-- ============ PHOTO HERO ============ -->
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="page-hero" data-screen-label="RSVP hero">
-  <img class="page-hero-bg" src="assets/rsvp-couple.png" alt="" style="object-position:center 26%">
+  <div class="parallax-wrap" style="position:absolute;inset:0">
+    <img class="page-hero-bg parallax-img" src="assets/rsvp-couple.png" alt="" width="1920" height="1080" style="object-position:center 26%">
+  </div>
   <div class="page-hero-scrim"></div>
   <div class="page-hero-inner wrap">
     <a class="back-btn" href="index.html" data-i18n="nav.home">Home</a>
-    <p class="eyebrow" data-i18n="day.hero.eyebrow">10 June 2027 · Strand Deining</p>
-    <h1 class="page-title" data-i18n="rsvp.title">RSVP</h1>
-    <p class="page-sub lede" data-i18n="rsvp.sub">Please let us know whether you'll be there.</p>
+    <p class="eyebrow on-dark" data-i18n="day.hero.eyebrow">10 June 2027 · Strand Deining</p>
+    <h1 class="page-title kinetic" data-i18n="rsvp.title">RSVP</h1>
+    <p class="page-sub" data-i18n="rsvp.sub">Please let us know whether you'll be there.</p>
   </div>
 </section>
 
-<!-- ============ FORM ============ -->
+<!-- ═══════════════════ FORM ═══════════════════ -->
 <section class="section" id="rsvp-form-section" style="padding-top:clamp(3.5rem,8vh,6rem)">
 
   <!-- ── Gate ── -->
   <div id="rsvp-gate">
     <div class="wrap center reveal" style="margin-bottom:clamp(2rem,5vh,3rem)">
       <div class="ornament" style="margin-bottom:1.4rem"><i></i></div>
-      <p class="letter-deadline" style="color:var(--ink-soft)" data-i18n="rsvp.letter.deadline">Kindly let us know by 1 December 2026.</p>
+      <p class="letter-deadline" style="color:var(--muted)" data-i18n="rsvp.letter.deadline">Kindly let us know by 1 December 2026.</p>
     </div>
     <div class="wrap">
       <div class="rsvp-gate-card reveal">
+
+        <!-- Code badge: only shown when ?code=XXX is in the URL -->
+        <div id="code-badge" style="display:none;margin-bottom:1.2rem;padding:.7rem 1rem;background:rgba(176,137,79,.1);border:1px solid rgba(176,137,79,.28);align-items:center;justify-content:space-between;gap:.8rem">
+          <span style="font-family:var(--font-sans);font-size:.78rem;letter-spacing:.08em;color:var(--muted)">Code: <strong id="code-badge-val" style="font-family:'Courier New',monospace;letter-spacing:.12em;color:var(--ink)"></strong></span>
+          <button type="button" id="code-copy-btn" onclick="copyCode()" style="font-family:var(--font-sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border:1px solid var(--muted);background:none;color:var(--muted);cursor:pointer;flex-shrink:0">Copy</button>
+        </div>
+
         <div class="field">
           <label for="f-code" data-i18n="gate.code.label">Invitation code</label>
           <input type="text" id="f-code" name="code" data-i18n-ph="gate.code.ph" placeholder="Your personal code" autocomplete="off" autocapitalize="none" spellcheck="false">
@@ -76,19 +92,16 @@
     </div>
 
     <div class="wrap center" id="rsvp-intro" style="margin-bottom:clamp(2rem,5vh,3rem)">
-      <p class="letter-deadline" style="color:var(--ink-soft)" data-i18n="rsvp.letter.deadline">Kindly let us know by 1 December 2026.</p>
+      <p class="letter-deadline" style="color:var(--muted)" data-i18n="rsvp.letter.deadline">Kindly let us know by 1 December 2026.</p>
     </div>
     <div class="wrap">
 
-    <!-- Form -->
     <form id="rsvp-form" class="rsvp-wrap reveal" novalidate>
-      <input type="hidden" name="_subject" value="RSVP — Nadja & Julius">
-
-      <!-- Hidden name field — pre-filled from invitee lookup -->
+      <input type="hidden" name="_subject" value="RSVP — Nadja &amp; Julius">
       <input type="hidden" id="f-names" name="names" value="">
 
-      <fieldset class="field field-group">
-        <legend data-i18n="form.attend.label">Will you be there?</legend>
+      <div class="field" role="group" aria-labelledby="attend-label">
+        <p id="attend-label" class="field-group-label" data-i18n="form.attend.label">Will you be there?</p>
         <div class="attend-opts">
           <input type="radio" id="att-yes" name="attend" value="yes">
           <label for="att-yes" class="attend-card">
@@ -101,7 +114,7 @@
             <span class="attend-main" data-i18n="form.attend.no">Regretfully decline</span>
           </label>
         </div>
-      </fieldset>
+      </div>
 
       <div class="field" id="field-guests" style="display:none">
         <label data-i18n="form.guests.label">How many of you are coming?</label>
@@ -115,12 +128,12 @@
       </div>
 
       <div class="field" id="field-diet">
-        <label for="f-diet" data-i18n="form.diet.label">Meal & dietary needs</label>
+        <label for="f-diet" data-i18n="form.diet.label">Meal &amp; dietary needs</label>
         <textarea id="f-diet" name="diet" rows="2" data-i18n-ph="form.diet.ph" placeholder="Allergies, vegetarian, vegan…"></textarea>
       </div>
 
-      <fieldset class="field field-group" id="field-part">
-        <legend data-i18n="form.part.label">Would you like to do a Toast &amp; Roast or another contribution?</legend>
+      <div class="field" id="field-part" role="group" aria-labelledby="part-label">
+        <p id="part-label" class="field-group-label" data-i18n="form.part.label">Would you like to do a Toast &amp; Roast or another contribution?</p>
         <div class="attend-opts attend-opts--sm">
           <input type="radio" id="part-yes" name="part" value="yes">
           <label for="part-yes" class="attend-card">
@@ -131,7 +144,7 @@
             <span class="attend-main" data-i18n="form.part.no">I'll pass</span>
           </label>
         </div>
-      </fieldset>
+      </div>
 
       <div class="field" id="field-phone" style="display:none">
         <label for="f-phone" data-i18n="form.phone.label">Phone number</label>
@@ -149,7 +162,7 @@
       </div>
     </form>
 
-    <!-- Success state (shown after submission) -->
+    <!-- Success state -->
     <div id="rsvp-success" class="rsvp-success" style="display:none">
       <div class="ornament" style="margin-bottom:2rem"><i></i></div>
       <h2 id="rsvp-success-title" class="block-title" data-i18n="form.success.title">You're on the list!</h2>
@@ -157,33 +170,78 @@
       <a class="btn" href="index.html" style="margin-top:2.4rem" data-i18n="form.backhome">Back to home</a>
     </div>
 
-    </div><!-- end .wrap -->
-  </div><!-- end #rsvp-form-inner -->
+    </div>
+  </div>
 </section>
 
 </main>
+
 <footer class="site-foot">
-  <div class="fmono">Nadja <span class="amp">&amp;</span> Julius</div>
+  <div class="fmono">Nadja <span class="script-amp">&amp;</span> Julius</div>
   <div class="fmeta">10 . 06 . 2027 &nbsp;·&nbsp; Castricum</div>
   <div class="ftag" data-i18n="footer.tag">We can't wait to celebrate with you</div>
 </footer>
 
 <script src="image-slot.js"></script>
-<script src="i18n.js?v=11"></script>
+<script src="i18n.js?v=13"></script>
+<script src="script.js"></script>
 <script>
-  /* Hamburger */
+  /* ── Code capture, gate auto-fill & auto-submit ────────────
+     Priority: ?code= in URL  →  sessionStorage  →  nothing.
+     On any hit: pre-fill #f-code and programmatically click the
+     gate submit so guests with a personalised link bypass typing.
+  ──────────────────────────────────────────────────────────── */
   (function(){
-    var btn = document.getElementById("hamburger");
-    var body = document.body;
-    if(!btn) return;
-    btn.addEventListener("click", function(){
-      var open = body.classList.toggle("nav-open");
-      btn.setAttribute("aria-expanded", open);
-    });
-    document.querySelectorAll("#main-nav a").forEach(function(a){
-      a.addEventListener("click", function(){ body.classList.remove("nav-open"); btn.setAttribute("aria-expanded","false"); });
-    });
+    var code = new URLSearchParams(window.location.search).get('code')
+            || sessionStorage.getItem('rsvpCode');
+    if (!code) return;
+
+    // Always keep sessionStorage fresh
+    sessionStorage.setItem('rsvpCode', code);
+
+    // Pre-fill the gate input
+    var field = document.getElementById('f-code');
+    if (field) field.value = code;
+
+    // Auto-trigger gate submit — waits a tick so gate-click
+    // handlers registered by script.js are already attached.
+    var done = false;
+    function tryGate() {
+      if (done) return;
+      var btn = document.getElementById('gate-submit');
+      if (btn) { btn.click(); done = true; }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function(){ setTimeout(tryGate, 150); });
+    } else {
+      setTimeout(tryGate, 150);
+    }
   })();
+
+  /* ── Code badge: show when ?code=XXX is in the URL ─────── */
+  (function(){
+    try{
+      var urlCode = new URLSearchParams(window.location.search).get("code");
+      if(urlCode){
+        var badge = document.getElementById("code-badge");
+        var val   = document.getElementById("code-badge-val");
+        if(badge && val){
+          val.textContent = urlCode.toUpperCase();
+          badge.style.display = "flex";
+        }
+      }
+    }catch(e){}
+  })();
+
+  function copyCode(){
+    try{
+      var val = (document.getElementById("code-badge-val")||{}).textContent || "";
+      navigator.clipboard.writeText(val).then(function(){
+        var btn = document.getElementById("code-copy-btn");
+        if(btn){ btn.textContent = "Copied!"; setTimeout(function(){ btn.textContent = "Copy"; }, 2000); }
+      });
+    }catch(e){}
+  }
 
   /* Hide/show fields based on attend + part selections */
   (function(){
@@ -199,7 +257,6 @@
       var show = val !== "no";
       if(dietField)   dietField.style.display   = show ? "" : "none";
       if(partField)   partField.style.display   = show ? "" : "none";
-      // Show stepper only when attending AND household has >1 seat
       var multiSeat = window._rsvpGuest && window._rsvpGuest.seats > 1;
       if(guestsField) guestsField.style.display = (show && multiSeat) ? "" : "none";
       if(!show && phoneField) phoneField.style.display = "none";

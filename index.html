@@ -3,16 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nadja & Julius — 10 June 2027</title>
+<title>Nadja &amp; Julius — 10 June 2027</title>
+<meta name="description" content="Join us for our wedding on 10 June 2027 at Strand Deining, Castricum aan Zee.">
+<meta property="og:title" content="Nadja &amp; Julius — 10 June 2027">
+<meta property="og:description" content="Join us for our wedding on the beach at Strand Deining, Castricum aan Zee.">
+<meta property="og:image" content="assets/hero-beach.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Josefin+Sans:wght@100;200;300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="home">
 <a class="skip-nav" href="#main">Skip to main content</a>
+
 <header class="site-head">
-  <a class="monogram" href="index.html">N<span class="amp">&amp;</span>J</a>
+  <a class="monogram" href="index.html">N<span class="script-amp">&amp;</span>J</a>
   <nav class="nav" id="main-nav">
     <a href="index.html" class="active" data-i18n="nav.home">Home</a>
     <a href="day.html" data-i18n="nav.day">The Day</a>
@@ -25,17 +32,26 @@
     <span></span><span></span><span></span>
   </button>
 </header>
+
 <main id="main">
-<!-- ============ HERO ============ -->
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero" data-screen-label="Home hero">
-  <img class="hero-base" src="assets/hero-beach.png" alt="Aerial view of waves washing over the beach">
+  <div class="parallax-wrap" style="position:absolute;inset:0">
+    <img class="hero-base parallax-img" src="assets/hero-beach.png" alt="Aerial view of waves washing over the beach" width="1920" height="1080">
+  </div>
   <div class="hero-waves" aria-hidden="true"></div>
-  <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto" src="hero-video.mp4" onloadeddata="this.classList.add('ready')" onerror="this.style.display='none'"></video>
+  <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto"
+    poster="assets/hero-beach.png"
+    onloadeddata="this.classList.add('ready')"
+    onerror="this.style.display='none'">
+    <source src="hero-video.mp4" type="video/mp4">
+  </video>
   <div class="hero-scrim"></div>
   <div class="hero-inner">
-    <p class="eyebrow on-dark" data-i18n="hero.eyebrow">We're getting married</p>
-    <h1 class="hero-names" style="letter-spacing: -2px">Nadja<span class="script-amp" style="color: rgb(255, 255, 255)">&amp;</span>Julius</h1>
-    <div class="hero-meta">
+    <p class="eyebrow on-dark reveal" data-i18n="hero.eyebrow">We're getting married</p>
+    <h1 class="hero-names"><span class="kinetic">Nadja</span><span class="script-amp">&amp;</span><span class="kinetic">Julius</span></h1>
+    <div class="hero-meta reveal">
       <span data-i18n="hero.date">10 June 2027</span>
       <i></i>
       <span data-i18n="hero.place">Strand Deining · Castricum</span>
@@ -43,70 +59,84 @@
   </div>
   <a class="hero-scroll" href="#welcome"><span data-i18n="hero.scroll">Scroll</span></a>
 </section>
-<!-- ============ WELCOME ============ -->
+
+<!-- ═══════════════════ 01 WELCOME ═══════════════════ -->
 <section class="section" id="welcome">
-  <div class="wrap center reveal">
-    <p class="eyebrow" data-i18n="welcome.eyebrow">Welcome</p>
-    <h2 class="block-title" data-i18n="welcome.title">We're so glad you're here</h2>
-    <div class="ornament" style="margin-block:1.8rem 2rem"><i></i></div>
-    <p class="measure lede" data-i18n="welcome.body">After all these years, we're tying the knot.</p>
+  <div class="wrap center">
+    <p class="eyebrow reveal" data-i18n="welcome.eyebrow"><em>01 — Welcome</em></p>
+    <h2 class="block-title reveal" data-i18n="welcome.title">We're so glad you're here</h2>
+    <div class="ornament reveal" style="margin-block:1.8rem 2rem"><i></i></div>
+    <p class="measure lede reveal" data-i18n="welcome.body">After all these years, we're tying the knot.</p>
+    <a class="btn reveal" href="rsvp.html" style="margin-top:2.4rem" data-i18n="rsvpband.cta">Respond now</a>
   </div>
 </section>
-<!-- ============ COUNTDOWN ============ -->
-<section class="section cream countdown" data-screen-label="Countdown">
-  <div class="wrap center reveal">
-    <p class="eyebrow" data-i18n="count.eyebrow">Counting down</p>
-    <h2 class="block-title" data-i18n="count.title">Until we say "I do"</h2>
+
+<!-- ═══════════════════ 02 COUNTDOWN ═══════════════════ -->
+<section class="section cream" data-screen-label="Countdown">
+  <div class="wrap center">
+    <p class="eyebrow reveal" data-i18n="count.eyebrow"><em>02 — Counting down</em></p>
+    <h2 class="block-title reveal" data-i18n="count.title">Until we say "I do"</h2>
     <div class="cd-grid" id="cd-grid">
-      <div class="cd-unit"><div class="cd-num" id="cd-days">--</div><div class="cd-label" data-i18n="count.days">Days</div></div>
-      <div class="cd-unit"><div class="cd-num" id="cd-hours">--</div><div class="cd-label" data-i18n="count.hours">Hours</div></div>
-      <div class="cd-unit"><div class="cd-num" id="cd-mins">--</div><div class="cd-label" data-i18n="count.minutes">Minutes</div></div>
-      <div class="cd-unit"><div class="cd-num" id="cd-secs">--</div><div class="cd-label" data-i18n="count.seconds">Seconds</div></div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-days"><span class="digit">--</span></div>
+        <div class="cd-label" data-i18n="count.days">Days</div>
+      </div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-hours"><span class="digit">--</span></div>
+        <div class="cd-label" data-i18n="count.hours">Hours</div>
+      </div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-mins"><span class="digit">--</span></div>
+        <div class="cd-label" data-i18n="count.minutes">Minutes</div>
+      </div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-secs"><span class="digit">--</span></div>
+        <div class="cd-label" data-i18n="count.seconds">Seconds</div>
+      </div>
     </div>
     <p class="cd-over" id="cd-over" style="display:none" data-i18n="count.over">Today is the day!</p>
   </div>
 </section>
-<!-- ============ DETAILS + WHERE TO STAY (full-bleed) ============ -->
-<!-- ============ LOCATION ============ -->
+
+<!-- ═══════════════════ VENUE / LOCATION ═══════════════════ -->
 <section class="location-section" data-screen-label="Location">
-  <img class="invite-bg" src="assets/location.jpg" alt="Beach ceremony setup at Strand Deining">
-  <div class="invite-scrim"></div>
-  <div class="location-card reveal">
-    <p class="eyebrow on-dark" data-i18n="details.eyebrow">The venue</p>
-    <h2 class="location-name" data-i18n="details.where.val">Strand Deining</h2>
-    <p class="location-sub" data-i18n="details.where.note">Castricum aan Zee</p>
-    <a class="location-map-btn" href="https://www.google.com/maps/search/Strand+Deining+Castricum+aan+Zee" target="_blank" rel="noopener" data-i18n="details.map">View on Maps</a>
+  <div class="location-photo parallax-wrap">
+    <img class="parallax-img" src="assets/location.jpg" alt="Beach ceremony setup at Strand Deining" width="960" height="1200" loading="lazy">
+  </div>
+  <div class="location-content">
+    <p class="eyebrow reveal" data-i18n="details.eyebrow">The venue</p>
+    <h2 class="location-name reveal" data-i18n="details.where.val">Strand Deining</h2>
+    <p class="location-sub reveal" data-i18n="details.where.note">Castricum aan Zee</p>
+    <a class="location-map-btn reveal" href="https://www.google.com/maps/search/Strand+Deining+Castricum+aan+Zee" target="_blank" rel="noopener" data-i18n="details.map">View on Maps</a>
   </div>
 </section>
-<!-- ============ DAY TEASER ============ -->
-<section class="section cream">
-  <div class="wrap center reveal measure">
-    <p class="eyebrow" data-i18n="dayteaser.eyebrow">Save the date</p>
-    <h2 class="block-title" data-i18n="dayteaser.title">How the day unfolds</h2>
-    <p class="lede" style="margin-top:1.4rem" data-i18n="dayteaser.body">From the first welcome to the last dance.</p>
-    <a class="btn" href="day.html" style="margin-top:2.2rem" data-i18n="dayteaser.cta">See the schedule</a>
-  </div>
-</section>
-<!-- ============ GALLERY ============ -->
-<section class="section">
-  <div class="gallery-strip-wrap reveal">
-    <div class="gallery-strip-track" id="gallery-track">
-      <figure class="gframe"><img src="assets/g1.jpg" alt="Nadja & Julius"></figure>
-      <figure class="gframe"><img src="assets/g2.jpg" alt="Nadja & Julius"></figure>
-      <figure class="gframe"><img src="assets/g3.jpg" alt="Nadja & Julius"></figure>
-      <figure class="gframe"><img src="assets/g4.jpg" alt="Nadja & Julius"></figure>
-      <figure class="gframe"><img src="assets/g5.jpg" alt="Nadja & Julius"></figure>
-      <figure class="gframe"><img src="assets/g6.jpg" alt="Nadja & Julius"></figure>
-      <figure class="gframe"><img src="assets/g7.jpg" alt="Nadja & Julius"></figure>
-      <figure class="gframe"><img src="assets/g8.jpg" alt="Nadja & Julius"></figure>
+
+<!-- ═══════════════════ 03 GALLERY ═══════════════════ -->
+<section class="gallery-pin" data-screen-label="Gallery">
+  <div class="gallery-pin-sticky">
+    <div class="gallery-pin-header">
+      <p class="eyebrow" data-i18n="gallery.eyebrow"><em>03 — Moments</em></p>
+      <h2 class="block-title" data-i18n="gallery.title" style="max-width:14ch">Some of our favourite moments</h2>
     </div>
-    <button class="gallery-prev" aria-label="Previous">&#8592;</button>
-    <button class="gallery-next" aria-label="Next">&#8594;</button>
+    <div class="gallery-pin-viewport">
+      <div class="gallery-pin-track">
+        <div class="gallery-pin-spacer" aria-hidden="true"></div>
+        <figure class="gframe"><img src="assets/g1.jpg" alt="Nadja &amp; Julius" loading="lazy" width="600" height="800"></figure>
+        <figure class="gframe"><img src="assets/g2.jpg" alt="Nadja &amp; Julius" loading="lazy" width="600" height="800"></figure>
+        <figure class="gframe"><img src="assets/g3.jpg" alt="Nadja &amp; Julius" loading="lazy" width="600" height="800"></figure>
+        <figure class="gframe"><img src="assets/g4.jpg" alt="Nadja &amp; Julius" loading="lazy" width="600" height="800"></figure>
+        <figure class="gframe"><img src="assets/g5.jpg" alt="Nadja &amp; Julius" loading="lazy" width="600" height="800"></figure>
+        <figure class="gframe"><img src="assets/g6.jpg" alt="Nadja &amp; Julius" loading="lazy" width="600" height="800"></figure>
+        <figure class="gframe"><img src="assets/g7.jpg" alt="Nadja &amp; Julius" loading="lazy" width="600" height="800"></figure>
+        <figure class="gframe"><img src="assets/g8.jpg" alt="Nadja &amp; Julius" loading="lazy" width="600" height="800"></figure>
+      </div>
+    </div>
   </div>
 </section>
-<!-- ============ INVITATION (envelope + letter) ============ -->
+
+<!-- ═══════════════════ INVITE / RSVP TEASER ═══════════════════ -->
 <section class="invite-section" data-screen-label="Invitation">
-  <img class="invite-bg" src="assets/rsvp-couple.png" alt="">
+  <img class="invite-bg" src="assets/rsvp-couple.png" alt="" width="1920" height="1080" loading="lazy">
   <div class="invite-scrim"></div>
   <div class="invite-stage reveal">
     <div class="invite-card">
@@ -119,75 +149,21 @@
       </svg>
       <h2 class="letter-title" data-i18n="rsvp.letter.title">Will you be there?</h2>
       <p class="letter-deadline" data-i18n="rsvp.letter.deadline">Kindly let us know by 1 December 2026.</p>
-      <a class="btn" href="rsvp.html" style="margin-top:1.6rem" data-i18n="rsvpband.cta">Respond now</a>
+      <a class="btn" href="rsvp.html" style="margin-top:1.8rem" data-i18n="rsvpband.cta">Respond now</a>
     </div>
   </div>
 </section>
-<!-- ============ FOOTER ============ -->
+
 </main>
+
 <footer class="site-foot">
-  <div class="fmono">Nadja <span class="amp">&amp;</span> Julius</div>
+  <div class="fmono">Nadja <span class="script-amp">&amp;</span> Julius</div>
   <div class="fmeta">10 . 06 . 2027 &nbsp;·&nbsp; Castricum</div>
   <div class="ftag" data-i18n="footer.tag">We can't wait to celebrate with you</div>
 </footer>
-<script src="image-slot.js"></script>
-<script src="i18n.js?v=11"></script>
-<script>
-  /* Hamburger menu */
-  (function(){
-    var btn = document.getElementById("hamburger");
-    var body = document.body;
-    if(!btn) return;
-    btn.addEventListener("click", function(){
-      var open = body.classList.toggle("nav-open");
-      btn.setAttribute("aria-expanded", open);
-    });
-    document.querySelectorAll("#main-nav a").forEach(function(a){
-      a.addEventListener("click", function(){ body.classList.remove("nav-open"); btn.setAttribute("aria-expanded","false"); });
-    });
-  })();
-  /* Hero video */
-  (function(){
-    var v = document.getElementById("heroVideo");
-    if(!v) return;
-    v.src = "hero-video.mp4";
-    v.load();
-    v.play().catch(function(){});
-  })();
-  /* Gallery strip */
-  (function(){
-    var track = document.getElementById('gallery-track');
-    if(!track) return;
-    function scrollBy(dir){
-      var card = track.querySelector('.gframe');
-      var gap = parseInt(getComputedStyle(track).gap) || 12;
-      var w = card ? card.offsetWidth + gap : 200;
-      track.scrollBy({left: dir * w, behavior:'smooth'});
-    }
-    var prev = document.querySelector('.gallery-prev');
-    var next = document.querySelector('.gallery-next');
-    if(prev) prev.addEventListener('click', function(){ scrollBy(-1); });
-    if(next) next.addEventListener('click', function(){ scrollBy(1); });
-  })();
 
-  /* Countdown to the ceremony — 15:00 CEST, 10 June 2027 */
-  (function(){
-    var target = new Date("2027-06-10T15:00:00+02:00").getTime();
-    var dE=document.getElementById("cd-days"), hE=document.getElementById("cd-hours"),
-        mE=document.getElementById("cd-mins"), sE=document.getElementById("cd-secs"),
-        grid=document.getElementById("cd-grid"), over=document.getElementById("cd-over");
-    if(!dE) return;
-    function p(n){ return (n<10?"0":"")+n; }
-    function tick(){
-      var diff = target - Date.now();
-      if(diff <= 0){ if(grid) grid.style.display="none"; if(over) over.style.display=""; return; }
-      dE.textContent = Math.floor(diff/86400000);
-      hE.textContent = p(Math.floor(diff%86400000/3600000));
-      mE.textContent = p(Math.floor(diff%3600000/60000));
-      sE.textContent = p(Math.floor(diff%60000/1000));
-    }
-    tick(); setInterval(tick, 1000);
-  })();
-</script>
+<script src="image-slot.js"></script>
+<script src="i18n.js?v=13"></script>
+<script src="script.js"></script>
 </body>
 </html>

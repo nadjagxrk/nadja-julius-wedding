@@ -272,6 +272,112 @@
     partRadios.forEach(function(r){ r.addEventListener("change", updatePart); });
     updateAttend();
   })();
+
+  /* ── Pre-fill form with previous Airtable response ──────────
+     Fetches the guest's existing record by code as soon as the
+     page loads (parallel to the gate auto-submit). Once both the
+     data is ready AND the form is visible, fields are populated
+     and the submit button reads "Update response".
+  ──────────────────────────────────────────────────────────── */
+  (function(){
+    var AT_TOKEN = 'patjGlixZk200CoXp';
+    var AT_BASE  = 'appr0YjU7iNuaL2jD';
+    var AT_TABLE = 'tbl3sVsnFywn1YiTb';
+
+    var code = new URLSearchParams(window.location.search).get('code')
+            || sessionStorage.getItem('rsvpCode');
+    if (!code) return;
+
+    /* 1. Start the Airtable fetch immediately */
+    var fetchedFields = null;
+    var formReady     = false;
+
+    var formula = 'UPPER({code})="' + code.toUpperCase() + '"';
+    var url = 'https://api.airtable.com/v0/' + AT_BASE + '/' + AT_TABLE
+            + '?filterByFormula=' + encodeURIComponent(formula)
+            + '&maxRecords=1';
+
+    fetch(url, { headers: { 'Authorization': 'Bearer ' + AT_TOKEN } })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (data.records && data.records.length > 0) {
+          fetchedFields = data.records[0].fields;
+          if (formReady) applyPrefill();
+        }
+      })
+      .catch(function(err){ console.warn('[RSVP prefill] Airtable fetch error:', err); });
+
+    /* 2. Watch for the form section to become visible */
+    var formInner = document.getElementById('rsvp-form-inner');
+    if (!formInner) return;
+
+    var obs = new MutationObserver(function(){
+      if (formInner.style.display !== 'none') {
+        formReady = true;
+        obs.disconnect();
+        if (fetchedFields) applyPrefill();
+      }
+    });
+    obs.observe(formInner, { attributes: true, attributeFilter: ['style'] });
+
+    /* 3. Apply all previous values to the form */
+    function applyPrefill(){
+      var f = fetchedFields;
+
+      /* attend radio (yes / no) */
+      if (f.attend) {
+        var r = document.querySelector('input[name="attend"][value="' + f.attend + '"]');
+        if (r) { r.checked = true; r.dispatchEvent(new Event('change')); }
+      }
+
+      /* number of guests stepper */
+      var g = f['# guests'];
+      if (g) {
+        var inp = document.getElementById('f-guests');
+        var lbl = document.getElementById('guests-val');
+        if (inp) inp.value = g;
+        if (lbl) lbl.textContent = g;
+      }
+
+      /* diet textarea */
+      if (f.diet) {
+        var d = document.getElementById('f-diet');
+        if (d) d.value = f.diet;
+      }
+
+      /* participation radio (yes / no) */
+      if (f.part) {
+        var p = document.querySelector('input[name="part"][value="' + f.part + '"]');
+        if (p) { p.checked = true; p.dispatchEvent(new Event('change')); }
+      }
+
+      /* phone */
+      if (f.phone) {
+        var ph = document.getElementById('f-phone');
+        if (ph) ph.value = f.phone;
+      }
+
+      /* notes */
+      if (f.notes) {
+        var n = document.getElementById('f-notes');
+        if (n) n.value = f.notes;
+      }
+
+      /* Change CTA to make it clear this is an update */
+      var submit = document.getElementById('rsvp-submit');
+      if (submit) submit.textContent = 'Update response';
+
+      /* Small banner so the guest knows we loaded their previous answer */
+      var intro = document.getElementById('rsvp-intro');
+      if (intro && !document.getElementById('prefill-notice')) {
+        var notice = document.createElement('p');
+        notice.id = 'prefill-notice';
+        notice.style.cssText = 'margin-top:.8rem;font-size:.82rem;color:var(--accent);text-align:center;letter-spacing:.04em';
+        notice.textContent = 'We found your previous response — update anything you like.';
+        intro.appendChild(notice);
+      }
+    }
+  })();
 </script>
 </body>
 </html>

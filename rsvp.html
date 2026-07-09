@@ -281,17 +281,14 @@
      (write only)" → copy the complete token (it is ~82 chars).
   ──────────────────────────────────────────────────────────── */
   (function(){
-    var AT_TOKEN = 'PASTE_FULL_TOKEN_HERE';   // ← replace this
+    var AT_TOKEN = 'patiEdBMrTBhstfxQ.15963a71a4aab455a1f7c411cf27e1d5256113e832436f47bb0c3fb9ae712a24';
     var AT_BASE  = 'appr0YjU7iNuaL2jD';
     var AT_TABLE = 'tbl3sVsnFywn1YiTb';
 
     var code = new URLSearchParams(window.location.search).get('code')
             || sessionStorage.getItem('rsvpCode');
     if (!code) return;
-    if (AT_TOKEN === 'PASTE_FULL_TOKEN_HERE') {
-      console.warn('[RSVP prefill] Airtable token not set — skipping prefill.');
-      return;
-    }
+
 
     var fetchedFields = null;
     var applied = false;

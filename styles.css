@@ -577,9 +577,9 @@ img { filter: var(--grade); }
 .gallery-pin-track {
   display: flex;
   align-items: center;
-  gap: clamp(.5rem, 1vw, .8rem);
-  padding-left: var(--pad);
-  padding-right: var(--pad);
+  gap: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
   will-change: transform;
   pointer-events: auto;
 }
@@ -590,6 +590,7 @@ img { filter: var(--grade); }
 }
 .gallery-pin-track .gframe {
   flex-shrink: 0;
+  margin: 0;
   height: clamp(340px, 58vh, 580px);
   aspect-ratio: 3/4;
   overflow: hidden;

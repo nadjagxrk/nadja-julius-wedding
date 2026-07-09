@@ -279,6 +279,10 @@
 
   /* ── 10. Horizontal pinned gallery ──────────────────────── */
   function initGalleryPin() {
+    // Gallery now uses pure CSS native scroll — JS pinning disabled.
+    // See .gallery-pin / .gallery-pin-viewport rules in styles.css.
+    return;
+
     const section = qs('.gallery-pin');
     const sticky  = qs('.gallery-pin-sticky');
     const track   = qs('.gallery-pin-track');

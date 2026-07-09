@@ -374,6 +374,33 @@
     v.play().catch(() => {});
   }
 
+  /* ── 13. Invite-code relay ───────────────────────────────────
+     Captures ?code= from the URL on ANY page and stores it in
+     sessionStorage so it persists across navigation. Then rewrites
+     every link to the RSVP page to carry the code in the query
+     string — guests never have to copy or type it manually.
+  ──────────────────────────────────────────────────────────── */
+  function initCodeRelay() {
+    // 1. Capture from URL → sessionStorage
+    const urlCode = new URLSearchParams(location.search).get('code');
+    if (urlCode) sessionStorage.setItem('rsvpCode', urlCode.trim());
+
+    const code = sessionStorage.getItem('rsvpCode');
+    if (!code) return;
+
+    // 2. Append ?code= to every RSVP link on this page
+    qsa('a[href]').forEach(a => {
+      const href = a.getAttribute('href') || '';
+      if (/rsvp/i.test(href)) {
+        try {
+          const u = new URL(a.href, location.origin);
+          u.searchParams.set('code', code);
+          a.href = u.toString();
+        } catch (_) {}
+      }
+    });
+  }
+
   /* ── Boot ────────────────────────────────────────────────── */
   function init() {
     initGrain();
@@ -388,6 +415,7 @@
     initGalleryPin();
     initTimeline();
     initHeroVideo();
+    initCodeRelay();
   }
 
   if (document.readyState === 'loading') {

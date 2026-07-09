@@ -544,11 +544,13 @@ img { filter: var(--grade); }
 .location-map-btn:hover { color: var(--ink); border-color: var(--ink); }
 
 /* ============================================================
-   HORIZONTAL PINNED GALLERY
+   HORIZONTAL GALLERY
+   Desktop: scroll-driven pin (page scroll moves track sideways)
+   Mobile:  native swipe with snap points
    ============================================================ */
 .gallery-pin {
   /* JS sets --gallery-h dynamically based on track width */
-  height: var(--gallery-h, 350vh);
+  height: var(--gallery-h, 400vh);
   position: relative;
 }
 .gallery-pin-sticky {
@@ -577,9 +579,9 @@ img { filter: var(--grade); }
 .gallery-pin-track {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding-left: 16px;
-  padding-right: 16px;
+  gap: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   will-change: transform;
   pointer-events: auto;
 }
@@ -591,7 +593,7 @@ img { filter: var(--grade); }
 .gallery-pin-track .gframe {
   flex-shrink: 0;
   margin: 0;
-  height: clamp(340px, 58vh, 580px);
+  height: clamp(440px, 72vh, 700px);
   aspect-ratio: 3/4;
   overflow: hidden;
   background: var(--bg-deep);
@@ -603,19 +605,41 @@ img { filter: var(--grade); }
 }
 .gallery-pin-track .gframe:hover img { transform: scale(1.04); }
 
-/* Mobile: regular scroll strip (no pinning) */
+/* Mobile: native horizontal swipe with snap */
 @media (max-width: 768px) {
-  .gallery-pin { height: auto; }
+  .gallery-pin { height: auto; padding-block: clamp(3rem,7vh,5rem); }
   .gallery-pin-sticky { position: static; height: auto; overflow: visible; }
-  .gallery-pin-viewport { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .gallery-pin-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    pointer-events: auto;  /* must be auto so touch events register */
+    cursor: grab;
+    padding-bottom: clamp(1.2rem,4vw,2rem);
+  }
   .gallery-pin-viewport::-webkit-scrollbar { display: none; }
-  .gallery-pin-track { padding-bottom: 2rem; }
+  .gallery-pin-track {
+    gap: 14px;
+    padding-left: clamp(1rem,5vw,1.8rem);
+    padding-right: clamp(1rem,5vw,1.8rem);
+    align-items: stretch;
+    will-change: unset;
+  }
   .gallery-pin-spacer { display: none; }
-  .gallery-pin-track .gframe { scroll-snap-align: start; height: clamp(260px, 65vw, 420px); }
+  .gallery-pin-track .gframe {
+    scroll-snap-align: center;
+    width: 80vw;
+    height: 72vh;
+    aspect-ratio: unset;
+    max-width: 420px;
+  }
   .gallery-pin-header {
     position: static;
     background: var(--bg);
-    padding: clamp(3rem,7vh,5rem) var(--pad) 1.5rem;
+    padding: 0 var(--pad) 1.5rem;
+    pointer-events: auto;
   }
 }
 
@@ -1018,9 +1042,9 @@ img { filter: var(--grade); }
   .reveal-clip > * { transform: none !important; opacity: 1 !important; }
   .hero-scroll::after { animation: none; }
   .hero-waves::before, .hero-waves::after { animation: none; opacity: 0; }
-  .gallery-pin { height: auto; }
+  .gallery-pin { height: auto; padding-block: 3rem; }
   .gallery-pin-sticky { position: static; height: auto; }
-  .gallery-pin-viewport { overflow-x: auto; }
+  .gallery-pin-viewport { overflow-x: auto; pointer-events: auto; }
   .gallery-pin-track { transform: none !important; }
   .parallax-img { transform: none !important; }
   .timeline::before { transform: scaleY(1); }

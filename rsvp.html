@@ -274,102 +274,102 @@
   })();
 
   /* ── Pre-fill form with previous Airtable response ──────────
-     Fetches the guest's existing record by code as soon as the
-     page loads (parallel to the gate auto-submit). Once both the
-     data is ready AND the form is visible, fields are populated
-     and the submit button reads "Update response".
+     ⚠️  IMPORTANT: replace AT_TOKEN below with your FULL Airtable
+     Personal Access Token. The value shown in the Airtable token
+     list is only a short identifier, not the full token.
+     Go to airtable.com/create/tokens → click "Wedding form
+     (write only)" → copy the complete token (it is ~82 chars).
   ──────────────────────────────────────────────────────────── */
   (function(){
-    var AT_TOKEN = 'patjGlixZk200CoXp';
+    var AT_TOKEN = 'PASTE_FULL_TOKEN_HERE';   // ← replace this
     var AT_BASE  = 'appr0YjU7iNuaL2jD';
     var AT_TABLE = 'tbl3sVsnFywn1YiTb';
 
     var code = new URLSearchParams(window.location.search).get('code')
             || sessionStorage.getItem('rsvpCode');
     if (!code) return;
+    if (AT_TOKEN === 'PASTE_FULL_TOKEN_HERE') {
+      console.warn('[RSVP prefill] Airtable token not set — skipping prefill.');
+      return;
+    }
 
-    /* 1. Start the Airtable fetch immediately */
     var fetchedFields = null;
-    var formReady     = false;
+    var applied = false;
 
-    var formula = 'UPPER({code})="' + code.toUpperCase() + '"';
+    /* 1. Fetch immediately (runs in parallel with gate auto-submit) */
+    var formula = 'UPPER({code})="' + code.trim().toUpperCase().replace(/"/g,'') + '"';
     var url = 'https://api.airtable.com/v0/' + AT_BASE + '/' + AT_TABLE
             + '?filterByFormula=' + encodeURIComponent(formula)
             + '&maxRecords=1';
 
     fetch(url, { headers: { 'Authorization': 'Bearer ' + AT_TOKEN } })
-      .then(function(r){ return r.json(); })
+      .then(function(r){
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
       .then(function(data){
         if (data.records && data.records.length > 0) {
           fetchedFields = data.records[0].fields;
-          if (formReady) applyPrefill();
+          tryApply();
         }
       })
-      .catch(function(err){ console.warn('[RSVP prefill] Airtable fetch error:', err); });
+      .catch(function(e){ console.warn('[RSVP prefill] Airtable error:', e); });
 
-    /* 2. Watch for the form section to become visible */
-    var formInner = document.getElementById('rsvp-form-inner');
-    if (!formInner) return;
+    /* 2. Poll every 300 ms until the form is visible (max 20 s).
+          More reliable than MutationObserver across all gate implementations. */
+    var polls = 0;
+    var timer = setInterval(function(){
+      if (applied || ++polls > 66) { clearInterval(timer); return; }
+      tryApply();
+    }, 300);
 
-    var obs = new MutationObserver(function(){
-      if (formInner.style.display !== 'none') {
-        formReady = true;
-        obs.disconnect();
-        if (fetchedFields) applyPrefill();
-      }
-    });
-    obs.observe(formInner, { attributes: true, attributeFilter: ['style'] });
+    function tryApply(){
+      if (applied || !fetchedFields) return;
+      var form = document.getElementById('rsvp-form-inner');
+      if (!form) return;
+      /* visible = has layout (offsetParent) AND not display:none */
+      var visible = form.offsetParent !== null
+                 || getComputedStyle(form).display !== 'none';
+      if (!visible) return;
+      applied = true;
+      clearInterval(timer);
+      applyPrefill(fetchedFields);
+    }
 
-    /* 3. Apply all previous values to the form */
-    function applyPrefill(){
-      var f = fetchedFields;
-
-      /* attend radio (yes / no) */
+    /* 3. Write previous values into every field */
+    function applyPrefill(f){
+      /* attend radio */
       if (f.attend) {
-        var r = document.querySelector('input[name="attend"][value="' + f.attend + '"]');
-        if (r) { r.checked = true; r.dispatchEvent(new Event('change')); }
+        var r = document.querySelector('input[name="attend"][value="'+f.attend+'"]');
+        if (r){ r.checked = true; r.dispatchEvent(new Event('change')); }
       }
-
-      /* number of guests stepper */
+      /* guests stepper */
       var g = f['# guests'];
-      if (g) {
+      if (g){
         var inp = document.getElementById('f-guests');
         var lbl = document.getElementById('guests-val');
         if (inp) inp.value = g;
         if (lbl) lbl.textContent = g;
       }
-
-      /* diet textarea */
-      if (f.diet) {
-        var d = document.getElementById('f-diet');
-        if (d) d.value = f.diet;
+      /* diet */
+      if (f.diet){ var d=document.getElementById('f-diet'); if(d) d.value=f.diet; }
+      /* participation radio */
+      if (f.part){
+        var p = document.querySelector('input[name="part"][value="'+f.part+'"]');
+        if (p){ p.checked = true; p.dispatchEvent(new Event('change')); }
       }
-
-      /* participation radio (yes / no) */
-      if (f.part) {
-        var p = document.querySelector('input[name="part"][value="' + f.part + '"]');
-        if (p) { p.checked = true; p.dispatchEvent(new Event('change')); }
-      }
-
       /* phone */
-      if (f.phone) {
-        var ph = document.getElementById('f-phone');
-        if (ph) ph.value = f.phone;
-      }
-
+      if (f.phone){ var ph=document.getElementById('f-phone'); if(ph) ph.value=f.phone; }
       /* notes */
-      if (f.notes) {
-        var n = document.getElementById('f-notes');
-        if (n) n.value = f.notes;
-      }
+      if (f.notes){ var n=document.getElementById('f-notes'); if(n) n.value=f.notes; }
 
-      /* Change CTA to make it clear this is an update */
-      var submit = document.getElementById('rsvp-submit');
-      if (submit) submit.textContent = 'Update response';
+      /* Update submit button */
+      var btn = document.getElementById('rsvp-submit');
+      if (btn) btn.textContent = 'Update response';
 
-      /* Small banner so the guest knows we loaded their previous answer */
+      /* Banner */
       var intro = document.getElementById('rsvp-intro');
-      if (intro && !document.getElementById('prefill-notice')) {
+      if (intro && !document.getElementById('prefill-notice')){
         var notice = document.createElement('p');
         notice.id = 'prefill-notice';
         notice.style.cssText = 'margin-top:.8rem;font-size:.82rem;color:var(--accent);text-align:center;letter-spacing:.04em';

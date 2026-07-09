@@ -292,6 +292,15 @@ const I18N = {
 
 const LANGS = ["de","nl","en"];
 let LANG = (function(){
+  // 1. ?lang=XX in the URL takes priority (and persists)
+  try{
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    if(LANGS.includes(urlLang)){
+      try{ localStorage.setItem("weddingLang", urlLang); }catch(e){}
+      return urlLang;
+    }
+  }catch(e){}
+  // 2. Persisted choice from a previous visit
   try{ const s = localStorage.getItem("weddingLang"); if(LANGS.includes(s)) return s; }catch(e){}
   return "en";
 })();
@@ -484,6 +493,68 @@ function showRsvpForm(guest){
   if(inputEl) inputEl.value    = guest.seats;
   if(decBtn)  decBtn.disabled  = guest.seats <= 1;
   if(incBtn)  incBtn.disabled  = true;
+  /* Prefill any previous submission */
+  prefillExistingResponse(guest.code);
+}
+
+/* ── Prefill form from existing RSVP submission ── */
+async function prefillExistingResponse(code){
+  if(!code) return;
+  try{
+    var formula = 'UPPER({code})="' + code.trim().toUpperCase().replace(/"/g,'') + '"';
+    var url = AIRTABLE_ENDPOINT + '?filterByFormula=' + encodeURIComponent(formula) + '&maxRecords=1';
+    var res = await fetch(url, { headers:{'Authorization':'Bearer ' + AIRTABLE_TOKEN} });
+    if(!res.ok) return;
+    var data = await res.json();
+    if(!data.records || !data.records.length) return;
+    var f = data.records[0].fields;
+    /* Only prefill if an RSVP was actually submitted */
+    if(!f.attend) return;
+
+    /* Attend radio */
+    var r = document.querySelector('input[name="attend"][value="'+f.attend+'"]');
+    if(r){ r.checked = true; r.dispatchEvent(new Event('change')); }
+
+    /* Guest count — support both 'guests' and '# guests' field names */
+    var g = (f.guests !== undefined) ? f.guests : f['# guests'];
+    if(g !== undefined && g !== null){
+      var inp = document.getElementById('f-guests');
+      var lbl = document.getElementById('guests-val');
+      if(inp) inp.value = String(g);
+      if(lbl) lbl.textContent = String(g);
+    }
+
+    /* Diet */
+    if(f.diet){ var d=document.getElementById('f-diet'); if(d) d.value=f.diet; }
+
+    /* Part radio */
+    if(f.part){
+      var p = document.querySelector('input[name="part"][value="'+f.part+'"]');
+      if(p){ p.checked = true; p.dispatchEvent(new Event('change')); }
+    }
+
+    /* Phone */
+    if(f.phone){ var ph=document.getElementById('f-phone'); if(ph) ph.value=f.phone; }
+
+    /* Notes */
+    if(f.notes){ var n=document.getElementById('f-notes'); if(n) n.value=f.notes; }
+
+    /* Update submit button */
+    var btn = document.getElementById('rsvp-submit');
+    if(btn) btn.textContent = 'Update response';
+
+    /* Notice banner — only shown for actual previous responders */
+    var intro = document.getElementById('rsvp-intro');
+    if(intro && !document.getElementById('prefill-notice')){
+      var notice = document.createElement('p');
+      notice.id = 'prefill-notice';
+      notice.style.cssText = 'margin-top:.8rem;font-size:.82rem;color:var(--accent);text-align:center;letter-spacing:.04em';
+      notice.textContent = 'We found your previous response — update anything you like.';
+      intro.appendChild(notice);
+    }
+  }catch(e){
+    console.warn('[RSVP prefill]', e);
+  }
 }
 
 function initGate(){
@@ -525,6 +596,15 @@ function initGate(){
 
   submitBtn.addEventListener("click", tryCode);
   if(codeInput) codeInput.addEventListener("keydown", function(e){ if(e.key==="Enter") tryCode(); });
+
+  // Auto-fill + auto-submit from ?code=XXXX in the URL
+  try{
+    const urlCode = new URLSearchParams(window.location.search).get("code");
+    if(urlCode && codeInput){
+      codeInput.value = urlCode;
+      setTimeout(tryCode, 400); // slight delay so the page has painted
+    }
+  }catch(e){}
 }
 
 /* ── Seat stepper (called from onclick in rsvp.html) ── */

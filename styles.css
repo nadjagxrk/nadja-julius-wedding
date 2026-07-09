@@ -544,57 +544,53 @@ img { filter: var(--grade); }
 .location-map-btn:hover { color: var(--ink); border-color: var(--ink); }
 
 /* ============================================================
-   HORIZONTAL GALLERY
-   Desktop: scroll-driven pin (page scroll moves track sideways)
-   Mobile:  native swipe with snap points
+   HORIZONTAL GALLERY — pure CSS native scroll, all breakpoints
+   JS pinning is disabled in script.js.
    ============================================================ */
 .gallery-pin {
-  /* JS sets --gallery-h dynamically based on track width */
-  height: var(--gallery-h, 400vh);
+  height: auto;
   position: relative;
+  padding-block: clamp(3rem, 8vh, 6rem);
+  background: var(--bg);
 }
 .gallery-pin-sticky {
-  position: sticky; top: 0;
-  height: 100vh; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: center;
+  /* static on all breakpoints — no JS sticky needed */
+  position: static;
+  height: auto;
+  overflow: visible;
 }
-/* Header strip — solid paper background with right fade */
-.gallery-pin-header {
-  position: absolute; top: 0; left: 0; right: 0; z-index: 5;
-  padding: clamp(2.5rem,6vh,4rem) var(--pad) 2rem;
-  background: linear-gradient(
-    to right,
-    var(--bg) 0%,
-    var(--bg) 55%,
-    transparent 88%
-  );
-  pointer-events: none;
-}
-/* Viewport for the scrolling track */
+/* The viewport IS the scroll container */
 .gallery-pin-viewport {
-  width: 100%; height: 100%;
-  display: flex; align-items: center;
-  overflow: visible; pointer-events: none;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* momentum on iOS */
+  scrollbar-width: none;
+  pointer-events: auto;
+  cursor: grab;
 }
+.gallery-pin-viewport:active { cursor: grabbing; }
+.gallery-pin-viewport::-webkit-scrollbar { display: none; }
+
 .gallery-pin-track {
   display: flex;
-  align-items: center;
-  gap: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  will-change: transform;
-  pointer-events: auto;
+  align-items: stretch;
+  gap: clamp(12px, 2vw, 20px);
+  /* side padding = half the leftover space so first/last frame centres */
+  padding-inline: max(var(--pad), calc((100vw - min(80vw, 520px)) / 2));
+  padding-bottom: clamp(1rem, 3vh, 2rem);
+  will-change: unset;  /* JS sets this — override to avoid paint hint */
 }
-/* leading spacer so photos start after the header text on desktop */
-.gallery-pin-spacer {
-  flex-shrink: 0;
-  width: clamp(220px, 28vw, 380px);
-}
+.gallery-pin-spacer { display: none; }
+
 .gallery-pin-track .gframe {
   flex-shrink: 0;
   margin: 0;
-  height: clamp(440px, 72vh, 700px);
-  aspect-ratio: 3/4;
+  scroll-snap-align: center;
+  width: min(80vw, 520px);
+  height: clamp(380px, 72vh, 700px);
+  aspect-ratio: unset;
   overflow: hidden;
   background: var(--bg-deep);
 }
@@ -605,42 +601,12 @@ img { filter: var(--grade); }
 }
 .gallery-pin-track .gframe:hover img { transform: scale(1.04); }
 
-/* Mobile: native horizontal swipe with snap */
-@media (max-width: 768px) {
-  .gallery-pin { height: auto; padding-block: clamp(3rem,7vh,5rem); }
-  .gallery-pin-sticky { position: static; height: auto; overflow: visible; }
-  .gallery-pin-viewport {
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    pointer-events: auto;  /* must be auto so touch events register */
-    cursor: grab;
-    padding-bottom: clamp(1.2rem,4vw,2rem);
-  }
-  .gallery-pin-viewport::-webkit-scrollbar { display: none; }
-  .gallery-pin-track {
-    gap: 14px;
-    padding-left: clamp(1rem,5vw,1.8rem);
-    padding-right: clamp(1rem,5vw,1.8rem);
-    align-items: stretch;
-    will-change: unset;
-  }
-  .gallery-pin-spacer { display: none; }
-  .gallery-pin-track .gframe {
-    scroll-snap-align: center;
-    width: 80vw;
-    height: 72vh;
-    aspect-ratio: unset;
-    max-width: 420px;
-  }
-  .gallery-pin-header {
-    position: static;
-    background: var(--bg);
-    padding: 0 var(--pad) 1.5rem;
-    pointer-events: auto;
-  }
+/* Gallery header (if present) — static, no absolute positioning */
+.gallery-pin-header {
+  position: static;
+  background: none;
+  padding: 0 var(--pad) clamp(1rem, 2.5vh, 1.8rem);
+  pointer-events: auto;
 }
 
 /* ============================================================
@@ -1042,9 +1008,6 @@ img { filter: var(--grade); }
   .reveal-clip > * { transform: none !important; opacity: 1 !important; }
   .hero-scroll::after { animation: none; }
   .hero-waves::before, .hero-waves::after { animation: none; opacity: 0; }
-  .gallery-pin { height: auto; padding-block: 3rem; }
-  .gallery-pin-sticky { position: static; height: auto; }
-  .gallery-pin-viewport { overflow-x: auto; pointer-events: auto; }
   .gallery-pin-track { transform: none !important; }
   .parallax-img { transform: none !important; }
   .timeline::before { transform: scaleY(1); }

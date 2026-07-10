@@ -128,17 +128,35 @@
 
     // hamburger
     const btn  = qs('#hamburger');
+    const nav  = qs('#main-nav');
     const body = document.body;
     if (!btn) return;
+
+    function closeNav() {
+      body.classList.remove('nav-open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+
     btn.addEventListener('click', () => {
       const open = body.classList.toggle('nav-open');
       btn.setAttribute('aria-expanded', open);
     });
+
+    // close when a nav link is clicked
     qsa('#main-nav a').forEach(a => {
-      a.addEventListener('click', () => {
-        body.classList.remove('nav-open');
-        btn.setAttribute('aria-expanded', 'false');
+      a.addEventListener('click', closeNav);
+    });
+
+    // close on tap on overlay background (not on the nav element itself)
+    if (nav) {
+      nav.addEventListener('click', e => {
+        if (e.target === nav) closeNav();
       });
+    }
+
+    // close on Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && body.classList.contains('nav-open')) closeNav();
     });
   }
 

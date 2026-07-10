@@ -1024,7 +1024,7 @@ img { filter: var(--grade); }
   .nav a, body.home .nav a {
     display: block;
     font-family: var(--font-display) !important;
-    font-size: clamp(2.6rem, 13vw, 3.8rem) !important;
+    font-size: clamp(2rem, 10vw, 3rem) !important;
     font-weight: 400 !important;
     letter-spacing: .02em !important;
     text-transform: none !important;

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Dark brown rounded background -->
+  <rect width="100" height="100" rx="18" fill="#2b2622"/>
+  <!-- Subtle gold inner ring -->
+  <rect x="5" y="5" width="90" height="90" rx="13" fill="none" stroke="#b0894f" stroke-width=".8" opacity=".35"/>
+  <!-- N & J in gold serif -->
+  <text x="50" y="40"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="30" font-weight="400"
+    fill="#b0894f" letter-spacing="1">N&amp;J</text>
+  <!-- thin ornamental line below letters -->
+  <line x1="30" y1="52" x2="70" y2="52" stroke="#b0894f" stroke-width=".9" opacity=".5"/>
+  <!-- small date below -->
+  <text x="50" y="67"
+    text-anchor="middle"
+    font-family="'Helvetica Neue', Arial, sans-serif"
+    font-size="10" font-weight="300"
+    fill="#b0894f" letter-spacing="2" opacity=".75">2027</text>
+</svg>

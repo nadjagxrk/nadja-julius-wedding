@@ -989,8 +989,14 @@ img { filter: var(--grade); }
   .t-item.tl-left .t-illus,
   .t-item.tl-right .t-illus {
     position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
-    width: 58px; padding: 0;
+    width: 58px; height: 58px; padding: 0;
     display: flex; align-items: center; justify-content: center;
+    /* reset contain:paint — it breaks mix-blend-mode on mobile Safari */
+    contain: none;
+    background: var(--bg); /* cream — required for multiply blend to erase white */
+    isolation: isolate;
+    border-radius: 50%; /* circle badge */
+    overflow: hidden;
   }
   .t-item.tl-left .t-illus img,
   .t-item.tl-right .t-illus img { max-width: 50px; }

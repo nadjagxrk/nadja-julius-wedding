@@ -85,7 +85,7 @@ input:focus-visible, textarea:focus-visible {
 .vignette {
   pointer-events: none;
   position: fixed; inset: 0; z-index: 499;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(20,15,8,.38) 100%);
+  background: radial-gradient(ellipse at center, transparent 65%, rgba(20,15,8,.18) 100%);
 }
 
 /* ── Custom cursor ───────────────────────────────────────── */
@@ -788,18 +788,18 @@ img { filter: var(--grade); }
 .dresscode-bg {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center top; z-index: 0;
-  filter: brightness(.78) saturate(1);
+  filter: brightness(.95) saturate(1.05);
 }
 .dresscode-scrim {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(155deg, rgba(20,14,6,.22) 0%, rgba(20,14,6,.45) 100%);
+  background: linear-gradient(155deg, rgba(20,14,6,.08) 0%, rgba(20,14,6,.18) 100%);
 }
 .dresscode-inner { position: relative; z-index: 2; }
 .dresscode-card {
-  background: rgba(30,22,10,.45);
-  backdrop-filter: blur(22px) saturate(1.2);
-  -webkit-backdrop-filter: blur(22px) saturate(1.2);
-  border: 1px solid rgba(201,168,119,.28);
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border: 1px solid rgba(255,255,255,.22);
   border-radius: 2px;
   padding: clamp(2rem,4vw,3rem) clamp(2rem,4vw,3.5rem);
   max-width: 480px;

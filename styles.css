@@ -973,7 +973,7 @@ img { filter: var(--grade); }
   .tl-line { display: none; } /* hide JS animated centre line */
   .t-item, .t-item.tl-left, .t-item.tl-right {
     display: block; position: relative;
-    padding: 1.3rem 68px 1.3rem 2.4rem;
+    padding: 1.3rem 88px 1.3rem 2.4rem;
     border-bottom: 1px solid var(--line-soft);
   }
   .t-item:last-child { border-bottom: none; }
@@ -985,21 +985,24 @@ img { filter: var(--grade); }
     position: absolute; left: 0; top: 1.4rem;
     width: 16px; display: flex; justify-content: center;
   }
-  /* illustration — small badge pinned to the right */
+  /* illustration — badge pinned to the right, no background box */
   .t-item.tl-left .t-illus,
   .t-item.tl-right .t-illus {
     position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
-    width: 58px; height: 58px; padding: 0;
+    width: 80px; height: 80px; padding: 0;
     display: flex; align-items: center; justify-content: center;
-    /* reset contain:paint — it breaks mix-blend-mode on mobile Safari */
-    contain: none;
-    background: var(--bg); /* cream — required for multiply blend to erase white */
-    isolation: isolate;
-    border-radius: 50%; /* circle badge */
-    overflow: hidden;
+    background: transparent !important;
+    isolation: auto !important;
+    contain: none !important;
+    overflow: visible;
+    border-radius: 0;
   }
+  /* multiply blend directly against page — white pixels become cream (invisible) */
   .t-item.tl-left .t-illus img,
-  .t-item.tl-right .t-illus img { max-width: 50px; }
+  .t-item.tl-right .t-illus img {
+    max-width: 74px;
+    mix-blend-mode: multiply;
+  }
 }
 @media (max-width: 640px) {
   .hamburger { display: flex; }

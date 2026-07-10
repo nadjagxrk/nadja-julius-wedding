@@ -31,8 +31,8 @@ const I18N = {
     "footer.tag":"We can't wait to celebrate with you",
 
     "honey.eyebrow":"The gift",
-    "honey.title":"One thing on the list.",
-    "honey.body":"Wish list? Just one thing: more stamps in our passports. If you'd like to give us a gift, a contribution to our honeymoon would mean the world.",
+    "honey.title":"Our wish list? Simple.",
+    "honey.body":"We're longing for more stamps in our passports. If you'd like to give us a gift, a contribution to our honeymoon would mean the world.",
     "honey.cta":"Contribute to our honeymoon",
 
     "day.hero.eyebrow":"10 June 2027 · Strand Deining",
@@ -130,8 +130,8 @@ const I18N = {
     "footer.tag":"We kunnen niet wachten om dit met jullie te vieren",
 
     "honey.eyebrow":"Het cadeau",
-    "honey.title":"Verlanglijst? Één ding.",
-    "honey.body":"Verlanglijst? Één ding: meer stempels in ons paspoort. Als je ons een cadeau wil geven, dan het liefst een bijdrage aan onze huwelijksreis.",
+    "honey.title":"Verlanglijst? Simpel.",
+    "honey.body":"Wij verlangen naar meer stempels in ons paspoort. Als je ons een cadeau wilt geven, dan het liefst een bijdrage aan onze huwelijksreis.",
     "honey.cta":"Bijdragen aan onze huwelijksreis",
 
     "day.hero.eyebrow":"10 juni 2027 · Strand Deining",
@@ -229,8 +229,8 @@ const I18N = {
     "footer.tag":"Wir freuen uns drauf mit euch zu feiern!",
 
     "honey.eyebrow":"Das Geschenk",
-    "honey.title":"Wunschliste? Eine Sache.",
-    "honey.body":"Wunschliste? Nur eine: mehr Stempel in unseren Reisepässen. Wenn ihr uns etwas schenken möchtet, dann am liebsten einen Beitrag zu unserer Hochzeitsreise.",
+    "honey.title":"Wunschliste? Simpel.",
+    "honey.body":"Wir wünschen uns mehr Stempel in unseren Reisepässen. Wenn ihr uns etwas schenken möchtet, dann am liebsten einen Beitrag zu unserer Hochzeitsreise.",
     "honey.cta":"Zur Hochzeitsreise beitragen",
 
     "day.hero.eyebrow":"10. Juni 2027 · Strand Deining",
@@ -567,7 +567,7 @@ async function prefillExistingResponse(code){
       var notice = document.createElement('p');
       notice.id = 'prefill-notice';
       notice.style.cssText = 'margin-top:.8rem;font-size:.82rem;color:var(--accent);text-align:center;letter-spacing:.04em';
-      notice.textContent = 'We found your previous response — update anything you like.';
+      notice.textContent = t('form.prefill.notice');
       intro.appendChild(notice);
     }
   }catch(e){

@@ -44,6 +44,7 @@
 /* ── Reset ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+a, button { -webkit-tap-highlight-color: transparent; }
 body {
   margin: 0;
   background: var(--bg);
@@ -934,21 +935,18 @@ img { filter: var(--grade); }
   .location-name { font-size: clamp(2.8rem, 10vw, 4rem); }
   .location-sub { font-size: clamp(1rem, 4vw, 1.25rem); }
 
-  /* timeline: left-side vertical line on mobile */
-  .timeline::before { display: block; left: 8px; transform: none; }
+  /* timeline: single-column list on mobile */
+  .timeline::before { display: none; }
   .t-item, .t-item.tl-left, .t-item.tl-right {
     display: block; position: relative;
-    padding: 1.4rem 0 1.4rem 2rem;
+    padding: 1.4rem 0;
     border-bottom: 1px solid var(--line-soft);
   }
   .t-item:last-child { border-bottom: none; }
   .t-item.tl-left .t-content,
   .t-item.tl-right .t-content { text-align: left; padding: 0; }
   .t-item.tl-left .t-mid,
-  .t-item.tl-right .t-mid {
-    display: flex; position: absolute; left: 0; top: 1.5rem;
-    width: 16px; justify-content: center;
-  }
+  .t-item.tl-right .t-mid { display: none; }
   .t-item.tl-left .t-illus,
   .t-item.tl-right .t-illus { display: none; }
 }

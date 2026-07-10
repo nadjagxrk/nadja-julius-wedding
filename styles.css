@@ -787,19 +787,19 @@ img { filter: var(--grade); }
 }
 .dresscode-bg {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: center; z-index: 0;
-  filter: brightness(.52) saturate(.85);
+  object-fit: cover; object-position: center top; z-index: 0;
+  filter: brightness(.78) saturate(1);
 }
 .dresscode-scrim {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(155deg, rgba(30,22,10,.35) 0%, rgba(30,22,10,.62) 100%);
+  background: linear-gradient(155deg, rgba(20,14,6,.22) 0%, rgba(20,14,6,.45) 100%);
 }
 .dresscode-inner { position: relative; z-index: 2; }
 .dresscode-card {
-  background: rgba(244,239,232,.15);
-  backdrop-filter: blur(22px) saturate(1.35);
-  -webkit-backdrop-filter: blur(22px) saturate(1.35);
-  border: 1px solid rgba(201,168,119,.32);
+  background: rgba(30,22,10,.45);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  border: 1px solid rgba(201,168,119,.28);
   border-radius: 2px;
   padding: clamp(2rem,4vw,3rem) clamp(2rem,4vw,3.5rem);
   max-width: 480px;

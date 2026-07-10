@@ -49,7 +49,7 @@ const I18N = {
     "tl4.time":"16:30 – 18:00","tl4.heading":"We borrel!",
     "tl4.desc":"Drinks, bites, a slice of wedding cake and golden hour on the terrace. The perfect moment to catch up, take in the view and let the afternoon drift into evening.",
     "tl5.time":"18:00 – 20:30","tl5.heading":"We eat!",
-    "tl5.desc":"Straight from the BBQ. We're on the beach, so we're doing it properly — a proper feast with sea breeze, great wine and the people we love most.",
+    "tl5.desc":"Straight from the BBQ. We're on the beach, so we're doing it properly — a proper feast with sea breeze, great drinks and the people we love most.",
     "tl6.time":"20:30 – 00:30","tl6.heading":"We celebrate!",
     "tl6.desc":"The part we've all been waiting for. Speeches, a proper Toast & Roast, maybe a game or two — and then the dance floor opens and stays open until 00:30.",
 
@@ -90,6 +90,7 @@ const I18N = {
     "form.error":"Something went wrong. Please try again.",
     "form.backhome":"Back to home",
     "form.alertname":"Please add your name first.",
+    "form.prefill.notice":"We found your previous response — update anything you like.",
     "mail.subject":"Wedding RSVP — Nadja & Julius",
     "mail.l.names":"Name(s)","mail.l.attend":"Attending","mail.l.diet":"Meal / dietary","mail.l.part":"Toast & Roast / contribution",
     "mail.yes":"Joyfully accepts","mail.no":"Regretfully declines","mail.blank":"—",
@@ -147,7 +148,7 @@ const I18N = {
     "tl4.time":"16:30 – 18:00","tl4.heading":"We borrelen!",
     "tl4.desc":"Drankjes, hapjes, een stukje bruidstaart en het gouden uur op het terras. Het perfecte moment om bij te praten, het uitzicht te bewonderen en de middag rustig te laten overgaan in de avond.",
     "tl5.time":"18:00 – 20:30","tl5.heading":"We eten!",
-    "tl5.desc":"Vers van de BBQ. We zijn op het strand, dus we doen het goed — een echt feestmaal met zeebries, goede wijn en de mensen die we het meest liefhebben.",
+    "tl5.desc":"Vers van de BBQ. We zijn op het strand, dus we doen het goed — een echt feestmaal met zeebries, een lekker drankje en de mensen die we het meest liefhebben.",
     "tl6.time":"20:30 – 00:30","tl6.heading":"We vieren!",
     "tl6.desc":"Het gedeelte waar we allemaal naar uitkijken. Speeches, een echte Toast & Roast, misschien een spel of twee — en dan gaat de dansvloer open tot 00:30.",
 
@@ -188,6 +189,7 @@ const I18N = {
     "form.error":"Er ging iets mis. Probeer het opnieuw.",
     "form.backhome":"Terug naar home",
     "form.alertname":"Vul eerst je naam in.",
+    "form.prefill.notice":"We hebben je eerdere reactie gevonden — pas aan wat je wilt.",
     "mail.subject":"Trouwen RSVP — Nadja & Julius",
     "mail.l.names":"Naam(en)","mail.l.attend":"Aanwezig","mail.l.diet":"Maaltijd / dieet","mail.l.part":"Toast & Roast / bijdrage",
     "mail.yes":"Is erbij","mail.no":"Helaas niet aanwezig","mail.blank":"—",
@@ -206,7 +208,7 @@ const I18N = {
     "gate.hero.eyebrow":"10 juni 2027 · Strand Deining"
   },
   de:{
-    "nav.home":"Start","nav.day":"Der Tag","nav.rsvp":"Anmelden",
+    "nav.home":"Start","nav.day":"Der Tag","nav.rsvp":"Rückmeldung",
     "hero.eyebrow":"Wir heiraten",
     "hero.date":"10. Juni 2027","hero.place":"Strand Deining · Castricum",
     "hero.scroll":"Scrollen",
@@ -228,7 +230,7 @@ const I18N = {
 
     "honey.eyebrow":"Das Geschenk",
     "honey.title":"Wunschliste? Eine Sache.",
-    "honey.body":"Wunschliste? Nur eine: mehr Stempel in unseren Pässen. Wenn ihr uns etwas schenken möchtet, dann am liebsten einen Beitrag zu unserer Hochzeitsreise.",
+    "honey.body":"Wunschliste? Nur eine: mehr Stempel in unseren Reisepässen. Wenn ihr uns etwas schenken möchtet, dann am liebsten einen Beitrag zu unserer Hochzeitsreise.",
     "honey.cta":"Zur Hochzeitsreise beitragen",
 
     "day.hero.eyebrow":"10. Juni 2027 · Strand Deining",
@@ -245,7 +247,7 @@ const I18N = {
     "tl4.time":"16:30 – 18:00","tl4.heading":"Wir borreln!",
     "tl4.desc":"Drinks, Häppchen, ein Stück Hochzeitstorte und goldene Stunde auf der Terrasse. Der perfekte Moment zum Plaudern, um den Blick aufs Meer zu genießen und den Nachmittag in den Abend gleiten zu lassen.",
     "tl5.time":"18:00 – 20:30","tl5.heading":"Wir essen!",
-    "tl5.desc":"Frisch vom Grill. Wir sind am Strand, also machen wir es richtig — ein echtes Festmahl mit Meeresluft, gutem Wein und den Menschen, die wir am meisten lieben.",
+    "tl5.desc":"Frisch vom Grill. Wir sind am Strand, also machen wir es richtig — ein echtes Festmahl mit Meeresluft, guten Drinks und den Menschen, die wir am meisten lieben.",
     "tl6.time":"20:30 – 00:30","tl6.heading":"Wir feiern!",
     "tl6.desc":"Der Teil, auf den wir alle gewartet haben. Reden, ein richtiger Toast & Roast, vielleicht ein Spiel oder zwei — und dann öffnet sich die Tanzfläche und bleibt offen bis 00:30.",
 
@@ -286,6 +288,7 @@ const I18N = {
     "form.error":"Etwas ist schiefgelaufen. Bitte versuche es nochmal.",
     "form.backhome":"Zurück zur Startseite",
     "form.alertname":"Bitte trag zuerst deinen Namen ein.",
+    "form.prefill.notice":"Wir haben eure frühere Antwort gefunden — ändert, was ihr möchtet.",
     "mail.subject":"Hochzeit RSVP — Nadja & Julius",
     "mail.l.names":"Name(n)","mail.l.attend":"Teilnahme","mail.l.diet":"Essen / Ernährung","mail.l.part":"Toast & Roast / Beitrag",
     "mail.yes":"Ist dabei","mail.no":"Leider nicht dabei","mail.blank":"—",

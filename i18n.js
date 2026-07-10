@@ -206,7 +206,7 @@ const I18N = {
     "gate.hero.eyebrow":"10 juni 2027 · Strand Deining"
   },
   de:{
-    "nav.home":"Start","nav.day":"Der Tag","nav.rsvp":"RSVP",
+    "nav.home":"Start","nav.day":"Der Tag","nav.rsvp":"Anmelden",
     "hero.eyebrow":"Wir heiraten",
     "hero.date":"10. Juni 2027","hero.place":"Strand Deining · Castricum",
     "hero.scroll":"Scrollen",

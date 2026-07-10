@@ -30,6 +30,11 @@ const I18N = {
     "rsvpband.cta":"Respond now",
     "footer.tag":"We can't wait to celebrate with you",
 
+    "honey.eyebrow":"The gift",
+    "honey.title":"One thing on the list.",
+    "honey.body":"Wish list? Just one thing: more stamps in our passports. If you'd like to give us a gift, a contribution to our honeymoon would mean the world.",
+    "honey.cta":"Contribute to our honeymoon",
+
     "day.hero.eyebrow":"10 June 2027 · Strand Deining",
     "day.hero.title":"The Day",
     "day.hero.sub":"A day by the sea — with everyone we love.",
@@ -123,6 +128,11 @@ const I18N = {
     "rsvpband.cta":"Reageer nu",
     "footer.tag":"We kunnen niet wachten om dit met jullie te vieren",
 
+    "honey.eyebrow":"Het cadeau",
+    "honey.title":"Verlanglijst? Één ding.",
+    "honey.body":"Verlanglijst? Één ding: meer stempels in ons paspoort. Als je ons een cadeau wil geven, dan het liefst een bijdrage aan onze huwelijksreis.",
+    "honey.cta":"Bijdragen aan onze huwelijksreis",
+
     "day.hero.eyebrow":"10 juni 2027 · Strand Deining",
     "day.hero.title":"De Dag",
     "day.hero.sub":"Een dag aan het strand — met iedereen die we liefhebben.",
@@ -215,6 +225,11 @@ const I18N = {
     "rsvpband.body":"Wir freuen uns sehr über eure Rückmeldung.",
     "rsvpband.cta":"Jetzt antworten",
     "footer.tag":"Wir freuen uns drauf mit euch zu feiern!",
+
+    "honey.eyebrow":"Das Geschenk",
+    "honey.title":"Wunschliste? Eine Sache.",
+    "honey.body":"Wunschliste? Nur eine: mehr Stempel in unseren Pässen. Wenn ihr uns etwas schenken möchtet, dann am liebsten einen Beitrag zu unserer Hochzeitsreise.",
+    "honey.cta":"Zur Hochzeitsreise beitragen",
 
     "day.hero.eyebrow":"10. Juni 2027 · Strand Deining",
     "day.hero.title":"Der Tag",

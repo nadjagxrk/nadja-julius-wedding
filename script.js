@@ -49,19 +49,9 @@
     `;
     document.body.prepend(overlay);
 
-    // Animate grain by offsetting background position
-    let ox = 0, oy = 0;
-    function tick() {
-      if (frame++ % 2 === 0) {
-        draw();
-        ox = Math.random() * 220 | 0;
-        oy = Math.random() * 220 | 0;
-        overlay.style.backgroundPosition = ox + 'px ' + oy + 'px';
-        overlay.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
-      }
-      requestAnimationFrame(tick);
-    }
-    tick();
+    // Static grain — draw once, no animation loop
+    draw();
+    overlay.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
 
     // Vignette (separate layer)
     const vignette = document.createElement('div');

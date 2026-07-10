@@ -985,24 +985,11 @@ img { filter: var(--grade); }
     position: absolute; left: 0; top: 1.4rem;
     width: 16px; display: flex; justify-content: center;
   }
-  /* illustration — badge pinned to the right, no background box */
+  /* hide illustrations on mobile — white background can't be removed cleanly */
   .t-item.tl-left .t-illus,
-  .t-item.tl-right .t-illus {
-    position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
-    width: 80px; height: 80px; padding: 0;
-    display: flex; align-items: center; justify-content: center;
-    background: transparent !important;
-    isolation: auto !important;
-    contain: none !important;
-    overflow: visible;
-    border-radius: 0;
-  }
-  /* multiply blend directly against page — white pixels become cream (invisible) */
-  .t-item.tl-left .t-illus img,
-  .t-item.tl-right .t-illus img {
-    max-width: 74px;
-    mix-blend-mode: multiply;
-  }
+  .t-item.tl-right .t-illus { display: none; }
+  /* remove right padding reserved for illustration badge */
+  .t-item, .t-item.tl-left, .t-item.tl-right { padding-right: 2.4rem; }
 }
 @media (max-width: 640px) {
   .hamburger { display: flex; }

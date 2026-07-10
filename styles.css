@@ -80,10 +80,7 @@ input:focus-visible, textarea:focus-visible {
 
 /* ── Grain + vignette overlay ────────────────────────────── */
 #grain {
-  pointer-events: none;
-  position: fixed; inset: 0; z-index: 500;
-  opacity: .055;
-  will-change: transform;
+  display: none; /* canvas is texture buffer only — #grain-overlay div handles the visual */
 }
 .vignette {
   pointer-events: none;

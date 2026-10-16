@@ -1107,6 +1107,8 @@ body.night {
   --surface:   #211c17;
   color-scheme: dark;
 }
+/* the paper-grain overlay reads as a grey haze on dark — off for the evening page */
+.night #grain-overlay { display: none !important; }
 .night .vignette { background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,.35) 100%); }
 .night .skip-nav:focus { background: var(--accent); color: var(--bg); }
 
@@ -1126,10 +1128,15 @@ body.night {
 
 /* hero */
 .night .hero { background: #0f0c0a; }
+/* photos + video in their own colours on the evening page (no grey grade) */
+.night .hero-base,
+.night .hero-video,
+.night .accom-bg,
+.night .dresscode-bg { filter: none; }
 .night .hero-scrim {
   background:
     radial-gradient(ellipse at 50% 105%, rgba(201,168,119,.22), transparent 55%),
-    linear-gradient(180deg, rgba(10,8,6,.6) 0%, rgba(10,8,6,.3) 40%, rgba(20,17,14,.9) 92%, var(--bg) 100%);
+    linear-gradient(180deg, rgba(10,8,6,.45) 0%, rgba(10,8,6,.12) 40%, rgba(20,17,14,.75) 90%, var(--bg) 100%);
 }
 .night-greet {
   font-family: var(--font-display); font-style: italic; font-weight: 400;
@@ -1179,12 +1186,10 @@ body.night {
 
 /* dress code + venue extras */
 .night .dresscode-section { background: #2a2016; }
-.night .dresscode-scrim { background: linear-gradient(155deg, rgba(10,8,6,.35) 0%, rgba(10,8,6,.55) 100%); }
 .night-tip {
   margin: 1.2rem 0 0; padding-top: 1.1rem; border-top: 1px solid rgba(255,255,255,.18);
   font-size: .84rem; line-height: 1.7; color: rgba(244,239,232,.72);
 }
-.night .accom-scrim { background: linear-gradient(180deg, rgba(6,4,2,.65) 0%, rgba(6,4,2,.45) 50%, rgba(6,4,2,.7) 100%); }
 .night-maps { margin: 0 0 2.4rem; }
 
 /* RSVP form on dark */

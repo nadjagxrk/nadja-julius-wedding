@@ -993,6 +993,7 @@ img { filter: var(--grade); }
   }
   .t-item.tl-left .t-illus,
   .t-item.tl-right .t-illus { display: none; }
+}
 @media (max-width: 640px) {
   .hamburger { display: flex; }
 
@@ -1082,3 +1083,125 @@ img { filter: var(--grade); }
   .parallax-img { transform: none !important; }
   .timeline::before { transform: scaleY(1); }
 }
+
+/* ============================================================
+   NIGHT THEME — avond.html (evening guests)
+   Same components, dark tokens. Activate with <body class="night">.
+   ============================================================ */
+body.night {
+  --bg:        #14110e;
+  --bg-deep:   #1b1713;
+  --ink:       #f1e9de;
+  --muted:     #a69a8a;
+  --accent:    #c9a877;
+  --accent-soft:#dcc196;
+  --paper:     var(--bg);
+  --cream:     var(--bg-deep);
+  --cream-deep:#2a241e;
+  --ink-soft:  var(--muted);
+  --blue:      var(--accent);
+  --blue-deep: #b0894f;
+  --blue-tint: #221d18;
+  --line:      rgba(241,233,222,.13);
+  --line-soft: rgba(241,233,222,.07);
+  --surface:   #211c17;
+  color-scheme: dark;
+}
+.night .vignette { background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,.35) 100%); }
+.night .skip-nav:focus { background: var(--accent); color: var(--bg); }
+
+/* header: transparent over the hero, dark glass once scrolled */
+.night .site-head.scrolled { background: rgba(20,17,14,.88); color: var(--ink); }
+
+/* buttons: dark text on gold */
+.night .btn:hover,
+.night .btn.solid,
+.night .btn.solid:hover { color: var(--bg); }
+.night .btn.solid::before { background: var(--accent-soft); }
+
+/* sections that used ink as background */
+.night .section.ink,
+.night .site-foot { background: #0e0c0a; color: var(--ink); }
+.night .site-foot { border-top: 1px solid var(--line-soft); }
+
+/* hero */
+.night .hero { background: #0f0c0a; }
+.night .hero-scrim {
+  background:
+    radial-gradient(ellipse at 50% 105%, rgba(201,168,119,.22), transparent 55%),
+    linear-gradient(180deg, rgba(10,8,6,.6) 0%, rgba(10,8,6,.3) 40%, rgba(20,17,14,.9) 92%, var(--bg) 100%);
+}
+.night-greet {
+  font-family: var(--font-display); font-style: italic; font-weight: 400;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem); line-height: 1.2;
+  color: var(--accent-soft); margin: 0 0 .9rem;
+}
+.night-greet[hidden] { display: none; }
+.night-sub {
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(1.3rem, 2.4vw, 1.85rem); color: rgba(255,255,255,.88);
+  margin: 1.4rem 0 0;
+}
+.night .hero-meta i { background: var(--accent); }
+
+/* key facts row */
+.night-facts {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: clamp(3rem, 7vh, 4.5rem);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.night-fact { position: relative; padding: 2.2rem 1.4rem; text-align: center; }
+.night-fact + .night-fact::before {
+  content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 1px; background: var(--line);
+}
+.night-fact .k { font-size: .64rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+.night-fact .v { font-family: var(--font-display); font-size: clamp(1.7rem, 2.6vw, 2.15rem); line-height: 1.1; margin: .7rem 0 .35rem; }
+.night-fact .v em { color: var(--accent); }
+.night-fact .s { font-size: .88rem; color: var(--muted); line-height: 1.5; }
+.night-fact a { color: var(--muted); text-decoration-color: var(--accent); text-underline-offset: .25em; }
+.night-fact a:hover { color: var(--ink); }
+@media (max-width: 900px) {
+  .night-facts { grid-template-columns: 1fr 1fr; }
+  .night-fact:nth-child(3)::before { display: none; }
+  .night-fact:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 440px) {
+  .night-facts { grid-template-columns: 1fr; }
+  .night-fact + .night-fact::before { display: none; }
+  .night-fact + .night-fact { border-top: 1px solid var(--line); }
+}
+
+/* timeline illustrations: light line art on dark */
+.night .t-illus img {
+  filter: invert(1) sepia(.55) saturate(1.3) hue-rotate(-12deg) brightness(.92);
+  mix-blend-mode: screen; opacity: .8;
+}
+
+/* dress code + venue extras */
+.night .dresscode-section { background: #2a2016; }
+.night .dresscode-scrim { background: linear-gradient(155deg, rgba(10,8,6,.35) 0%, rgba(10,8,6,.55) 100%); }
+.night-tip {
+  margin: 1.2rem 0 0; padding-top: 1.1rem; border-top: 1px solid rgba(255,255,255,.18);
+  font-size: .84rem; line-height: 1.7; color: rgba(244,239,232,.72);
+}
+.night .accom-scrim { background: linear-gradient(180deg, rgba(6,4,2,.65) 0%, rgba(6,4,2,.45) 50%, rgba(6,4,2,.7) 100%); }
+.night-maps { margin: 0 0 2.4rem; }
+
+/* RSVP form on dark */
+.night .rsvp-gate-card,
+.night .rsvp-wrap {
+  position: relative; padding: clamp(1.8rem, 4.5vw, 3rem);
+  border: 1px solid var(--line);
+  background: linear-gradient(150deg, rgba(201,168,119,.07), rgba(201,168,119,0) 50%), var(--surface);
+}
+.night .field input[type="text"],
+.night .field input[type="tel"],
+.night .field textarea { background: rgba(241,233,222,.05); border-bottom-color: rgba(201,168,119,.4); }
+.night .field input:focus-visible,
+.night .field textarea:focus-visible { background: rgba(241,233,222,.09); }
+.night .attend-card { border-color: rgba(201,168,119,.3); }
+.night .attend-opts input:checked + .attend-card { background: rgba(201,168,119,.12); }
+.night .stepper-btn { border-color: var(--line); color: var(--accent); }
+.night .stepper-btn:disabled { color: rgba(241,233,222,.2); border-color: var(--line-soft); }
+.night .stepper-val { border-color: var(--line); color: var(--accent); }
+.night #rsvp-error, .night #gate-error { color: #e08a7a !important; }

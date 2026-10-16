@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De Avond — Nadja &amp; Julius</title>
+<meta name="description" content="Voor onze avondgasten: 10 juni 2027, vanaf 20:15 op Strand Deining, Castricum aan Zee.">
+<meta property="og:title" content="De Avond — Nadja & Julius">
+<meta property="og:description" content="Na het diner begint het feest. 10 juni 2027 · Strand Deining, Castricum aan Zee.">
+<meta property="og:image" content="assets/hero-beach.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#14110e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Dark-mode variant of the site palette */
+    --bg:#14110e;
+    --bg-deep:#1b1713;
+    --surface:#211c17;
+    --ink:#f1e9de;
+    --muted:#a69a8a;
+    --accent:#c9a877;
+    --accent-deep:#b0894f;
+    --line:rgba(241,233,222,.13);
+    --line-soft:rgba(241,233,222,.07);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --font-display:"Cormorant Garamond", Georgia, serif;
+    --font-sans:"Jost","Helvetica Neue",Arial,sans-serif;
+    --maxw:1180px;
+    --pad:clamp(1.25rem,5vw,4rem);
+    --eyebrow-fs:clamp(.64rem,.82vw,.76rem);
+    --tracking:.36em;
+    --grade-dark:saturate(.75) brightness(.55) contrast(1.04) sepia(.12);
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--font-sans);font-weight:300;font-size:clamp(.98rem,1.05vw,1.06rem);line-height:1.75;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  /* subtle paper grain, like the light site */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .skip{position:absolute;left:-9999px;top:0}
+  .skip:focus{left:1rem;top:1rem;z-index:200;background:var(--accent);color:var(--bg);padding:.5rem 1rem}
+
+  /* ---------- Header ---------- */
+  header.site{
+    position:fixed;inset:0 0 auto 0;z-index:50;
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:1.35rem var(--pad);
+    transition:background .5s var(--ease),border-color .5s var(--ease),padding .5s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  header.site.scrolled{background:rgba(20,17,14,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line-soft);padding:1rem var(--pad)}
+  .logo{font-family:var(--font-display);font-size:1.35rem;text-decoration:none;letter-spacing:.02em}
+  .logo span{color:var(--accent);font-style:italic}
+  nav.main{display:flex;gap:clamp(1rem,2.6vw,2.4rem)}
+  nav.main a{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:rgba(241,233,222,.75);padding:.35rem 0;position:relative;transition:color .3s}
+  nav.main a:hover,nav.main a[aria-current]{color:var(--ink)}
+  nav.main a[aria-current]::after{content:"";position:absolute;left:0;right:0;bottom:-.35rem;height:1px;background:var(--accent)}
+  .langs{justify-self:end;display:flex;align-items:center;gap:.45rem;font-size:.68rem;letter-spacing:.18em;color:var(--muted)}
+  .langs button{background:none;border:0;padding:.2rem 0;font:inherit;letter-spacing:inherit;color:inherit;cursor:pointer;text-transform:uppercase}
+  .langs button[aria-pressed="true"]{color:var(--ink);text-decoration:underline;text-underline-offset:.4em;text-decoration-color:var(--accent)}
+  .langs i{font-style:normal;opacity:.4}
+
+  /* ---------- Shared ---------- */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+  section{position:relative}
+  .eyebrow{font-size:var(--eyebrow-fs);letter-spacing:var(--tracking);text-transform:uppercase;color:var(--muted);margin:0 0 1.1rem}
+  .eyebrow b{font-weight:400;color:var(--accent);margin-right:.6em}
+  h1,h2,h3{font-family:var(--font-display);font-weight:500;line-height:1.05;margin:0;letter-spacing:.005em}
+  h2.block-title{font-size:clamp(2.3rem,4.6vw,3.6rem)}
+  h2.block-title em{font-style:italic;color:var(--accent)}
+  .lead{color:var(--muted);max-width:34rem;margin:1.2rem 0 0}
+  .center{text-align:center}
+  .center .lead{margin-left:auto;margin-right:auto}
+  .btn{
+    display:inline-flex;align-items:center;gap:.8rem;
+    font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;text-decoration:none;
+    padding:1.05rem 2rem;border:1px solid var(--accent);color:var(--ink);
+    transition:background .35s var(--ease),color .35s var(--ease);
+  }
+  .btn:hover{background:var(--accent);color:var(--bg)}
+  .btn.solid{background:var(--accent);color:var(--bg)}
+  .btn.solid:hover{background:transparent;color:var(--ink)}
+  .btn svg{width:14px;height:14px}
+  .link{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:.25rem;color:var(--ink)}
+  .divider{display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--accent);margin:0 auto}
+  .divider::before,.divider::after{content:"";height:1px;width:64px;background:var(--line)}
+  .divider svg{width:10px;height:10px}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100svh;display:grid;place-items:center;text-align:center;padding:7rem var(--pad) 5rem;
+    overflow:hidden;isolation:isolate;
+    background:#0f0c0a radial-gradient(ellipse at 50% 120%,rgba(201,168,119,.22),transparent 60%);
+  }
+  .hero-bg{position:absolute;inset:0;z-index:-2}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;filter:var(--grade-dark);transform:scale(1.04)}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;
+    background:
+      radial-gradient(ellipse at 50% 100%,rgba(201,168,119,.20),transparent 55%),
+      linear-gradient(180deg,rgba(15,12,10,.55) 0%,rgba(15,12,10,.25) 40%,rgba(20,17,14,.92) 92%,var(--bg) 100%);}
+  .hero .eyebrow{color:rgba(241,233,222,.7)}
+  .hero h1{font-size:clamp(3.4rem,10.5vw,9.5rem);font-weight:500;line-height:.95;letter-spacing:.005em}
+  .hero h1 .amp{font-style:italic;color:var(--accent);font-weight:400;margin:0 .02em}
+  .hero .sub{font-family:var(--font-display);font-style:italic;font-size:clamp(1.35rem,2.4vw,1.9rem);margin:1.4rem 0 0;color:rgba(241,233,222,.9)}
+  .hero .meta{margin-top:1.8rem;font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(241,233,222,.72);display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1rem}
+  .hero .meta span+span::before{content:"·";margin-right:1rem;color:var(--accent)}
+  .hero .meta .time{color:var(--accent)}
+  .scroll{position:absolute;left:50%;bottom:2rem;transform:translateX(-50%);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(241,233,222,.55);text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:.7rem}
+  .scroll::after{content:"";width:1px;height:42px;background:linear-gradient(var(--accent),transparent);animation:drip 2.4s var(--ease) infinite}
+  @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  @media (prefers-reduced-motion:reduce){.scroll::after{animation:none}}
+
+  /* ---------- Welcome + facts ---------- */
+  .welcome{padding:clamp(5rem,10vw,8rem) 0 clamp(3rem,6vw,5rem)}
+  .facts{
+    margin-top:clamp(3rem,6vw,4.5rem);
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .fact{padding:2.2rem 1.6rem;text-align:center;position:relative}
+  .fact+.fact::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--line)}
+  .fact .k{font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .fact .v{font-family:var(--font-display);font-size:clamp(1.7rem,2.6vw,2.15rem);line-height:1.1;margin:.7rem 0 .35rem}
+  .fact .v em{color:var(--accent)}
+  .fact .s{font-size:.88rem;color:var(--muted);line-height:1.5}
+  .fact a{color:var(--muted);text-decoration-color:var(--accent);text-underline-offset:.25em}
+  .fact a:hover{color:var(--ink)}
+
+  /* ---------- Programme timeline ---------- */
+  .program{padding:clamp(4rem,9vw,7rem) 0;background:var(--bg-deep);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+  .timeline{position:relative;max-width:900px;margin:clamp(3rem,6vw,4.5rem) auto 0;padding:0}
+  .timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(transparent,var(--accent-deep) 8%,var(--accent-deep) 92%,transparent);opacity:.7}
+  .t-item{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0 4.5rem;padding:1.6rem 0;list-style:none}
+  .t-item::before{content:"";position:absolute;left:50%;top:2.55rem;width:9px;height:9px;border:1px solid var(--accent);background:var(--bg-deep);transform:translateX(-50%) rotate(45deg)}
+  .t-item .when{text-align:right;padding-top:.45rem}
+  .t-item .when .time{font-family:var(--font-display);font-size:clamp(1.9rem,3vw,2.5rem);color:var(--accent);line-height:1}
+  .t-item .when .tag{display:block;margin-top:.5rem;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+  .t-item h3{font-size:clamp(1.8rem,2.9vw,2.4rem)}
+  .t-item p{margin:.55rem 0 0;color:var(--muted);max-width:26rem}
+  .t-item.highlight h3::after{content:"✦";font-size:.5em;color:var(--accent);vertical-align:super;margin-left:.35em}
+
+  /* ---------- Toast & Roast ---------- */
+  .roast{padding:clamp(5rem,10vw,8rem) 0}
+  .roast-card{
+    position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,4.5rem);align-items:center;
+    padding:clamp(2.2rem,5vw,4rem);border:1px solid var(--line);
+    background:linear-gradient(140deg,rgba(201,168,119,.09),rgba(201,168,119,0) 55%),var(--surface);
+  }
+  .roast-card::before{content:"";position:absolute;inset:10px;border:1px solid var(--line-soft);pointer-events:none}
+  .roast-ideas{list-style:none;margin:1.8rem 0 2.2rem;padding:0;display:flex;flex-wrap:wrap;gap:.6rem}
+  .roast-ideas li{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--line);padding:.5rem .95rem;color:rgba(241,233,222,.85)}
+  .roast-note{font-size:.88rem;color:var(--muted);margin-top:1.3rem}
+  .roast-visual{display:grid;place-items:center;min-height:260px;position:relative}
+  .roast-visual .ring{position:absolute;width:min(280px,70%);aspect-ratio:1;border-radius:50%;border:1px solid var(--line);}
+  .roast-visual .ring.two{width:min(210px,52%);border-color:rgba(201,168,119,.35)}
+  .roast-visual .big{font-family:var(--font-display);font-size:clamp(3rem,6vw,4.6rem);line-height:.95;text-align:center;position:relative}
+  .roast-visual .big em{display:block;font-size:.55em;color:var(--accent)}
+  .illus{filter:invert(1) sepia(.55) saturate(1.3) hue-rotate(-12deg) brightness(.92);mix-blend-mode:screen;opacity:.75}
+  .roast-visual .illus{position:absolute;width:120px;bottom:-.5rem;right:0}
+
+  /* ---------- Split sections (dresscode / location) ---------- */
+  .split{padding:clamp(3rem,7vw,5.5rem) 0}
+  .split .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5.5rem);align-items:center}
+  .split.flip .media{order:2}
+  .media{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--surface) radial-gradient(ellipse at 30% 20%,rgba(201,168,119,.18),transparent 60%)}
+  .media img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) brightness(.78) contrast(1.03) sepia(.1);transition:transform 1.4s var(--ease)}
+  .media:hover img{transform:scale(1.03)}
+  .media::after{content:"";position:absolute;inset:14px;border:1px solid rgba(241,233,222,.18);pointer-events:none}
+  .swatches{display:flex;gap:.55rem;margin:1.8rem 0 0}
+  .swatches span{width:30px;height:30px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.1)}
+  .tip{display:flex;gap:.8rem;align-items:flex-start;margin-top:1.8rem;padding-top:1.4rem;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+  .tip svg{flex:none;width:18px;height:18px;color:var(--accent);margin-top:.25rem}
+  .addr{font-family:var(--font-display);font-size:1.45rem;line-height:1.35;margin:1.5rem 0 1.8rem}
+  .addr small{display:block;font-family:var(--font-sans);font-size:.88rem;color:var(--muted);margin-top:.3rem}
+  .actions{display:flex;flex-wrap:wrap;gap:1.4rem 2rem;align-items:center}
+
+  /* ---------- Gift + RSVP ---------- */
+  .closing{padding:clamp(5rem,10vw,8rem) 0;text-align:center;overflow:hidden;
+    background:radial-gradient(ellipse at 50% 110%,rgba(201,168,119,.16),transparent 60%),var(--bg-deep);border-top:1px solid var(--line-soft)}
+  .gift{max-width:36rem;margin:0 auto clamp(3.5rem,7vw,5rem)}
+  .gift p{color:var(--muted);margin:.9rem 0 0}
+  .gift h3{font-size:clamp(1.7rem,2.6vw,2.1rem);font-style:italic;font-weight:400}
+  .closing .deadline{color:var(--muted);margin:1rem 0 2.2rem}
+  .closing .deadline strong{color:var(--ink);font-weight:400}
+
+  footer{padding:3.5rem var(--pad) 3rem;text-align:center;border-top:1px solid var(--line-soft)}
+  footer .names{font-family:var(--font-display);font-size:1.7rem}
+  footer .names span{color:var(--accent);font-style:italic}
+  footer .date{font-size:.68rem;letter-spacing:.3em;color:var(--muted);margin:.6rem 0 .9rem}
+  footer p{margin:0;font-family:var(--font-display);font-style:italic;color:var(--muted);font-size:1.1rem}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .facts{grid-template-columns:1fr 1fr}
+    .fact:nth-child(3)::before{display:none}
+    .fact:nth-child(n+3){border-top:1px solid var(--line)}
+    .roast-card{grid-template-columns:1fr}
+    .roast-visual{min-height:200px;order:-1}
+    .split .wrap{grid-template-columns:1fr}
+    .split.flip .media{order:0}
+    .media{aspect-ratio:4/3}
+  }
+  @media (max-width:720px){
+    header.site{grid-template-columns:auto 1fr;padding:1rem 16px;row-gap:.3rem}
+    header.site.scrolled{padding:.8rem 16px}
+    nav.main{grid-column:1/-1;grid-row:2;justify-content:center;gap:1.4rem}
+    nav.main a{font-size:.66rem}
+    .wrap{padding:0 16px}
+    .hero{padding:9rem 16px 6rem}
+    .hero .meta{letter-spacing:.2em;font-size:.68rem}
+    .hero .meta span+span::before{margin-right:.6rem}
+    .timeline::before{left:7px}
+    .t-item{grid-template-columns:1fr;padding:1.2rem 0 1.2rem 2.2rem}
+    .t-item::before{left:7px;top:1.85rem}
+    .t-item .when{text-align:left;padding:0 0 .4rem;display:flex;align-items:baseline;gap:.9rem}
+    .t-item .when .tag{margin:0}
+    .roast-card{padding:2rem 1.4rem}
+    .roast-card::before{inset:6px}
+  }
+  @media (max-width:440px){
+    .facts{grid-template-columns:1fr}
+    .fact+.fact::before{display:none}
+    .fact+.fact{border-top:1px solid var(--line)}
+    .fact{padding:1.7rem 1rem}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Naar de inhoud</a>
+
+<header class="site" id="top">
+  <a class="logo" href="index.html" aria-label="Nadja &amp; Julius — home">N<span>&amp;</span>J</a>
+  <nav class="main" aria-label="Hoofdmenu">
+    <a href="index.html" data-i18n="nav.home">Home</a>
+    <a href="day.html" data-i18n="nav.day">De Dag</a>
+    <a href="rsvp.html" data-i18n="nav.rsvp">RSVP</a>
+  </nav>
+  <div class="langs" role="group" aria-label="Taal / Language / Sprache">
+    <button type="button" data-lang="de">DE</button><i>/</i>
+    <button type="button" data-lang="nl">NL</button><i>/</i>
+    <button type="button" data-lang="en">EN</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="assets/hero-beach.png" alt="" onerror="this.remove()">
+    </div>
+    <div>
+      <p class="eyebrow reveal" data-i18n="hero.eyebrow">Voor onze avondgasten</p>
+      <h1 class="reveal">Nadja<span class="amp">&amp;</span>Julius</h1>
+      <p class="sub reveal" data-i18n="hero.sub">Na het diner begint het feest.</p>
+      <p class="meta reveal">
+        <span data-i18n="hero.date">Do 10 juni 2027</span>
+        <span class="time" data-i18n="hero.time">Vanaf 20:15</span>
+        <span>Strand Deining</span>
+      </p>
+    </div>
+    <a class="scroll" href="#welkom" data-i18n="hero.scroll">Scroll</a>
+  </section>
+
+  <!-- WELCOME + KEY FACTS -->
+  <section class="welcome" id="welkom">
+    <div class="wrap center">
+      <p class="eyebrow reveal"><b>01</b><span data-i18n="welcome.eyebrow">Welkom</span></p>
+      <h2 class="block-title reveal" data-i18n-html="welcome.title">Wat fijn dat je <em>erbij</em> bent.</h2>
+      <p class="lead reveal" data-i18n="welcome.lead">Het diner zit erop, de zon zakt in de Noordzee en de dansvloer gaat zo open. Dit is het moment waar we het hele jaar naar hebben uitgekeken — en we vieren het graag met jou.</p>
+
+      <div class="facts reveal">
+        <div class="fact">
+          <div class="k" data-i18n="facts.when">Wanneer</div>
+          <div class="v" data-i18n-html="facts.whenV">10 juni</div>
+          <div class="s" data-i18n="facts.whenS">Donderdag 2027</div>
+        </div>
+        <div class="fact">
+          <div class="k" data-i18n="facts.arrive">Inloop</div>
+          <div class="v"><em>20:15</em></div>
+          <div class="s" data-i18n="facts.arriveS">Feest tot 00:30</div>
+        </div>
+        <div class="fact">
+          <div class="k" data-i18n="facts.where">Waar</div>
+          <div class="v">Strand Deining</div>
+          <div class="s"><a href="https://www.google.com/maps/search/Strand+Deining+Castricum+aan+Zee" target="_blank" rel="noopener">Castricum aan Zee</a></div>
+        </div>
+        <div class="fact">
+          <div class="k" data-i18n="facts.dress">Dresscode</div>
+          <div class="v">Bright <em>&amp;</em> Beachy</div>
+          <div class="s" data-i18n="facts.dressS">Kleur, kleur, kleur</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMME -->
+  <section class="program" id="programma">
+    <div class="wrap center">
+      <p class="eyebrow reveal"><b>02</b><span data-i18n="program.eyebrow">Programma</span></p>
+      <h2 class="block-title reveal" data-i18n-html="program.title">De <em>avond</em></h2>
+    </div>
+    <div class="wrap">
+      <ol class="timeline">
+        <li class="t-item reveal">
+          <div class="when"><span class="time">20:15</span><span class="tag" data-i18n="p1.tag">Inloop</span></div>
+          <div>
+            <h3 data-i18n="p1.title">Je komt aan!</h3>
+            <p data-i18n="p1.text">Schuif aan op het terras, pak een drankje en zoek ons even op. De dag-gasten hebben net gegeten, dus je komt precies op tijd voor het leukste deel.</p>
+          </div>
+        </li>
+        <li class="t-item reveal highlight">
+          <div class="when"><span class="time">20:30</span><span class="tag" data-i18n="p2.tag">Speeches</span></div>
+          <div>
+            <h3>Toast &amp; Roast</h3>
+            <p data-i18n="p2.text">Speeches, verhalen, misschien een spel of twee. Hier mag van alles gezegd worden — liefst met een glas in de hand.</p>
+          </div>
+        </li>
+        <li class="t-item reveal">
+          <div class="when"><span class="time" data-i18n="p3.time">Daarna</span><span class="tag" data-i18n="p3.tag">Dansvloer</span></div>
+          <div>
+            <h3 data-i18n="p3.title">We dansen!</h3>
+            <p data-i18n="p3.text">De dansvloer gaat open. Schoenen mogen uit, het zand ligt er toch al.</p>
+          </div>
+        </li>
+        <li class="t-item reveal">
+          <div class="when"><span class="time">00:30</span><span class="tag" data-i18n="p4.tag">Laatste dans</span></div>
+          <div>
+            <h3 data-i18n="p4.title">Tot de volgende keer</h3>
+            <p data-i18n="p4.text">Nog één laatste nummer, één laatste proost — en dan zit ons feest erop.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- TOAST & ROAST -->
+  <section class="roast" id="toast-roast">
+    <div class="wrap">
+      <div class="roast-card reveal">
+        <div>
+          <p class="eyebrow"><b>03</b><span data-i18n="roast.eyebrow">Doe je mee?</span></p>
+          <h2 class="block-title" data-i18n-html="roast.title">Iets voor de <em>Toast &amp; Roast?</em></h2>
+          <p class="lead" data-i18n="roast.lead">We zouden het geweldig vinden als je iets wilt doen. Een speech, een liedje, een gênant verhaal of een sketch met vrienden: alles mag, zolang het kort en krachtig blijft.</p>
+          <ul class="roast-ideas">
+            <li data-i18n="roast.i1">Speech</li>
+            <li data-i18n="roast.i2">Liedje</li>
+            <li data-i18n="roast.i3">Roast</li>
+            <li data-i18n="roast.i4">Sketch</li>
+            <li data-i18n="roast.i5">Spel</li>
+          </ul>
+          <a class="btn solid" href="rsvp.html">
+            <span data-i18n="roast.cta">Geef het aan in je RSVP</span>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+          </a>
+          <p class="roast-note" data-i18n="roast.note">Vink in het RSVP-formulier „Ja, ik doe mee!” aan, dan nemen we contact met je op om alles af te stemmen.</p>
+        </div>
+        <div class="roast-visual" aria-hidden="true">
+          <span class="ring"></span><span class="ring two"></span>
+          <div class="big">Toast<em>&amp; Roast</em></div>
+          <img class="illus" src="assets/illus-toast.png" alt="" onerror="this.remove()">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DRESSCODE -->
+  <section class="split" id="dresscode">
+    <div class="wrap">
+      <div class="media reveal"><img src="assets/dresscode2.jpeg" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="reveal">
+        <p class="eyebrow"><b>04</b><span>Dresscode</span></p>
+        <h2 class="block-title">Bright <em>&amp;</em> Beachy</h2>
+        <p class="lead" data-i18n="dress.lead">Denk kleur, denk feest. We willen dat het terras eruitziet als zomer, wat de wolken ook vinden. Trek iets aan alsof jij de zon meebrengt.</p>
+        <div class="swatches" aria-hidden="true">
+          <span style="background:#e9774f"></span><span style="background:#f2c14e"></span><span style="background:#7cc0b2"></span><span style="background:#e58fae"></span><span style="background:#5c8ed8"></span><span style="background:#f4ece0"></span>
+        </div>
+        <div class="tip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M17.5 19a4.5 4.5 0 1 0-1.3-8.8A6 6 0 0 0 4.6 12.5 3.3 3.3 0 0 0 6 19h11.5z"/></svg>
+          <span data-i18n="dress.tip">'s Avonds kan het aan zee fris worden. Neem een jasje of vest mee, en schoenen waarmee je ook door het zand kunt.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="split flip" id="locatie">
+    <div class="wrap">
+      <div class="media reveal"><img src="assets/location.jpg" alt="Strand Deining" loading="lazy" onerror="this.remove()"></div>
+      <div class="reveal">
+        <p class="eyebrow"><b>05</b><span data-i18n="loc.eyebrow">De locatie</span></p>
+        <h2 class="block-title" data-i18n-html="loc.title">Op het <em>strand</em></h2>
+        <p class="addr">Strand Deining<small>Castricum aan Zee</small></p>
+        <p class="lead" data-i18n="loc.lead">Direct aan zee, met het terras als dansvloer en de Noordzee als decor. Blijf je slapen? Vlakbij zijn genoeg plekken om na het feest je hoofd neer te leggen.</p>
+        <div class="actions" style="margin-top:2rem">
+          <a class="btn" href="https://www.google.com/maps/search/Strand+Deining+Castricum+aan+Zee" target="_blank" rel="noopener">
+            <span data-i18n="loc.maps">Bekijk op Maps</span>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>
+          </a>
+          <a class="link" href="day.html" data-i18n="loc.stay">Overnachten</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFT + RSVP -->
+  <section class="closing" id="rsvp">
+    <div class="wrap">
+      <div class="gift reveal">
+        <p class="eyebrow" data-i18n="gift.eyebrow">Het cadeau</p>
+        <h3 data-i18n="gift.title">Verlanglijst? Simpel.</h3>
+        <p data-i18n="gift.text">Wij verlangen naar meer stempels in ons paspoort. Als je ons een cadeau wilt geven, dan het liefst een bijdrage aan onze huwelijksreis.</p>
+      </div>
+      <div class="divider reveal" aria-hidden="true"><svg viewBox="0 0 10 10"><path d="M5 0 10 5 5 10 0 5z" fill="none" stroke="currentColor"/></svg></div>
+      <div style="margin-top:clamp(3rem,6vw,4.5rem)">
+        <p class="eyebrow reveal">RSVP</p>
+        <h2 class="block-title reveal" data-i18n-html="rsvp.title">Ben je <em>erbij?</em></h2>
+        <p class="deadline reveal" data-i18n-html="rsvp.deadline">Laat het ons weten vóór <strong>1 december 2026</strong>.</p>
+        <a class="btn solid reveal" href="rsvp.html"><span data-i18n="rsvp.cta">Reageer nu</span>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="names">Nadja <span>&amp;</span> Julius</div>
+  <div class="date">10 . 06 . 2027 · CASTRICUM</div>
+  <p data-i18n="footer">We kunnen niet wachten om het met je te vieren</p>
+</footer>
+
+<script>
+(function(){
+  var T = {
+    nl:{
+      "skip":"Naar de inhoud",
+      "nav.home":"Home","nav.day":"De Dag","nav.rsvp":"RSVP",
+      "hero.eyebrow":"Voor onze avondgasten","hero.sub":"Na het diner begint het feest.","hero.date":"Do 10 juni 2027","hero.time":"Vanaf 20:15","hero.scroll":"Scroll",
+      "welcome.eyebrow":"Welkom","welcome.title":"Wat fijn dat je <em>erbij</em> bent.",
+      "welcome.lead":"Het diner zit erop, de zon zakt in de Noordzee en de dansvloer gaat zo open. Dit is het moment waar we het hele jaar naar hebben uitgekeken — en we vieren het graag met jou.",
+      "facts.when":"Wanneer","facts.whenV":"10 juni","facts.whenS":"Donderdag 2027","facts.arrive":"Inloop","facts.arriveS":"Feest tot 00:30","facts.where":"Waar","facts.dress":"Dresscode","facts.dressS":"Kleur, kleur, kleur",
+      "program.eyebrow":"Programma","program.title":"De <em>avond</em>",
+      "p1.tag":"Inloop","p1.title":"Je komt aan!","p1.text":"Schuif aan op het terras, pak een drankje en zoek ons even op. De daggasten hebben net gegeten, dus je komt precies op tijd voor het leukste deel.",
+      "p2.tag":"Speeches","p2.text":"Speeches, verhalen, misschien een spel of twee. Hier mag van alles gezegd worden — liefst met een glas in de hand.",
+      "p3.time":"Daarna","p3.tag":"Dansvloer","p3.title":"We dansen!","p3.text":"De dansvloer gaat open. Schoenen mogen uit, het zand ligt er toch al.",
+      "p4.tag":"Laatste dans","p4.title":"Tot de volgende keer","p4.text":"Nog één laatste nummer, één laatste proost — en dan zit ons feest erop.",
+      "roast.eyebrow":"Doe je mee?","roast.title":"Iets voor de <em>Toast &amp; Roast?</em>",
+      "roast.lead":"We zouden het geweldig vinden als je iets wilt doen. Een speech, een liedje, een gênant verhaal of een sketch met vrienden: alles mag, zolang het kort en krachtig blijft.",
+      "roast.i1":"Speech","roast.i2":"Liedje","roast.i3":"Roast","roast.i4":"Sketch","roast.i5":"Spel",
+      "roast.cta":"Geef het aan in je RSVP","roast.note":"Vink in het RSVP-formulier „Ja, ik doe mee!” aan, dan nemen we contact met je op om alles af te stemmen.",
+      "dress.lead":"Denk kleur, denk feest. We willen dat het terras eruitziet als zomer, wat de wolken ook vinden. Trek iets aan alsof jij de zon meebrengt.",
+      "dress.tip":"'s Avonds kan het aan zee fris worden. Neem een jasje of vest mee, en schoenen waarmee je ook door het zand kunt.",
+      "loc.eyebrow":"De locatie","loc.title":"Op het <em>strand</em>",
+      "loc.lead":"Direct aan zee, met het terras als dansvloer en de Noordzee als decor. Blijf je slapen? Vlakbij zijn genoeg plekken om na het feest je hoofd neer te leggen.",
+      "loc.maps":"Bekijk op Maps","loc.stay":"Overnachten",
+      "gift.eyebrow":"Het cadeau","gift.title":"Verlanglijst? Simpel.","gift.text":"Wij verlangen naar meer stempels in ons paspoort. Als je ons een cadeau wilt geven, dan het liefst een bijdrage aan onze huwelijksreis.",
+      "rsvp.title":"Ben je <em>erbij?</em>","rsvp.deadline":"Laat het ons weten vóór <strong>1 december 2026</strong>.","rsvp.cta":"Reageer nu",
+      "footer":"We kunnen niet wachten om het met je te vieren",
+      "_title":"De Avond — Nadja & Julius"
+    },
+    en:{
+      "skip":"Skip to main content",
+      "nav.home":"Home","nav.day":"The Day","nav.rsvp":"RSVP",
+      "hero.eyebrow":"For our evening guests","hero.sub":"After dinner, the party begins.","hero.date":"Thu 10 June 2027","hero.time":"From 20:15","hero.scroll":"Scroll",
+      "welcome.eyebrow":"Welcome","welcome.title":"We're so glad you're <em>here.</em>",
+      "welcome.lead":"Dinner's done, the sun is sinking into the North Sea and the dance floor is about to open. This is the moment we've been looking forward to all year — and we'd love to celebrate it with you.",
+      "facts.when":"When","facts.whenV":"10 June","facts.whenS":"Thursday 2027","facts.arrive":"Arrival","facts.arriveS":"Party until 00:30","facts.where":"Where","facts.dress":"Dress code","facts.dressS":"Colour, colour, colour",
+      "program.eyebrow":"Programme","program.title":"The <em>evening</em>",
+      "p1.tag":"Arrival","p1.title":"You arrive!","p1.text":"Find a spot on the terrace, grab a drink and come say hi. The day guests have just finished dinner, so you're right on time for the best part.",
+      "p2.tag":"Speeches","p2.text":"Speeches, stories, maybe a game or two. Anything goes — preferably with a glass in hand.",
+      "p3.time":"After","p3.tag":"Dance floor","p3.title":"We dance!","p3.text":"The dance floor opens. Shoes optional — the sand is already there anyway.",
+      "p4.tag":"Last dance","p4.title":"Until next time","p4.text":"One last song, one last toast — and that's a wrap on our party.",
+      "roast.eyebrow":"Join in?","roast.title":"Something for the <em>Toast &amp; Roast?</em>",
+      "roast.lead":"We'd love it if you'd like to do something. A speech, a song, an embarrassing story or a sketch with friends: anything goes, as long as it's short and sweet.",
+      "roast.i1":"Speech","roast.i2":"Song","roast.i3":"Roast","roast.i4":"Sketch","roast.i5":"Game",
+      "roast.cta":"Let us know in your RSVP","roast.note":"Tick “Yes, count me in!” in the RSVP form and we'll get in touch to sort out the details.",
+      "dress.lead":"Think colour, think celebration. We want the terrace to look like summer, whatever the clouds have to say. Dress as if you're bringing the sun.",
+      "dress.tip":"Evenings by the sea can get chilly. Bring a jacket or cardigan, and shoes you can walk through sand in.",
+      "loc.eyebrow":"The venue","loc.title":"On the <em>beach</em>",
+      "loc.lead":"Right by the sea, with the terrace as our dance floor and the North Sea as the backdrop. Staying the night? There are plenty of places nearby to rest your head after the party.",
+      "loc.maps":"View on Maps","loc.stay":"Where to stay",
+      "gift.eyebrow":"The gift","gift.title":"Wish list? Simple.","gift.text":"We're longing for more stamps in our passports. If you'd like to give us a gift, a contribution to our honeymoon would mean the world.",
+      "rsvp.title":"Will you be <em>there?</em>","rsvp.deadline":"Kindly let us know by <strong>1 December 2026</strong>.","rsvp.cta":"Respond now",
+      "footer":"We can't wait to celebrate with you",
+      "_title":"The Evening — Nadja & Julius"
+    },
+    de:{
+      "skip":"Zum Inhalt springen",
+      "nav.home":"Home","nav.day":"Der Tag","nav.rsvp":"RSVP",
+      "hero.eyebrow":"Für unsere Abendgäste","hero.sub":"Nach dem Essen beginnt die Party.","hero.date":"Do 10. Juni 2027","hero.time":"Ab 20:15","hero.scroll":"Scrollen",
+      "welcome.eyebrow":"Willkommen","welcome.title":"Schön, dass du <em>dabei</em> bist.",
+      "welcome.lead":"Das Essen ist vorbei, die Sonne versinkt in der Nordsee und gleich geht die Tanzfläche auf. Auf diesen Moment haben wir uns das ganze Jahr gefreut — und wir feiern ihn gern mit dir.",
+      "facts.when":"Wann","facts.whenV":"10. Juni","facts.whenS":"Donnerstag 2027","facts.arrive":"Ankunft","facts.arriveS":"Party bis 00:30","facts.where":"Wo","facts.dress":"Dresscode","facts.dressS":"Farbe, Farbe, Farbe",
+      "program.eyebrow":"Programm","program.title":"Der <em>Abend</em>",
+      "p1.tag":"Ankunft","p1.title":"Du kommst an!","p1.text":"Such dir einen Platz auf der Terrasse, schnapp dir einen Drink und sag kurz hallo. Die Tagesgäste haben gerade gegessen, du kommst also genau richtig zum schönsten Teil.",
+      "p2.tag":"Reden","p2.text":"Reden, Geschichten, vielleicht ein, zwei Spiele. Alles ist erlaubt — am liebsten mit einem Glas in der Hand.",
+      "p3.time":"Danach","p3.tag":"Tanzfläche","p3.title":"Wir tanzen!","p3.text":"Die Tanzfläche ist eröffnet. Schuhe dürfen aus — der Sand ist ja eh schon da.",
+      "p4.tag":"Letzter Tanz","p4.title":"Bis zum nächsten Mal","p4.text":"Noch ein letztes Lied, ein letztes Anstoßen — und dann ist unser Fest vorbei.",
+      "roast.eyebrow":"Machst du mit?","roast.title":"Etwas für den <em>Toast &amp; Roast?</em>",
+      "roast.lead":"Wir würden uns riesig freuen, wenn du etwas beitragen möchtest. Eine Rede, ein Lied, eine peinliche Geschichte oder ein Sketch mit Freunden: Alles ist erlaubt, solange es kurz und knackig bleibt.",
+      "roast.i1":"Rede","roast.i2":"Lied","roast.i3":"Roast","roast.i4":"Sketch","roast.i5":"Spiel",
+      "roast.cta":"Im RSVP angeben","roast.note":"Kreuze im RSVP-Formular „Ja, ich bin dabei!“ an, dann melden wir uns bei dir, um alles abzustimmen.",
+      "dress.lead":"Denk an Farbe, denk an Fest. Die Terrasse soll nach Sommer aussehen, egal was die Wolken sagen. Zieh dich an, als würdest du die Sonne mitbringen.",
+      "dress.tip":"Abends kann es am Meer frisch werden. Bring eine Jacke oder Strickjacke mit, und Schuhe, mit denen du auch durch den Sand laufen kannst.",
+      "loc.eyebrow":"Die Location","loc.title":"Am <em>Strand</em>",
+      "loc.lead":"Direkt am Meer, mit der Terrasse als Tanzfläche und der Nordsee als Kulisse. Du bleibst über Nacht? In der Nähe gibt es genug Möglichkeiten, nach der Party den Kopf hinzulegen.",
+      "loc.maps":"Auf Maps ansehen","loc.stay":"Übernachten",
+      "gift.eyebrow":"Das Geschenk","gift.title":"Wunschliste? Ganz einfach.","gift.text":"Wir wünschen uns mehr Stempel in unseren Pässen. Wenn du uns etwas schenken möchtest, freuen wir uns am meisten über einen Beitrag zu unserer Hochzeitsreise.",
+      "rsvp.title":"Bist du <em>dabei?</em>","rsvp.deadline":"Bitte gib uns bis zum <strong>1. Dezember 2026</strong> Bescheid.","rsvp.cta":"Jetzt antworten",
+      "footer":"Wir können es kaum erwarten, mit dir zu feiern",
+      "_title":"Der Abend — Nadja & Julius"
+    }
+  };
+
+  var KEY = "weddingLang"; // same key as the rest of the site
+  function getLang(){
+    var l; try{ l = localStorage.getItem(KEY); }catch(e){}
+    if (T[l]) return l;
+    var nav = (navigator.language || "en").slice(0,2).toLowerCase();
+    return T[nav] ? nav : "en";
+  }
+  function setLang(l){
+    var d = T[l]; if(!d) return;
+    document.documentElement.lang = l;
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      var k = el.getAttribute("data-i18n"); if (d[k] != null) el.textContent = d[k];
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(function(el){
+      var k = el.getAttribute("data-i18n-html"); if (d[k] != null) el.innerHTML = d[k];
+    });
+    document.title = d._title;
+    document.querySelectorAll(".langs button").forEach(function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-lang") === l ? "true" : "false");
+    });
+    try{ localStorage.setItem(KEY, l); }catch(e){}
+  }
+  document.querySelectorAll(".langs button").forEach(function(b){
+    b.addEventListener("click", function(){ setLang(b.getAttribute("data-lang")); });
+  });
+  setLang(getLang());
+
+  // header on scroll
+  var header = document.querySelector("header.site");
+  function onScroll(){ header.classList.toggle("scrolled", window.scrollY > 40); }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  // reveal on scroll
+  var els = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, {rootMargin:"0px 0px -8% 0px", threshold:.08});
+    els.forEach(function(el){ io.observe(el); });
+  } else { els.forEach(function(el){ el.classList.add("in"); }); }
+})();
+</script>
+</body>
+</html>

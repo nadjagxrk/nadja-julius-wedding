@@ -8,6 +8,17 @@ const AIRTABLE_ENDPOINT   = "https://api.airtable.com/v0/appr0YjU7iNuaL2jD/tblQY
 const AIRTABLE_READ_TOKEN = "pat4MlFlIagmEL2Qe.cae1d6993ae77b75d50ac495c3951e44496559736fef3c731193bc6d71c19a98";
 const INVITEES_ENDPOINT   = "https://api.airtable.com/v0/appr0YjU7iNuaL2jD/Invitees";
 
+/* Evening guests (avond.html) use their own two tables in the same base.
+   Table names must match Airtable exactly (or swap in the tbl… IDs). */
+const AVOND_INVITEES_ENDPOINT = "https://api.airtable.com/v0/appr0YjU7iNuaL2jD/" + encodeURIComponent("Avondgasten");
+const AVOND_RSVP_ENDPOINT     = "https://api.airtable.com/v0/appr0YjU7iNuaL2jD/" + encodeURIComponent("Responses avond");
+
+/* Which guest list this page uses: <meta name="rsvp-list" content="avond"> on avond.html, "dag" everywhere else */
+const RSVP_LIST = ((document.querySelector('meta[name="rsvp-list"]') || {}).content || "dag").toLowerCase();
+const RSVP_EP   = RSVP_LIST === "avond" ? AVOND_RSVP_ENDPOINT     : AIRTABLE_ENDPOINT;
+const INV_EP    = RSVP_LIST === "avond" ? AVOND_INVITEES_ENDPOINT : INVITEES_ENDPOINT;
+const GUEST_KEY = RSVP_LIST === "avond" ? "rsvp_guest_avond"      : "rsvp_guest";
+
 const I18N = {
   en:{
     "nav.home":"Home","nav.day":"The Day","nav.rsvp":"RSVP",
@@ -106,7 +117,51 @@ const I18N = {
     "form.guests.hint":"up to {n}",
     "gate.welcome.dear":"Dear",
     "gate.welcome.greeting":"We can't wait to celebrate with you!",
-    "gate.hero.eyebrow":"10 June 2027 · Strand Deining"
+    "gate.hero.eyebrow":"10 June 2027 · Strand Deining",
+    /* ── Avond (avond.html) ── */
+    "avond.meta.title":"The Evening — Nadja & Julius",
+    "avond.hero.eyebrow":"For our evening guests",
+    "avond.hero.invited":"You're invited to our evening party",
+    "avond.hero.invited.pl":"You're invited to our evening party",
+    "avond.hero.sub":"Come and dance with us by the sea.",
+    "avond.hero.date":"Thu 10 June 2027",
+    "avond.hero.time":"From 20:15",
+    "avond.welcome.eyebrow":"01 — Welcome",
+    "avond.welcome.title":"We're so glad you're here",
+    "avond.welcome.title.pl":"We're so glad you're here",
+    "avond.welcome.body":"Glasses are being topped up, the sun is slowly sinking towards the North Sea and the dance floor is about to open. This is the moment we've been looking forward to all year — and we'd love to celebrate it with you.",
+    "avond.welcome.body.pl":"Glasses are being topped up, the sun is slowly sinking towards the North Sea and the dance floor is about to open. This is the moment we've been looking forward to all year — and we'd love to celebrate it with you.",
+    "avond.facts.when":"When",
+    "avond.facts.whenV":"10 June",
+    "avond.facts.whenS":"Thursday 2027",
+    "avond.facts.arrive":"Arrival",
+    "avond.facts.arriveS":"Party until 00:30",
+    "avond.facts.where":"Where",
+    "avond.facts.dress":"Dress code",
+    "avond.facts.dressS":"Colour, colour, colour",
+    "avond.prog.eyebrow":"02 — Programme",
+    "avond.prog.title":"The evening",
+    "avond.tl1.time":"20:15",
+    "avond.tl1.heading":"You arrive!",
+    "avond.tl1.desc":"Find a spot on the terrace, grab a drink and come say hi. You're right on time for the best part of the day.",
+    "avond.tl2.time":"20:30",
+    "avond.tl2.heading":"Toast & Roast",
+    "avond.tl2.desc":"Speeches, stories, maybe a game or two. Anything goes — preferably with a glass in hand.",
+    "avond.tl3.time":"After",
+    "avond.tl3.heading":"We dance!",
+    "avond.tl3.desc":"The dance floor opens. Shoes optional — the sand is already there anyway.",
+    "avond.tl4.time":"00:30",
+    "avond.tl4.heading":"The last dance",
+    "avond.tl4.desc":"One more song, one more toast — and then we close this day together.",
+    "avond.dress.eyebrow":"03 — Dress code",
+    "avond.dress.tip":"Evenings by the sea can get chilly: bring a jacket or cardigan, and shoes you can walk through sand in.",
+    "avond.loc.eyebrow":"04 — Venue & where to stay",
+    "avond.loc.sub":"Right by the sea, with the terrace as our dance floor. Staying the night? These spots are close by.",
+    "avond.loc.maps":"View on Maps",
+    "avond.rsvp.eyebrow":"05 — RSVP",
+    "avond.rsvp.title":"Will you be there?",
+    "avond.rsvp.title.pl":"Will you be there?",
+    "avond.gift.eyebrow":"06 — The gift"
   },
   nl:{
     "nav.home":"Home","nav.day":"De Dag","nav.rsvp":"RSVP",
@@ -205,7 +260,51 @@ const I18N = {
     "form.guests.hint":"max {n}",
     "gate.welcome.dear":"Beste",
     "gate.welcome.greeting":"We kunnen niet wachten om met jullie te vieren!",
-    "gate.hero.eyebrow":"10 juni 2027 · Strand Deining"
+    "gate.hero.eyebrow":"10 juni 2027 · Strand Deining",
+    /* ── Avond (avond.html) ── */
+    "avond.meta.title":"De Avond — Nadja & Julius",
+    "avond.hero.eyebrow":"Voor onze avondgasten",
+    "avond.hero.invited":"Je bent uitgenodigd op ons avondfeest",
+    "avond.hero.invited.pl":"Jullie zijn uitgenodigd op ons avondfeest",
+    "avond.hero.sub":"Kom met ons dansen aan zee.",
+    "avond.hero.date":"Do 10 juni 2027",
+    "avond.hero.time":"Vanaf 20:15",
+    "avond.welcome.eyebrow":"01 — Welkom",
+    "avond.welcome.title":"Wat fijn dat je erbij bent",
+    "avond.welcome.title.pl":"Wat fijn dat jullie erbij zijn",
+    "avond.welcome.body":"De glazen worden bijgevuld, de zon zakt langzaam richting de Noordzee en de dansvloer gaat zo open. Dit is het moment waar we het hele jaar naar hebben uitgekeken — en we vieren het graag met jou.",
+    "avond.welcome.body.pl":"De glazen worden bijgevuld, de zon zakt langzaam richting de Noordzee en de dansvloer gaat zo open. Dit is het moment waar we het hele jaar naar hebben uitgekeken — en we vieren het graag met jullie.",
+    "avond.facts.when":"Wanneer",
+    "avond.facts.whenV":"10 juni",
+    "avond.facts.whenS":"Donderdag 2027",
+    "avond.facts.arrive":"Inloop",
+    "avond.facts.arriveS":"Feest tot 00:30",
+    "avond.facts.where":"Waar",
+    "avond.facts.dress":"Dresscode",
+    "avond.facts.dressS":"Kleur, kleur, kleur",
+    "avond.prog.eyebrow":"02 — Programma",
+    "avond.prog.title":"De avond",
+    "avond.tl1.time":"20:15",
+    "avond.tl1.heading":"Je komt aan!",
+    "avond.tl1.desc":"Schuif aan op het terras, pak een drankje en kom ons even gedag zeggen. Je bent precies op tijd voor het leukste deel van de dag.",
+    "avond.tl2.time":"20:30",
+    "avond.tl2.heading":"Toast & Roast",
+    "avond.tl2.desc":"Speeches, verhalen, misschien een spel of twee. Hier mag van alles gezegd worden — liefst met een glas in de hand.",
+    "avond.tl3.time":"Daarna",
+    "avond.tl3.heading":"We dansen!",
+    "avond.tl3.desc":"De dansvloer gaat open. Schoenen mogen uit, het zand ligt er toch al.",
+    "avond.tl4.time":"00:30",
+    "avond.tl4.heading":"De laatste dans",
+    "avond.tl4.desc":"Nog één nummer, nog één keer proosten — en dan sluiten we samen deze dag af.",
+    "avond.dress.eyebrow":"03 — Dresscode",
+    "avond.dress.tip":"'s Avonds kan het aan zee fris worden: neem een jasje of vest mee, en schoenen waarmee je ook door het zand kunt.",
+    "avond.loc.eyebrow":"04 — Locatie & overnachten",
+    "avond.loc.sub":"Direct aan zee, met het terras als dansvloer. Blijf je slapen? Deze plekken zijn vlakbij.",
+    "avond.loc.maps":"Bekijk op Maps",
+    "avond.rsvp.eyebrow":"05 — RSVP",
+    "avond.rsvp.title":"Ben je erbij?",
+    "avond.rsvp.title.pl":"Zijn jullie erbij?",
+    "avond.gift.eyebrow":"06 — Het cadeau"
   },
   de:{
     "nav.home":"Start","nav.day":"Der Tag","nav.rsvp":"Rückmeldung",
@@ -304,7 +403,51 @@ const I18N = {
     "form.guests.hint":"max {n}",
     "gate.welcome.dear":"Liebe",
     "gate.welcome.greeting":"Wir können es kaum erwarten, mit euch zu feiern!",
-    "gate.hero.eyebrow":"10. Juni 2027 · Strand Deining"
+    "gate.hero.eyebrow":"10. Juni 2027 · Strand Deining",
+    /* ── Avond (avond.html) ── */
+    "avond.meta.title":"Der Abend — Nadja & Julius",
+    "avond.hero.eyebrow":"Für unsere Abendgäste",
+    "avond.hero.invited":"Du bist zu unserer Abendparty eingeladen",
+    "avond.hero.invited.pl":"Ihr seid zu unserer Abendparty eingeladen",
+    "avond.hero.sub":"Komm mit uns am Meer tanzen.",
+    "avond.hero.date":"Do 10. Juni 2027",
+    "avond.hero.time":"Ab 20:15",
+    "avond.welcome.eyebrow":"01 — Willkommen",
+    "avond.welcome.title":"Schön, dass du dabei bist",
+    "avond.welcome.title.pl":"Schön, dass ihr dabei seid",
+    "avond.welcome.body":"Die Gläser werden nachgefüllt, die Sonne sinkt langsam Richtung Nordsee und gleich geht die Tanzfläche auf. Auf diesen Moment haben wir uns das ganze Jahr gefreut — und wir feiern ihn gern mit dir.",
+    "avond.welcome.body.pl":"Die Gläser werden nachgefüllt, die Sonne sinkt langsam Richtung Nordsee und gleich geht die Tanzfläche auf. Auf diesen Moment haben wir uns das ganze Jahr gefreut — und wir feiern ihn gern mit euch.",
+    "avond.facts.when":"Wann",
+    "avond.facts.whenV":"10. Juni",
+    "avond.facts.whenS":"Donnerstag 2027",
+    "avond.facts.arrive":"Ankunft",
+    "avond.facts.arriveS":"Party bis 00:30",
+    "avond.facts.where":"Wo",
+    "avond.facts.dress":"Dresscode",
+    "avond.facts.dressS":"Farbe, Farbe, Farbe",
+    "avond.prog.eyebrow":"02 — Programm",
+    "avond.prog.title":"Der Abend",
+    "avond.tl1.time":"20:15",
+    "avond.tl1.heading":"Ankommen!",
+    "avond.tl1.desc":"Such dir einen Platz auf der Terrasse, schnapp dir einen Drink und sag kurz hallo. Du kommst genau richtig zum schönsten Teil des Tages.",
+    "avond.tl2.time":"20:30",
+    "avond.tl2.heading":"Toast & Roast",
+    "avond.tl2.desc":"Reden, Geschichten, vielleicht ein, zwei Spiele. Alles ist erlaubt — am liebsten mit einem Glas in der Hand.",
+    "avond.tl3.time":"Danach",
+    "avond.tl3.heading":"Wir tanzen!",
+    "avond.tl3.desc":"Die Tanzfläche ist eröffnet. Schuhe dürfen aus — der Sand ist ja eh schon da.",
+    "avond.tl4.time":"00:30",
+    "avond.tl4.heading":"Der letzte Tanz",
+    "avond.tl4.desc":"Noch ein Lied, noch einmal anstoßen — und dann lassen wir diesen Tag gemeinsam ausklingen.",
+    "avond.dress.eyebrow":"03 — Dresscode",
+    "avond.dress.tip":"Abends kann es am Meer frisch werden: Bring eine Jacke oder Strickjacke mit, und Schuhe, mit denen du auch durch den Sand laufen kannst.",
+    "avond.loc.eyebrow":"04 — Location & Übernachten",
+    "avond.loc.sub":"Direkt am Meer, mit der Terrasse als Tanzfläche. Du bleibst über Nacht? Diese Orte sind ganz in der Nähe.",
+    "avond.loc.maps":"Auf Maps ansehen",
+    "avond.rsvp.eyebrow":"05 — RSVP",
+    "avond.rsvp.title":"Bist du dabei?",
+    "avond.rsvp.title.pl":"Seid ihr dabei?",
+    "avond.gift.eyebrow":"06 — Das Geschenk"
   }
 };
 
@@ -400,8 +543,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
         }
       };
 
+      if(RSVP_LIST === "avond"){ delete payload.fields.diet; delete payload.fields.part; delete payload.fields.phone; }
+
       try{
-        const res = await fetch(AIRTABLE_ENDPOINT, {
+        const res = await fetch(RSVP_EP, {
           method:"POST",
           headers:{
             "Authorization":"Bearer " + AIRTABLE_TOKEN,
@@ -438,7 +583,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
 /* ── Singular / plural form labels ── */
 function applyPluralLabels(isPlural){
   // textContent elements
-  var bases = ['form.attend.label','form.attend.yes','form.attend.no','form.part.yes','form.part.no'];
+  var bases = ['form.attend.label','form.attend.yes','form.attend.no','form.part.yes','form.part.no',
+               'avond.hero.invited','avond.welcome.title','avond.welcome.body','avond.rsvp.title'];
   bases.forEach(function(base){
     var target = isPlural ? base + '.pl' : base;
     document.querySelectorAll('[data-i18n="' + base + '"],[data-i18n="' + base + '.pl"]').forEach(function(el){
@@ -462,7 +608,7 @@ function applyPluralLabels(isPlural){
 /* ── Invitee lookup ── */
 async function lookupInviteeCode(code){
   const filter = encodeURIComponent(`LOWER({code})="${code.toLowerCase()}"`);
-  const res = await fetch(INVITEES_ENDPOINT + "?filterByFormula=" + filter, {
+  const res = await fetch(INV_EP + "?filterByFormula=" + filter, {
     headers:{"Authorization":"Bearer " + AIRTABLE_READ_TOKEN}
   });
   if(!res.ok) throw new Error("API " + res.status);
@@ -487,6 +633,14 @@ function showRsvpForm(guest){
   if(nameDear)    nameDear.textContent    = t("gate.welcome.dear");
   if(nameDisplay) nameDisplay.textContent = guest.name + ",";
   if(nameSub)     nameSub.textContent     = t("gate.welcome.greeting");
+
+  // Avond page: personal greeting in the hero
+  const avondGreet = document.getElementById("avond-greet");
+  if(avondGreet){ avondGreet.textContent = t("gate.welcome.dear") + " " + guest.name + ","; avondGreet.hidden = false; }
+  const avondInvited = document.getElementById("avond-invited");
+  if(avondInvited && avondInvited.getAttribute("data-i18n") === "avond.hero.eyebrow"){
+    avondInvited.setAttribute("data-i18n", "avond.hero.invited");
+  }
 
   // Pre-fill hidden name field
   const namesInput = document.getElementById("f-names");
@@ -520,7 +674,7 @@ async function prefillExistingResponse(code){
   if(!code) return;
   try{
     var formula = 'UPPER({code})="' + code.trim().toUpperCase().replace(/"/g,'') + '"';
-    var url = AIRTABLE_ENDPOINT + '?filterByFormula=' + encodeURIComponent(formula) + '&maxRecords=1';
+    var url = RSVP_EP + '?filterByFormula=' + encodeURIComponent(formula) + '&sort%5B0%5D%5Bfield%5D=Created&sort%5B0%5D%5Bdirection%5D=desc&maxRecords=1'; /* newest response first */
     var res = await fetch(url, { headers:{'Authorization':'Bearer ' + AIRTABLE_TOKEN} });
     if(!res.ok) return;
     var data = await res.json();
@@ -577,9 +731,15 @@ async function prefillExistingResponse(code){
 
 function initGate(){
   // Skip gate if already verified this session
-  const saved = sessionStorage.getItem("rsvp_guest");
+  const saved = sessionStorage.getItem(GUEST_KEY);
+  let linkCode = "";
+  try{ linkCode = (new URLSearchParams(window.location.search).get("code") || "").trim().toLowerCase(); }catch(e){}
   if(saved){
-    try{ showRsvpForm(JSON.parse(saved)); return; }catch(e){}
+    try{
+      const g = JSON.parse(saved);
+      // a different ?code= in the link wins over the guest remembered in this tab
+      if(!linkCode || linkCode === (g.code || "")){ showRsvpForm(g); return; }
+    }catch(e){}
   }
 
   const submitBtn = document.getElementById("gate-submit");
@@ -603,7 +763,7 @@ function initGate(){
       }
       // Switch to the guest's preferred language before showing the form
       if(guest.language && LANGS.includes(guest.language)) setLang(guest.language);
-      sessionStorage.setItem("rsvp_guest", JSON.stringify(guest));
+      sessionStorage.setItem(GUEST_KEY, JSON.stringify(guest));
       showRsvpForm(guest);
     }catch(err){
       submitBtn.disabled = false;

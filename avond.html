@@ -39,6 +39,12 @@
     <img class="hero-base parallax-img" src="assets/hero-beach.png" alt="" width="1920" height="1080">
   </div>
   <div class="hero-waves" aria-hidden="true"></div>
+  <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto"
+    poster="assets/hero-beach.png"
+    onloadeddata="this.classList.add('ready')"
+    onerror="this.style.display='none'">
+    <source src="hero-video.mp4" type="video/mp4">
+  </video>
   <div class="hero-scrim"></div>
   <div class="hero-inner">
     <p class="night-greet reveal" id="avond-greet" hidden></p>

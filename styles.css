@@ -30,8 +30,8 @@
   --dur:  .5s;
 
   /* photo grade — same filter on every image */
-  --grade: saturate(.82) contrast(1.02) brightness(.98) sepia(.08);
-  --grade-dark: saturate(.78) brightness(.7) contrast(1.02) sepia(.1);
+  --grade: none;
+  --grade-dark: brightness(.7);
 
   /* keep old names pointing at same values */
   --img:      var(--grade);
